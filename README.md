@@ -1,2 +1,2 @@
-# lynton
+# Lynton
 Lynton Game Engine
