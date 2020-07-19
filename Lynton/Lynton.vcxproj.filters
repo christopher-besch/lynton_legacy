@@ -24,9 +24,15 @@
     <ClInclude Include="src\Lynton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lynton\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lynton\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

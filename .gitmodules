@@ -1,0 +1,3 @@
+[submodule "Lynton/src/vendor/spdlog"]
+	path = Lynton/src/vendor/spdlog
+	url = https://github.com/gabime/spdlog
