@@ -4,6 +4,9 @@
     <Filter Include="Lynton">
       <UniqueIdentifier>{69F7F2C1-5599-1D98-3E54-31EC2A95A4E8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lynton\Events">
+      <UniqueIdentifier>{2D138D14-99D3-084B-620E-52C8CE8D4D27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Lynton.h" />
@@ -12,6 +15,18 @@
     </ClInclude>
     <ClInclude Include="src\Lynton\Core.h">
       <Filter>Lynton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lynton\Events\ApplicationEvent.h">
+      <Filter>Lynton\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lynton\Events\Event.h">
+      <Filter>Lynton\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lynton\Events\KeyEvent.h">
+      <Filter>Lynton\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lynton\Events\MouseEvent.h">
+      <Filter>Lynton\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Lynton\Log.h">
       <Filter>Lynton</Filter>

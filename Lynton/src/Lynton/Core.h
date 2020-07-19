@@ -9,3 +9,9 @@
 #else
 	#error The used platform is not supported!
 #endif
+
+#define BIT(x) (1 << x)
+
+#include <string>
+#include <functional>
+#include <sstream>

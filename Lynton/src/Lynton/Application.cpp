@@ -1,5 +1,8 @@
 #include "Application.h"
 
+#include "Lynton/Events/ApplicationEvent.h"
+#include "Lynton/Log.h"
+
 namespace Lynton
 {
 	Application::Application()
@@ -12,6 +15,9 @@ namespace Lynton
 
 	void Application::run()
 	{
+		WindowResizeEvent e(1280, 720);
+		LY_TRACE(e);
+		
 		while (true);
 	}
 }
