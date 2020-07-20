@@ -1,3 +1,5 @@
+#include "lypch.h"
+
 #include "Application.h"
 
 #include "Lynton/Events/ApplicationEvent.h"

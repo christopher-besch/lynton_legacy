@@ -1,3 +1,5 @@
+#include "lypch.h"
+
 #include "Log.h"
 
 namespace Lynton

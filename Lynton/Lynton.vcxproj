@@ -151,10 +151,12 @@
     <ClInclude Include="src\Lynton\Events\KeyEvent.h" />
     <ClInclude Include="src\Lynton\Events\MouseEvent.h" />
     <ClInclude Include="src\Lynton\Log.h" />
+    <ClInclude Include="src\lypch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp" />
     <ClCompile Include="src\Lynton\Log.cpp" />
+    <ClCompile Include="src\lypch.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

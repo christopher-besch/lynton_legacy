@@ -31,6 +31,7 @@
     <ClInclude Include="src\Lynton\Log.h">
       <Filter>Lynton</Filter>
     </ClInclude>
+    <ClInclude Include="src\lypch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
@@ -39,5 +40,6 @@
     <ClCompile Include="src\Lynton\Log.cpp">
       <Filter>Lynton</Filter>
     </ClCompile>
+    <ClCompile Include="src\lypch.cpp" />
   </ItemGroup>
 </Project>
