@@ -26,7 +26,7 @@ namespace Lynton
 		m_data.width = props.width;
 		m_data.height = props.height;
 
-		LY_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
+		LY_CORE_INFO("Creating window \"{0}\" ({1}, {2})", props.title, props.width, props.height);
 
 		if (!s_glfw_initialized)
 		{

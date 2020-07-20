@@ -16,7 +16,7 @@ extern Lynton::Application* Lynton::create_application();
 int main(int argc, char** argv)
 {
 	Lynton::Log::init();
-	LY_CORE_WARN("Initialized Log!");
+	LY_CORE_INFO("Initialized Log!");
 	
 	Lynton::Application* app = Lynton::create_application();
 	app->run();

@@ -11,6 +11,7 @@ namespace Lynton
 {
 	Application::Application()
 	{
+		// create window handler
 		m_window = std::unique_ptr<Window>(Window::create());
 	}
 
