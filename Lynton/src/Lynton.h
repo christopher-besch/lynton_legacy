@@ -2,8 +2,9 @@
 
 #pragma once
 
+#include "lypch.h"
+
 #include "Lynton/Application.h"
-#include "Lynton/Log.h"
 
 /////////////////
 // entry point //
@@ -16,10 +17,8 @@ int main(int argc, char** argv)
 {
 	Lynton::Log::init();
 	LY_CORE_WARN("Initialized Log!");
-	int a = 5;
-	LY_INFO("Hello! Var={0}", a);
 	
-	auto app = Lynton::create_application();
+	Lynton::Application* app = Lynton::create_application();
 	app->run();
 	delete app;
 }

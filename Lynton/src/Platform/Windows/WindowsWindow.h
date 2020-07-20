@@ -1,3 +1,7 @@
+/*
+ * window abstraction for Windows
+ */
+
 #pragma once
 
 #include "Lynton/Window.h"
@@ -20,10 +24,9 @@ namespace Lynton
 
 			EventCallback event_callback;
 		};
-
 		WindowData m_data;
 	public:
-		WindowsWindow(const WindowProps& props);
+		WindowsWindow(const WindowProperties& props);
 		virtual ~WindowsWindow();
 
 		void on_update() override;
@@ -31,12 +34,12 @@ namespace Lynton
 		inline unsigned int get_width() const override { return m_data.width; }
 		inline unsigned int get_height() const override { return m_data.height; }
 
-		// window attributes
 		inline void set_event_callback(const EventCallback& callback) override { m_data.event_callback = callback; }
+		
 		void set_vsync(bool enabled) override;
-		bool is_vsync() const override;
+		inline bool is_vsync() const override { return m_data.vsync; }
 	private:
-		virtual void init(const WindowProps& props);
+		virtual void init(const WindowProperties& props);
 		virtual void shutdown();
 	};
 	

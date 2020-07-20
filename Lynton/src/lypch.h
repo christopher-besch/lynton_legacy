@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef LY_PLATFORM_WINDOWS
+#include <Windows.h>
+#endif
+
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -11,10 +15,5 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-
-
-#ifdef LY_PLATFORM_WINDOWS
-#include <Windows.h>
-#endif
 
 #include "Lynton/Log.h"

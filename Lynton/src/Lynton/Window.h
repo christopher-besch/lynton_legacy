@@ -7,13 +7,13 @@
 
 namespace Lynton
 {
-	struct WindowProps
+	struct WindowProperties
 	{
 		std::string title;
 		unsigned int width;
 		unsigned int height;
 
-		WindowProps(const std::string& title = "Lynton Engine", unsigned int width = 1280, unsigned int height = 720)
+		WindowProperties(const std::string& title = "Lynton Engine", unsigned int width = 1280, unsigned int height = 720)
 			: title(title), width(width), height(height) {}
 	};
 
@@ -22,6 +22,7 @@ namespace Lynton
 	class LYNTON_API Window
 	{
 	public:
+		// function pointer
 		using EventCallback = std::function<void(Event&)>;
 
 		virtual ~Window() {}
@@ -31,11 +32,11 @@ namespace Lynton
 		virtual unsigned int get_width() const = 0;
 		virtual unsigned int get_height() const = 0;
 
-		// window attributes
 		virtual void set_event_callback(const EventCallback& callback) = 0;
+		
 		virtual void set_vsync(bool enable) = 0;
 		virtual bool is_vsync() const = 0;
 
-		static Window* create(const WindowProps& props = WindowProps());
+		static Window* create(const WindowProperties& props = WindowProperties());
 	};
 }

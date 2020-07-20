@@ -5,12 +5,12 @@ namespace Lynton
 {
 	static bool s_glfw_initialized = false;
 
-	Window* Window::create(const WindowProps& props)
+	Window* Window::create(const WindowProperties& props)
 	{
 		return new WindowsWindow(props);
 	}
 	
-	WindowsWindow::WindowsWindow(const WindowProps& props)
+	WindowsWindow::WindowsWindow(const WindowProperties& props)
 	{
 		init(props);
 	}
@@ -20,7 +20,7 @@ namespace Lynton
 		shutdown();
 	}
 
-	void WindowsWindow::init(const WindowProps& props)
+	void WindowsWindow::init(const WindowProperties& props)
 	{
 		m_data.title = props.title;
 		m_data.width = props.width;
@@ -62,11 +62,6 @@ namespace Lynton
 			glfwSwapInterval(0);
 
 		m_data.vsync = enabled;
-	}
-
-	bool WindowsWindow::is_vsync() const
-	{
-		return m_data.vsync;
 	}
 	
 }
