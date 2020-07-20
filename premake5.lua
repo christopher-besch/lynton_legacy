@@ -10,6 +10,12 @@ workspace "Lynton"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- include directories relative to solution directory
+include_dir = {}
+include_dir["GLFW"] = "Lynton/vendor/GLFW/include"
+
+include "Lynton/vendor/GLFW"
+
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -17,9 +23,6 @@ project "Sandbox"
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	pchheader "lypch.h"
-	pchsource "Lynton/src/lypch.cpp"
 	
 	files
 	{
@@ -68,6 +71,9 @@ project "Lynton"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 	
+	pchheader "lypch.h"
+	pchsource "Lynton/src/lypch.cpp"
+	
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -76,8 +82,15 @@ project "Lynton"
 	
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		"%{include_dir.GLFW}"
+	}
+	
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 	
 	filter "system:windows"
@@ -98,6 +111,7 @@ project "Lynton"
 	
 	filter "configurations:Debug"
 		defines "LY_DEBUG"
+		defines "LY_ENABLE_ASSERTS"
 		symbols "On"
 	
 	filter "configurations:Release"

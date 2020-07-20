@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -17,3 +16,5 @@
 #ifdef LY_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif
+
+#include "Lynton/Log.h"

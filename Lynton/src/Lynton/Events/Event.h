@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "lypch.h"
 #include "Lynton/Core.h"
 
 namespace Lynton

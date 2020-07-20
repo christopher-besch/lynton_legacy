@@ -5,10 +5,13 @@
 #include "Lynton/Events/ApplicationEvent.h"
 #include "Lynton/Log.h"
 
+#include <GLFW/glfw3.h>
+
 namespace Lynton
 {
 	Application::Application()
 	{
+		m_window = std::unique_ptr<Window>(Window::create());
 	}
 
 	Application::~Application()
@@ -17,9 +20,11 @@ namespace Lynton
 
 	void Application::run()
 	{
-		WindowResizeEvent e(1280, 720);
-		LY_TRACE(e);
-		
-		while (true);
+		while (m_running)
+		{
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_window->on_update();
+		}
 	}
 }
