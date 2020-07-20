@@ -35,7 +35,7 @@ namespace Lynton
 	void Application::on_event(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		// when the event ios a WindowCloseEvent -> call on_window_close
+		// when the event is a WindowCloseEvent -> call on_window_close
 		dispatcher.dispatch<WindowCloseEvent>(BIND_EVENT_FUNCTION(on_window_close));
 
 	    LY_CORE_TRACE("{0}", event);
