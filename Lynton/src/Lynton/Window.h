@@ -22,7 +22,7 @@ namespace Lynton
 	class LYNTON_API Window
 	{
 	public:
-		// function pointer
+		// function pointer of a void returning, Event& taking function
 		using EventCallback = std::function<void(Event&)>;
 
 		virtual ~Window() {}

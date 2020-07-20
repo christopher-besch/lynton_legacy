@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Events/Event.h"
+#include "Events/ApplicationEvent.h"
 #include "Window.h"
 
 namespace Lynton
@@ -17,6 +18,10 @@ namespace Lynton
 		virtual ~Application();
 
 		void run();
+
+		void on_event(Event& event);
+	private:
+		bool on_window_close(WindowCloseEvent& event);
 	};
 
 	// to be defined in client
