@@ -57,7 +57,7 @@ namespace Lynton
 	class LYNTON_API Event
 	{
 		friend class EventDispatcher;
-	protected:
+	public:
 		bool m_handled = false;
 	public:
 		virtual EventType get_event_type() const = 0;

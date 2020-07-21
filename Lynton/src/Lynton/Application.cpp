@@ -22,12 +22,28 @@ namespace Lynton
 	{
 	}
 
+	void Application::push_layer(Layer* layer)
+    {
+		m_layer_stack.push_layer(layer);
+    }
+
+	void Application::push_overlay(Layer* layer)
+    {
+		m_layer_stack.push_overerlay(layer);
+    }
+
+
+
 	void Application::run()
 	{
 		while (m_running)
 		{
 			glClearColor(0.9, 0.2, 0.9, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_layer_stack)
+				layer->on_update();
+
 			m_window->on_update();
 		}
 	}
@@ -39,6 +55,14 @@ namespace Lynton
 		dispatcher.dispatch<WindowCloseEvent>(BIND_EVENT_FUNCTION(on_window_close));
 
 	    LY_CORE_TRACE("{0}", event);
+
+		// sending the event through every layer until one handles it -> overlays get events first
+		for ( auto iterator = m_layer_stack.end(); iterator != m_layer_stack.begin(); )
+		{
+			(*--iterator)->on_event(event);
+			if (event.m_handled)
+				break;
+		}
 	}
 
 	bool Application::on_window_close(WindowCloseEvent& event)

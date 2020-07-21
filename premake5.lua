@@ -53,14 +53,17 @@ project "Sandbox"
 	
 	filter "configurations:Debug"
 		defines "LY_DEBUG"
+		buildoptions "\MDd"
 		symbols "On"
 	
 	filter "configurations:Release"
 		defines "LY_RELEASE"
+		buildoptions "\MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "LY_DIST"
+		buildoptions "\MD"
 		optimize "On"
 
 project "Lynton"
@@ -112,12 +115,15 @@ project "Lynton"
 	filter "configurations:Debug"
 		defines "LY_DEBUG"
 		defines "LY_ENABLE_ASSERTS"
+		buildoptions "\MDd"
 		symbols "On"
 	
 	filter "configurations:Release"
 		defines "LY_RELEASE"
+		buildoptions "\MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "LY_DIST"
+		buildoptions "\MD"
 		optimize "On"

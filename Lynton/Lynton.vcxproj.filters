@@ -44,6 +44,8 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\lypch.h" />
+    <ClInclude Include="src\Lynton\Layer.h" />
+    <ClInclude Include="src\Lynton\LayerStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
@@ -56,5 +58,7 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\lypch.cpp" />
+    <ClCompile Include="src\Lynton\Layer.cpp" />
+    <ClCompile Include="src\Lynton\LayerStack.cpp" />
   </ItemGroup>
 </Project>
