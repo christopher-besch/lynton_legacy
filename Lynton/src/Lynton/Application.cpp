@@ -5,7 +5,7 @@
 #include "Lynton/Events/ApplicationEvent.h"
 #include "Lynton/Log.h"
 
-#include <GLFW/glfw3.h>
+#include <Glad/glad.h>
 
 #define BIND_EVENT_FUNCTION(x) std::bind(&Application::x, this, std::placeholders::_1)
 

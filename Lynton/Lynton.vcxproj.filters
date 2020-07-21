@@ -34,6 +34,12 @@
     <ClInclude Include="src\Lynton\Events\MouseEvent.h">
       <Filter>Lynton\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lynton\Layer.h">
+      <Filter>Lynton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lynton\LayerStack.h">
+      <Filter>Lynton</Filter>
+    </ClInclude>
     <ClInclude Include="src\Lynton\Log.h">
       <Filter>Lynton</Filter>
     </ClInclude>
@@ -44,11 +50,15 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\lypch.h" />
-    <ClInclude Include="src\Lynton\Layer.h" />
-    <ClInclude Include="src\Lynton\LayerStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
+      <Filter>Lynton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lynton\Layer.cpp">
+      <Filter>Lynton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lynton\LayerStack.cpp">
       <Filter>Lynton</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\Log.cpp">
@@ -58,7 +68,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\lypch.cpp" />
-    <ClCompile Include="src\Lynton\Layer.cpp" />
-    <ClCompile Include="src\Lynton\LayerStack.cpp" />
   </ItemGroup>
 </Project>

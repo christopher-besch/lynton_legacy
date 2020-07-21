@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- include directories relative to solution directory
 include_dir = {}
 include_dir["GLFW"] = "Lynton/vendor/GLFW/include"
+include_dir["Glad"] = "Lynton/vendor/Glad/include"
 
 include "Lynton/vendor/GLFW"
+include "Lynton/vendor/Glad"
 
 project "Sandbox"
 	location "Sandbox"
@@ -53,17 +55,17 @@ project "Sandbox"
 	
 	filter "configurations:Debug"
 		defines "LY_DEBUG"
-		buildoptions "\MDd"
+		buildoptions "/MDd"
 		symbols "On"
 	
 	filter "configurations:Release"
 		defines "LY_RELEASE"
-		buildoptions "\MD"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "LY_DIST"
-		buildoptions "\MD"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Lynton"
@@ -87,12 +89,14 @@ project "Lynton"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{include_dir.GLFW}"
+		"%{include_dir.GLFW}",
+		"%{include_dir.Glad}"
 	}
 	
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 	
@@ -104,7 +108,8 @@ project "Lynton"
 		defines
 		{
 			"LY_PLATFORM_WINDOWS",
-			"LY_BUILD_DLL"
+			"LY_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 		
 		postbuildcommands
@@ -115,15 +120,15 @@ project "Lynton"
 	filter "configurations:Debug"
 		defines "LY_DEBUG"
 		defines "LY_ENABLE_ASSERTS"
-		buildoptions "\MDd"
+		buildoptions "/MDd"
 		symbols "On"
 	
 	filter "configurations:Release"
 		defines "LY_RELEASE"
-		buildoptions "\MD"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "LY_DIST"
-		buildoptions "\MD"
+		buildoptions "/MD"
 		optimize "On"

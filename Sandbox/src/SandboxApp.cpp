@@ -39,5 +39,5 @@ Lynton::Application* Lynton::create_application()
 }
 
 /*
- * $(TEMP)vc$(PlatformToolsetVersion).pdb has to be added in every projects property page under C/C++ -> Program Database File Name
+ * $(TEMP)vc$(PlatformToolsetVersion).pdb has to be added in every projects property page under C/C++ -> Output Files -> Program Database File Name
  */

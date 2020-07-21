@@ -6,6 +6,8 @@
 #include "Lynton/Events/KeyEvent.h"
 #include "Lynton/Core.h"
 
+#include "Glad/glad.h"
+
 namespace Lynton
 {
 	static bool s_glfw_initialized = false;
@@ -42,7 +44,7 @@ namespace Lynton
 		{
 			// ToDo: glwfTerminate on system shutdown
 			int success = glfwInit();
-			LY_CORE_ASSERT(success, "Could not initialized GLFW!");
+			LY_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(glfw_error_callback);
 
 			s_glfw_initialized = true;
@@ -50,6 +52,8 @@ namespace Lynton
 
 		m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		LY_CORE_ASSERT(status, "Could not initialize Glad!")
 		glfwSetWindowUserPointer(m_window, &m_data);
 		set_vsync(true);
 
