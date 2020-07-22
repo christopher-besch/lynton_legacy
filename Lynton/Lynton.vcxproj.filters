@@ -7,6 +7,9 @@
     <Filter Include="Lynton\Events">
       <UniqueIdentifier>{2D138D14-99D3-084B-620E-52C8CE8D4D27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lynton\ImGui">
+      <UniqueIdentifier>{5397BB65-3FFA-4A0A-E87F-83C0D4C1168D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
@@ -34,6 +37,9 @@
     <ClInclude Include="src\Lynton\Events\MouseEvent.h">
       <Filter>Lynton\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lynton\ImGui\ImGuiLayer.h">
+      <Filter>Lynton\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Lynton\Layer.h">
       <Filter>Lynton</Filter>
     </ClInclude>
@@ -50,10 +56,14 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\lypch.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
       <Filter>Lynton</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lynton\ImGui\ImGuiLayer.cpp">
+      <Filter>Lynton\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\Layer.cpp">
       <Filter>Lynton</Filter>
@@ -68,5 +78,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\lypch.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>

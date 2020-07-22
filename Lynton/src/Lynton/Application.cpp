@@ -11,8 +11,15 @@
 
 namespace Lynton
 {
+
+	// make Application a singleton
+	Application* Application::s_instance = nullptr;
+
 	Application::Application()
 	{
+		LY_CORE_ASSERT(!s_instance, "Application already exists!")
+		s_instance = this;
+
 		// create window handler
 		m_window = std::unique_ptr<Window>(Window::create());
 		m_window->set_event_callback(BIND_EVENT_FUNCTION(on_event));
@@ -25,11 +32,13 @@ namespace Lynton
 	void Application::push_layer(Layer* layer)
     {
 		m_layer_stack.push_layer(layer);
+		layer->on_attach();
     }
 
 	void Application::push_overlay(Layer* layer)
     {
 		m_layer_stack.push_overerlay(layer);
+		layer->on_attach();
     }
 
 

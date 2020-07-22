@@ -14,9 +14,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 include_dir = {}
 include_dir["GLFW"] = "Lynton/vendor/GLFW/include"
 include_dir["Glad"] = "Lynton/vendor/Glad/include"
+include_dir["ImGui"] = "Lynton/vendor/imgui"
 
 include "Lynton/vendor/GLFW"
 include "Lynton/vendor/Glad"
+include "Lynton/vendor/imgui"
 
 project "Sandbox"
 	location "Sandbox"
@@ -90,13 +92,15 @@ project "Lynton"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{include_dir.GLFW}",
-		"%{include_dir.Glad}"
+		"%{include_dir.Glad}",
+		"%{include_dir.ImGui}"
 	}
 	
 	links
 	{
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 	

@@ -5,6 +5,8 @@
 #include "lypch.h"
 #include "Lynton/Layer.h"
 #include "Lynton/Application.h"
+#include "Lynton/Log.h"
+#include "Lynton/ImGui/ImGuiLayer.h"
 
 /////////////////
 // entry point //
