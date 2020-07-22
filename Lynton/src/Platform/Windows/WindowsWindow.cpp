@@ -66,7 +66,7 @@ namespace Lynton
 				data.height = height;
 
 			    // 2. create sensible event
-				WindowResizeEvent event(width, height);
+				WindowResizedEvent event(width, height);
 			    // 3. call callback with that event
 				data.event_callback(event);
 			});
@@ -110,6 +110,14 @@ namespace Lynton
 				}
 			});
 
+		glfwSetCharCallback(m_window, [](GLFWwindow* window, unsigned int character)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				KeyTypedEvent event(character);
+				data.event_callback(event);
+			});
+
 		glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -118,13 +126,13 @@ namespace Lynton
 					{
 					case GLFW_PRESS:
 					{
-						MouseButtonPressed event(button);
+						MouseButtonPressedEvent event(button);
 						data.event_callback(event);
 						break;
 					}
 					case GLFW_RELEASE:
 					{
-						MouseButtonReleased event(button);
+						MouseButtonReleasedEvent event(button);
 						data.event_callback(event);
 						break;
 					}

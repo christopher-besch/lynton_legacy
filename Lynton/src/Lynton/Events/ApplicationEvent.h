@@ -5,12 +5,12 @@
 namespace Lynton
 {
 
-	class LYNTON_API WindowResizeEvent : public Event
+	class LYNTON_API WindowResizedEvent : public Event
 	{
 	private:
 		unsigned int m_width, m_height;
 	public:
-		WindowResizeEvent(unsigned int width, unsigned int height)
+		WindowResizedEvent(unsigned int width, unsigned int height)
 			: m_width(width), m_height(height) {}
 
 		inline unsigned int get_width() const { return m_width; }

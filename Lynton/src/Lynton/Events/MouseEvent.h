@@ -56,7 +56,7 @@ namespace Lynton
 	protected:
 		int m_button;
 	public:
-		inline float get_mouse_button() const { return m_button; }
+		inline int get_mouse_button() const { return m_button; }
 
 		EVENT_CLASS_CATEGORY(event_category_mouse | event_category_input)
 	protected:
@@ -65,10 +65,10 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API MouseButtonPressed : public MouseButtonEvent
+	class LYNTON_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressed(int button)
+		MouseButtonPressedEvent(int button)
 			: MouseButtonEvent(button) {}
 
 		std::string to_string() const override
@@ -83,10 +83,10 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API MouseButtonReleased : public MouseButtonEvent
+	class LYNTON_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleased(int button)
+		MouseButtonReleasedEvent(int button)
 			: MouseButtonEvent(button) {}
 
 		std::string to_string() const override

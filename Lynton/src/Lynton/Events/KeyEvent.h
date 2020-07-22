@@ -54,5 +54,22 @@ namespace Lynton
 
 		EVENT_CLASS_TYPE(key_released);
 	};
+
+
+	class LYNTON_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int keycode)
+			: KeyEvent(keycode) {}
+
+		std::string to_string() const override
+		{
+			std::stringstream s_stream;
+			s_stream << "KeyTypedEvent: " << m_key_code;
+			return s_stream.str();
+		}
+
+		EVENT_CLASS_TYPE(key_typed)
+	};
 	
 }
