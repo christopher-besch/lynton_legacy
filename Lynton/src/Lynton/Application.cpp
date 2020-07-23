@@ -8,6 +8,8 @@
 
 #include <Glad/glad.h>
 
+#include "Input.h"
+
 namespace Lynton
 {
 
@@ -51,6 +53,9 @@ namespace Lynton
 
 			for (Layer* layer : m_layer_stack)
 				layer->on_update();
+
+			auto [x, y] = Input::get_mouse_position();
+			LY_CORE_ERROR("{0}, {1}", x, y);
 
 			m_window->on_update();
 		}

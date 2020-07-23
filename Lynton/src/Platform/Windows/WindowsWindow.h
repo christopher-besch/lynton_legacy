@@ -38,6 +38,8 @@ namespace Lynton
 		
 		void set_vsync(bool enabled) override;
 		inline bool is_vsync() const override { return m_data.vsync; }
+
+		inline virtual void* get_native_window() const override { return m_window;  }
 	private:
 		virtual void init(const WindowProperties& props);
 		virtual void shutdown();

@@ -85,6 +85,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -110,6 +111,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -136,6 +138,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,11 +160,13 @@
     <ClInclude Include="src\Lynton\Events\KeyEvent.h" />
     <ClInclude Include="src\Lynton\Events\MouseEvent.h" />
     <ClInclude Include="src\Lynton\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Lynton\Input.h" />
     <ClInclude Include="src\Lynton\Layer.h" />
     <ClInclude Include="src\Lynton\LayerStack.h" />
     <ClInclude Include="src\Lynton\Log.h" />
     <ClInclude Include="src\Lynton\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\lypch.h" />
   </ItemGroup>
@@ -172,6 +177,7 @@
     <ClCompile Include="src\Lynton\LayerStack.cpp" />
     <ClCompile Include="src\Lynton\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\lypch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
