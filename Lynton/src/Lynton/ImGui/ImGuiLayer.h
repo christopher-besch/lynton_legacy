@@ -28,7 +28,7 @@ namespace Lynton
 		~ImGuiLayer();
 
 		void on_attach() override;
-		void on_dettach() override;
+		void on_detach() override;
 
 		virtual void on_update() override;
 		virtual void on_event(Event& event) override;

@@ -15,7 +15,7 @@ namespace Lynton
 		virtual ~Layer();
 
 		virtual void on_attach() {}
-		virtual void on_dettach() {}
+		virtual void on_detach() {}
 		virtual void on_update() {}
 		virtual void on_event(Event& event) {}
 

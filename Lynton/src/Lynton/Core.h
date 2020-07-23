@@ -10,6 +10,10 @@
 	#error The used platform is not supported!
 #endif
 
+#ifdef LY_DEBUG
+    #define LY_ENABLE_ASSERTS
+#endif
+
 #ifdef LY_ENABLE_ASSERTS
 	#define LY_ASSERT(x, ...) { if(!x) { LY_ERROR("Assertioin Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define LY_CORE_ASSERT(x, ...) { if(!x) { LY_CORE_ERROR("Assertioin Failed: {0}", __VA_ARGS__); __debugbreak(); } }

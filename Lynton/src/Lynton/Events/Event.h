@@ -54,7 +54,7 @@ namespace Lynton
 #define EVENT_CLASS_CATEGORY(category) virtual int get_category_flags() const override { return category; }
 
 	
-	// base class for events
+	// base class / interface for events
 	class LYNTON_API Event
 	{
 		friend class EventDispatcher;

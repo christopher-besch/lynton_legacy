@@ -33,7 +33,7 @@ namespace Lynton
         if (iterator != m_layers.end())
         {
             m_layers.erase(iterator);
-            m_layer_insert--;
+            --m_layer_insert;
         }
     }
 

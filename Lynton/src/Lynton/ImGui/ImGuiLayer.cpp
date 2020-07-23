@@ -57,7 +57,7 @@ namespace Lynton
         ImGui_ImplOpenGL3_Init("#version 410");
     }
 
-    void ImGuiLayer::on_dettach()
+    void ImGuiLayer::on_detach()
     {
     }
 
@@ -85,16 +85,16 @@ namespace Lynton
     {
         // dispatch events
         EventDispatcher dispatcher(event);
-        dispatcher.dispatch<MouseButtonPressedEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_mouse_button_pressed_event));
+        dispatcher.dispatch<MouseButtonPressedEvent>( LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_mouse_button_pressed_event));
         dispatcher.dispatch<MouseButtonReleasedEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_mouse_button_released_event));
-        dispatcher.dispatch<MouseMovedEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_mouse_moved_event));
-        dispatcher.dispatch<MouseScrolledEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_mouse_scrolled_event));
+        dispatcher.dispatch<MouseMovedEvent>(         LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_mouse_moved_event));
+        dispatcher.dispatch<MouseScrolledEvent>(      LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_mouse_scrolled_event));
 
-        dispatcher.dispatch<KeyPressedEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_key_pressed));
-        dispatcher.dispatch<KeyReleasedEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_released_pressed));
-        dispatcher.dispatch<KeyTypedEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_key_typed_event));
+        dispatcher.dispatch<KeyPressedEvent>(         LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_key_pressed));
+        dispatcher.dispatch<KeyReleasedEvent>(        LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_released_pressed));
+        dispatcher.dispatch<KeyTypedEvent>(           LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_key_typed_event));
 
-        dispatcher.dispatch<WindowResizedEvent>(LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_window_resized_event));
+        dispatcher.dispatch<WindowResizedEvent>(      LY_BIND_EVENT_FUNCTION(ImGuiLayer::on_window_resized_event));
     }
 
     bool ImGuiLayer::on_mouse_button_pressed_event(MouseButtonPressedEvent& event)

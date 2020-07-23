@@ -1,5 +1,6 @@
 workspace "Lynton"
 	architecture "x64"
+	startproject "Sandbox"
 	
 	configurations
 	{
@@ -20,60 +21,11 @@ include "Lynton/vendor/GLFW"
 include "Lynton/vendor/Glad"
 include "Lynton/vendor/imgui"
 
-project "Sandbox"
-	location "Sandbox"
-	kind "ConsoleApp"
-	language "C++"
-	
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	files
-	{
-		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
-	}
-	
-	includedirs
-	{
-		"Lynton/vendor/spdlog/include",
-		"Lynton/src"
-	}
-	
-	links
-	{
-		"Lynton"
-	}
-	
-	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
-		systemversion "latest"
-		
-		defines
-		{
-			"LY_PLATFORM_WINDOWS"
-		}
-	
-	filter "configurations:Debug"
-		defines "LY_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
-	
-	filter "configurations:Release"
-		defines "LY_RELEASE"
-		buildoptions "/MD"
-		optimize "On"
-
-	filter "configurations:Dist"
-		defines "LY_DIST"
-		buildoptions "/MD"
-		optimize "On"
-
 project "Lynton"
 	location "Lynton"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -106,7 +58,6 @@ project "Lynton"
 	
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 		
 		defines
@@ -123,16 +74,65 @@ project "Lynton"
 	
 	filter "configurations:Debug"
 		defines "LY_DEBUG"
-		defines "LY_ENABLE_ASSERTS"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 	
 	filter "configurations:Release"
 		defines "LY_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "LY_DIST"
-		buildoptions "/MD"
+		runtime "Release"
+		optimize "On"
+
+project "Sandbox"
+	location "Sandbox"
+	kind "ConsoleApp"
+	language "C++"
+	staticruntime "off"
+	
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+	
+	includedirs
+	{
+		"Lynton/vendor/spdlog/include",
+		"Lynton/src"
+	}
+	
+	links
+	{
+		"Lynton"
+	}
+	
+	filter "system:windows"
+		cppdialect "C++17"
+		systemversion "latest"
+		
+		defines
+		{
+			"LY_PLATFORM_WINDOWS"
+		}
+	
+	filter "configurations:Debug"
+		defines "LY_DEBUG"
+		runtime "Debug"
+		symbols "On"
+	
+	filter "configurations:Release"
+		defines "LY_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Dist"
+		defines "LY_DIST"
+		runtime "Release"
 		optimize "On"
