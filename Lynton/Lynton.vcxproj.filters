@@ -64,6 +64,7 @@
     <ClInclude Include="src\lypch.h" />
     <ClInclude Include="src\Lynton\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Lynton\KeyCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">

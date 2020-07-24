@@ -31,6 +31,7 @@ namespace Lynton
 		inline Window& get_window() { return *m_window; }
 
 		inline static Application& get() { return *s_instance; }
+		inline bool& get_running() { return m_running; }
 	private:
 		bool on_window_close(WindowCloseEvent& event);
 	};

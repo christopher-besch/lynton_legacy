@@ -54,8 +54,8 @@ namespace Lynton
 			for (Layer* layer : m_layer_stack)
 				layer->on_update();
 
-			auto [x, y] = Input::get_mouse_position();
-			LY_CORE_ERROR("{0}, {1}", x, y);
+			// auto [x, y] = Input::get_mouse_position();
+			// LY_CORE_ERROR("{0}, {1}", x, y);
 
 			m_window->on_update();
 		}
@@ -67,7 +67,7 @@ namespace Lynton
 		// when the event is a WindowCloseEvent -> call on_window_close
 		dispatcher.dispatch<WindowCloseEvent>(LY_BIND_EVENT_FUNCTION(Application::on_window_close));
 
-	    LY_CORE_TRACE("{0}", event);
+	    // LY_CORE_TRACE("{0}", event);
 
 		// sending the event through every layer until one handles it -> overlays get events first
 		for ( auto iterator = m_layer_stack.end(); iterator != m_layer_stack.begin(); )

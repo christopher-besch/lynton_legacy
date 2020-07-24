@@ -9,12 +9,16 @@ public:
 
 	void on_update() override
 	{
-		LY_INFO("ExamleLayer::Update");
+		Lynton::Application::get().get_running() = !Lynton::Input::is_key_pressed(LY_KEY_TAB);
 	}
 
 	void on_event(Lynton::Event& event) override
 	{
-		LY_TRACE("{0}", event);
+		if (event.get_event_type() == Lynton::EventType::key_pressed)
+		{
+			Lynton::KeyPressedEvent& e = (Lynton::KeyPressedEvent&)event;
+			LY_TRACE("{0}", (char)e.get_key_code());
+		}
 	}
 };
 

@@ -161,6 +161,7 @@
     <ClInclude Include="src\Lynton\Events\MouseEvent.h" />
     <ClInclude Include="src\Lynton\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Lynton\Input.h" />
+    <ClInclude Include="src\Lynton\KeyCodes.h" />
     <ClInclude Include="src\Lynton\Layer.h" />
     <ClInclude Include="src\Lynton\LayerStack.h" />
     <ClInclude Include="src\Lynton\Log.h" />
