@@ -6,7 +6,6 @@ namespace Lynton
 
 	LayerStack::LayerStack()
     {
-        m_layer_insert = m_layers.begin();
     }
 
     LayerStack::~LayerStack()
@@ -18,10 +17,11 @@ namespace Lynton
 
     void LayerStack::push_layer(Layer* layer)
     {
-        m_layer_insert = m_layers.emplace(m_layer_insert, layer);
+        m_layers.emplace(m_layers.begin() + m_layer_insert_index, layer);
+        m_layer_insert_index++;
     }
 
-    void LayerStack::push_overerlay(Layer* overlay)
+    void LayerStack::push_overlay(Layer* overlay)
     {
         // overlays are always after (other) layers
         m_layers.emplace_back(overlay);
@@ -33,7 +33,7 @@ namespace Lynton
         if (iterator != m_layers.end())
         {
             m_layers.erase(iterator);
-            --m_layer_insert;
+            m_layer_insert_index--;
         }
     }
 

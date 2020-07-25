@@ -24,6 +24,9 @@ namespace Lynton
 		// create window handler
 		m_window = std::unique_ptr<Window>(Window::create());
 		m_window->set_event_callback(LY_BIND_EVENT_FUNCTION(Application::on_event));
+
+		m_imgui_layer = new ImGuiLayer();
+		push_overlay(m_imgui_layer);
 	}
 
 	Application::~Application()
@@ -38,11 +41,9 @@ namespace Lynton
 
 	void Application::push_overlay(Layer* layer)
     {
-		m_layer_stack.push_overerlay(layer);
+		m_layer_stack.push_overlay(layer);
 		layer->on_attach();
     }
-
-
 
 	void Application::run()
 	{
@@ -54,8 +55,10 @@ namespace Lynton
 			for (Layer* layer : m_layer_stack)
 				layer->on_update();
 
-			// auto [x, y] = Input::get_mouse_position();
-			// LY_CORE_ERROR("{0}, {1}", x, y);
+			m_imgui_layer->begin();
+			for (Layer* layer : m_layer_stack)
+				layer->on_imgui_render();
+			m_imgui_layer->end();
 
 			m_window->on_update();
 		}

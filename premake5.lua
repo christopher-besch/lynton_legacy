@@ -108,6 +108,7 @@ project "Sandbox"
 	{
 		"Lynton/vendor/spdlog/include",
 		"Lynton/src",
+		"Lynton/vendor",
 		"%{include_dir.glm}"
 	}
 	

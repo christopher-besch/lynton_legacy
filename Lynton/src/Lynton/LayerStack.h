@@ -12,13 +12,13 @@ namespace Lynton
 	{
 	private:
 		std::vector<Layer*> m_layers;
-		std::vector<Layer*>::iterator m_layer_insert;
+		unsigned int m_layer_insert_index = 0;
 	public:
 		LayerStack();
 		~LayerStack();
 
 		void push_layer(Layer* layer);
-		void push_overerlay(Layer* overlay);
+		void push_overlay(Layer* overlay);
 		void pop_layer(Layer* layer);
 		void pop_over_layer(Layer* overlay);
 

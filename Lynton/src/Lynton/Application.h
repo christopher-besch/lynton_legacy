@@ -6,6 +6,8 @@
 #include "Events/ApplicationEvent.h"
 #include "Window.h"
 
+#include "Lynton/ImGui/ImGuiLayer.h"
+
 namespace Lynton
 {
 
@@ -13,6 +15,7 @@ namespace Lynton
 	{
 	private:
 		std::unique_ptr<Window> m_window;
+		ImGuiLayer* m_imgui_layer;
 		bool m_running = true;
 		LayerStack m_layer_stack;
 

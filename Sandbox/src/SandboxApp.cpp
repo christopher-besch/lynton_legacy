@@ -1,5 +1,7 @@
 #include "Lynton.h"
 
+// #include "imgui/imgui.h"
+
 
 class ExampleLayer : public Lynton::Layer
 {
@@ -11,6 +13,13 @@ public:
 	{
 		Lynton::Application::get().get_running() = !Lynton::Input::is_key_pressed(LY_KEY_TAB);
 	}
+
+	// void on_imgui_render() override
+	// {
+	// 	ImGui::Begin("Test");
+	// 	ImGui::Text("Hello World");
+	// 	ImGui::End();
+	// }
 
 	void on_event(Lynton::Event& event) override
 	{
@@ -29,7 +38,6 @@ public:
 	Sandbox()
 	{
 		push_layer(new ExampleLayer());
-		push_overlay(new Lynton::ImGuiLayer());
 	}
 
 	~Sandbox()
