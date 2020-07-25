@@ -43,6 +43,12 @@
     <ClInclude Include="src\Lynton\ImGui\ImGuiLayer.h">
       <Filter>Lynton\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lynton\Input.h">
+      <Filter>Lynton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lynton\KeyCodes.h">
+      <Filter>Lynton</Filter>
+    </ClInclude>
     <ClInclude Include="src\Lynton\Layer.h">
       <Filter>Lynton</Filter>
     </ClInclude>
@@ -58,13 +64,13 @@
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\lypch.h" />
-    <ClInclude Include="src\Lynton\Input.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Lynton\KeyCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
@@ -85,10 +91,12 @@
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\lypch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

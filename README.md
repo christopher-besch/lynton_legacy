@@ -9,3 +9,4 @@ based on [the Hazel Engine from The Cherno](https://github.com/TheCherno/Hazel)
 - GLFW
 - Glad
 - Imgui
+- glm

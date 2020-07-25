@@ -16,6 +16,7 @@ include_dir = {}
 include_dir["GLFW"] = "Lynton/vendor/GLFW/include"
 include_dir["Glad"] = "Lynton/vendor/Glad/include"
 include_dir["ImGui"] = "Lynton/vendor/imgui"
+include_dir["glm"] = "Lynton/vendor/glm"
 
 include "Lynton/vendor/GLFW"
 include "Lynton/vendor/Glad"
@@ -45,7 +46,8 @@ project "Lynton"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{include_dir.GLFW}",
 		"%{include_dir.Glad}",
-		"%{include_dir.ImGui}"
+		"%{include_dir.ImGui}",
+		"%{include_dir.glm}"
 	}
 	
 	links
@@ -105,7 +107,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Lynton/vendor/spdlog/include",
-		"Lynton/src"
+		"Lynton/src",
+		"%{include_dir.glm}"
 	}
 	
 	links
