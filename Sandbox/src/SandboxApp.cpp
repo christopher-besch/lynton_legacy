@@ -14,6 +14,7 @@ public:
 		Lynton::Application::get().get_running() = !Lynton::Input::is_key_pressed(LY_KEY_TAB);
 	}
 
+	// Lynton has to become a static library for this to work
 	// void on_imgui_render() override
 	// {
 	// 	ImGui::Begin("Test");
