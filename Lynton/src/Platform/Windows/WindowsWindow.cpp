@@ -6,7 +6,7 @@
 #include "Lynton/Events/KeyEvent.h"
 #include "Lynton/Core.h"
 
-#include "Glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Lynton
 {
@@ -51,9 +51,11 @@ namespace Lynton
 		}
 
 		m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		LY_CORE_ASSERT(status, "Could not initialize Glad!")
+
+		m_context = new OpenGLContext(m_window);
+		// includes make context current stuff
+		m_context->init();
+
 		glfwSetWindowUserPointer(m_window, &m_data);
 		set_vsync(true);
 
@@ -165,7 +167,7 @@ namespace Lynton
 	void WindowsWindow::on_update()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_window);
+		m_context->swap_buffers();
 	}
 
 	void WindowsWindow::set_vsync(bool enabled)
