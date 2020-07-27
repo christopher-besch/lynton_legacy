@@ -1,6 +1,6 @@
 #include "Lynton.h"
 
-// #include "imgui/imgui.h"
+#include "imgui/imgui.h"
 
 
 class ExampleLayer : public Lynton::Layer
@@ -14,13 +14,12 @@ public:
 		Lynton::Application::get().get_running() = !Lynton::Input::is_key_pressed(LY_KEY_TAB);
 	}
 
-	// Lynton has to become a static library for this to work
-	// void on_imgui_render() override
-	// {
-	// 	ImGui::Begin("Test");
-	// 	ImGui::Text("Hello World");
-	// 	ImGui::End();
-	// }
+	void on_imgui_render() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
+	}
 
 	void on_event(Lynton::Event& event) override
 	{

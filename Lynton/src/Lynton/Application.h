@@ -11,7 +11,7 @@
 namespace Lynton
 {
 
-	class LYNTON_API Application
+	class  Application
 	{
 	private:
 		std::unique_ptr<Window> m_window;

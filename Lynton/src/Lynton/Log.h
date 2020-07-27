@@ -9,7 +9,7 @@
 namespace Lynton
 {
 	
-	class LYNTON_API Log
+	class  Log
 	{
 	private:
 		static std::shared_ptr<spdlog::logger> s_core_logger;

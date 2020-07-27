@@ -75,7 +75,7 @@ namespace Lynton
     {
         ImGuiIO& io = ImGui::GetIO();
         Application& app = Application::get();
-        io.DisplaySize = ImVec2(app.get_window().get_width(), app.get_window().get_height());
+        io.DisplaySize = ImVec2((float)app.get_window().get_width(), (float)app.get_window().get_height());
 
         // rendering
         ImGui::Render();

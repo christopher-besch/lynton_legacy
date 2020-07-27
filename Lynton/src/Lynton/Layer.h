@@ -6,7 +6,7 @@
 namespace Lynton
 {
 
-	class LYNTON_API Layer
+	class  Layer
 	{
 	protected:
 		std::string m_debug_name;

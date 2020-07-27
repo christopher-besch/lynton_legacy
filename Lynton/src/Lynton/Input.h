@@ -5,7 +5,7 @@
 namespace Lynton
 {
 
-	class LYNTON_API Input
+	class  Input
 	{
 	private:
 		static Input* s_instance;

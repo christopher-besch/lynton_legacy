@@ -5,7 +5,7 @@
 namespace Lynton
 {
 
-	class LYNTON_API WindowResizedEvent : public Event
+	class  WindowResizedEvent : public Event
 	{
 	private:
 		unsigned int m_width, m_height;
@@ -28,7 +28,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API WindowCloseEvent : public Event
+	class  WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -38,7 +38,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API AppTickEvent : public Event
+	class  AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -48,7 +48,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API AppUpdateEvent : public Event
+	class  AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -58,7 +58,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API AppRenderEvent : public Event
+	class  AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

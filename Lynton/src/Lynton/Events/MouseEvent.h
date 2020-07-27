@@ -5,7 +5,7 @@
 namespace Lynton
 {
 	
-	class LYNTON_API MouseMovedEvent : public Event
+	class  MouseMovedEvent : public Event
 	{
 	private:
 		float m_mouse_x, m_mouse_y;
@@ -28,7 +28,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API MouseScrolledEvent : public Event
+	class  MouseScrolledEvent : public Event
 	{
 	private:
 		float m_mouse_offset_x, m_mouse_offset_y;
@@ -51,7 +51,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API MouseButtonEvent : public Event
+	class  MouseButtonEvent : public Event
 	{
 	protected:
 		int m_button;
@@ -65,7 +65,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API MouseButtonPressedEvent : public MouseButtonEvent
+	class  MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -83,7 +83,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class  MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

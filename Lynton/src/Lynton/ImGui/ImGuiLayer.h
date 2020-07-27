@@ -8,7 +8,7 @@
 namespace Lynton
 {
 
-	class LYNTON_API ImGuiLayer : public Layer
+	class  ImGuiLayer : public Layer
 	{
 	private:
 		float m_time = 0.0f;

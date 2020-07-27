@@ -4,7 +4,7 @@
 
 namespace Lynton
 {
-	class LYNTON_API KeyEvent : public Event
+	class  KeyEvent : public Event
 	{
 	protected:
 		int m_key_code;
@@ -18,7 +18,7 @@ namespace Lynton
 	};
 
 	
-	class LYNTON_API KeyPressedEvent : public KeyEvent
+	class  KeyPressedEvent : public KeyEvent
 	{
 	private:
 		int m_repeat_count;
@@ -39,7 +39,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API KeyReleasedEvent : public KeyEvent
+	class  KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -56,7 +56,7 @@ namespace Lynton
 	};
 
 
-	class LYNTON_API KeyTypedEvent : public KeyEvent
+	class  KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)
