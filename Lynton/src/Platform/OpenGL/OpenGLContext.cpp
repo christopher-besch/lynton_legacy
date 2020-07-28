@@ -18,6 +18,11 @@ namespace Lynton
         glfwMakeContextCurrent(m_window_handle);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         LY_CORE_ASSERT(status, "Could not initialize Glad!")
+
+        LY_CORE_INFO("OpenGL Info:");
+        LY_CORE_INFO("\tVendor: {0}", glGetString(GL_VENDOR));
+        LY_CORE_INFO("\tRenderer: {0}", glGetString(GL_RENDERER));
+        LY_CORE_INFO("\tVersion: {0}", glGetString(GL_VERSION));
     }
 
     void OpenGLContext::swap_buffers()

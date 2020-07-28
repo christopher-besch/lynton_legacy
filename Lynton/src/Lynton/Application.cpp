@@ -27,6 +27,36 @@ namespace Lynton
 
 		m_imgui_layer = new ImGuiLayer();
 		push_overlay(m_imgui_layer);
+
+		// vertex array
+		// vertex buffer
+		// index buffer
+
+		glGenVertexArrays(1, &m_vertex_Array);
+		glBindVertexArray(m_vertex_Array);
+
+		glGenBuffers(1, &m_vertex_buffer);
+		glBindBuffer(GL_ARRAY_BUFFER, m_index_buffer);
+
+		float vertices[3 * 3] = {
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.0f,  0.5f, 0.0f
+		};
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+		// actually an element buffer
+		glGenBuffers(1, &m_index_buffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_index_buffer);
+
+		// TRIANGLES!!!
+		unsigned int indices[1 * 3] = {
+			0, 1, 2
+		};
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	}
 
 	Application::~Application()
@@ -49,8 +79,11 @@ namespace Lynton
 	{
 		while (m_running)
 		{
-			glClearColor(0.9, 0.2, 0.9, 1);
+			glClearColor(0.1f, 0.1f, 0.1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			glBindVertexArray(m_vertex_Array);
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_layer_stack)
 				layer->on_update();

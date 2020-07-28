@@ -19,6 +19,8 @@ namespace Lynton
 		bool m_running = true;
 		LayerStack m_layer_stack;
 
+		unsigned int m_vertex_Array, m_vertex_buffer, m_index_buffer;
+
 		static Application* s_instance;
 	public:
 		Application();
