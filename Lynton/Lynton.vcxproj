@@ -153,9 +153,12 @@
     <ClInclude Include="src\Lynton\Layer.h" />
     <ClInclude Include="src\Lynton\LayerStack.h" />
     <ClInclude Include="src\Lynton\Log.h" />
+    <ClInclude Include="src\Lynton\Renderer\Buffer.h" />
     <ClInclude Include="src\Lynton\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Lynton\Renderer\Renderer.h" />
     <ClInclude Include="src\Lynton\Renderer\Shader.h" />
     <ClInclude Include="src\Lynton\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -168,7 +171,10 @@
     <ClCompile Include="src\Lynton\Layer.cpp" />
     <ClCompile Include="src\Lynton\LayerStack.cpp" />
     <ClCompile Include="src\Lynton\Log.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />

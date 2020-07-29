@@ -9,6 +9,7 @@
 #include "Lynton/ImGui/ImGuiLayer.h"
 
 #include "Lynton/Renderer/Shader.h"
+#include "Lynton/Renderer/Buffer.h"
 
 namespace Lynton
 {
@@ -21,8 +22,10 @@ namespace Lynton
 		bool m_running = true;
 		LayerStack m_layer_stack;
 
-		unsigned int m_vertex_Array, m_vertex_buffer, m_index_buffer;
+		unsigned int m_vertex_Array;
 		std::unique_ptr<Shader> m_shader;
+		std::unique_ptr<VertexBuffer> m_vertex_buffer;
+		std::unique_ptr<IndexBuffer> m_index_buffer;
 
 		static Application* s_instance;
 	public:

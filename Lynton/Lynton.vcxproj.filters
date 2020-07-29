@@ -68,6 +68,9 @@
     <ClInclude Include="src\Lynton\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Lynton\Renderer\Shader.h" />
+    <ClInclude Include="src\Lynton\Renderer\Buffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Lynton\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
@@ -97,5 +100,8 @@
     <ClCompile Include="src\lypch.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>
