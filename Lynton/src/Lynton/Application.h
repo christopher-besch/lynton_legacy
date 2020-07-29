@@ -8,6 +8,8 @@
 
 #include "Lynton/ImGui/ImGuiLayer.h"
 
+#include "Lynton/Renderer/Shader.h"
+
 namespace Lynton
 {
 
@@ -20,6 +22,7 @@ namespace Lynton
 		LayerStack m_layer_stack;
 
 		unsigned int m_vertex_Array, m_vertex_buffer, m_index_buffer;
+		std::unique_ptr<Shader> m_shader;
 
 		static Application* s_instance;
 	public:
