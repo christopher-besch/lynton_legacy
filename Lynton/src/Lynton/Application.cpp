@@ -46,13 +46,14 @@ namespace Lynton
 		m_window = std::unique_ptr<Window>(Window::create());
 		m_window->set_event_callback(LY_BIND_EVENT_FUNCTION(Application::on_event));
 
+		// ImGui layer
 		m_imgui_layer = new ImGuiLayer();
 		push_overlay(m_imgui_layer);
 
 		glGenVertexArrays(1, &m_vertex_Array);
 		glBindVertexArray(m_vertex_Array);
 
-		float vertices[( 3 + 4) * 3] = {
+		float vertices[(3 + 4) * 3] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.7f, 0.2f, 0.3f,
 			 0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 0.6f, 0.1f,
 			 0.0f,  0.5f, 0.0f, 1.0f, 0.1f, 0.0f, 0.9f
@@ -81,7 +82,6 @@ namespace Lynton
 				(const void*)element.offset);
 			index++;
 		}
-
 
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(3 * sizeof(float)));
