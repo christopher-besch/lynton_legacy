@@ -8,6 +8,7 @@
 namespace Lynton
 {
 
+	// used in the vertex buffer
 	enum class ShaderDataType
 	{
 	    none = 0,
@@ -24,7 +25,7 @@ namespace Lynton
 		bool1
 	};
 
-	static uint32_t ShaderDataTypeSize(ShaderDataType type)
+	static uint32_t shader_data_type_size(ShaderDataType type)
 	{
 	    switch (type)
 	    {
@@ -56,7 +57,7 @@ namespace Lynton
 		BufferElement() {}
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
-		    : name(name), type(type), size(ShaderDataTypeSize(type)), offset(0), normalized(normalized) {}
+		    : name(name), type(type), size(shader_data_type_size(type)), offset(0), normalized(normalized) {}
 
 		uint32_t get_component_count() const
 		{
@@ -89,7 +90,9 @@ namespace Lynton
 	private:
 		void calculate_offset_and_stride()
 		{
+			// pointer to the beginning of the attribute inside each vertex
 			uint32_t offset = 0;
+			// size of each vertex
 			m_stride = 0;
 		    for (auto& element : m_elements)
 		    {

@@ -46,20 +46,22 @@ namespace Lynton
 		m_window = std::unique_ptr<Window>(Window::create());
 		m_window->set_event_callback(LY_BIND_EVENT_FUNCTION(Application::on_event));
 
+		// ImGui
 		m_imgui_layer = new ImGuiLayer();
 		push_overlay(m_imgui_layer);
 
+		// vao
 		glGenVertexArrays(1, &m_vertex_Array);
 		glBindVertexArray(m_vertex_Array);
 
-		float vertices[( 3 + 4) * 3] = {
+		// vertex buffer
+		float vertices[( 3 + 4 ) * 3] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.7f, 0.2f, 0.3f,
 			 0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 0.6f, 0.1f,
 			 0.0f,  0.5f, 0.0f, 1.0f, 0.1f, 0.0f, 0.9f
 		};
-
 		m_vertex_buffer.reset(VertexBuffer::create(sizeof(vertices), vertices));
-
+		// vertex buffer layout
 		{
 			BufferLayout layout = {
 				{ ShaderDataType::float3, "a_position" },
@@ -82,16 +84,13 @@ namespace Lynton
 			index++;
 		}
 
-
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(3 * sizeof(float)));
-
-		// TRIANGLES!!!
+		// index buffer
 		uint32_t indices[1 * 3] = {
 			0, 1, 2
 		};
 		m_index_buffer.reset(IndexBuffer::create(sizeof(indices) / sizeof(uint32_t), indices));
 
+		// shader
 		std::string vertex_src = R"(
             #version 330 core
 
@@ -109,7 +108,6 @@ namespace Lynton
 		    }
 
 	    )";
-
 		std::string fragment_src = R"(
             #version 330 core
 
@@ -125,8 +123,6 @@ namespace Lynton
 		    }
 
 	    )";
-
-
 		m_shader.reset(new Shader(vertex_src, fragment_src));
 	}
 
@@ -175,9 +171,8 @@ namespace Lynton
 		// when the event is a WindowCloseEvent -> call on_window_close
 		dispatcher.dispatch<WindowCloseEvent>(LY_BIND_EVENT_FUNCTION(Application::on_window_close));
 
-	    // LY_CORE_TRACE("{0}", event);
-
-		// sending the event through every layer until one handles it -> overlays get events first
+		// ToDo: put break into loop instead of if?
+	    // sending the event through every layer until one handles it -> overlays get events first
 		for ( auto iterator = m_layer_stack.end(); iterator != m_layer_stack.begin(); )
 		{
 			(*--iterator)->on_event(event);
