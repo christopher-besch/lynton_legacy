@@ -10,6 +10,7 @@
 
 #include "Lynton/Renderer/Shader.h"
 #include "Lynton/Renderer/Buffer.h"
+#include "Lynton/Renderer/VertexArray.h"
 
 namespace Lynton
 {
@@ -22,10 +23,12 @@ namespace Lynton
 		bool m_running = true;
 		LayerStack m_layer_stack;
 
-		unsigned int m_vertex_Array;
-		std::unique_ptr<Shader> m_shader;
-		std::unique_ptr<VertexBuffer> m_vertex_buffer;
-		std::unique_ptr<IndexBuffer> m_index_buffer;
+		std::shared_ptr<Shader> m_shader;
+		std::shared_ptr<VertexArray> m_vertex_array;
+
+		std::shared_ptr<Shader> m_shader2;
+		std::shared_ptr<VertexArray> m_square_vao;
+
 
 		static Application* s_instance;
 	public:
