@@ -6,6 +6,7 @@
 namespace Lynton
 {
 
+	// create and render scenes using abstracted rendering api calls
 	class Renderer
 	{
 	public:

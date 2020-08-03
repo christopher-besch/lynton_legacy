@@ -3,6 +3,7 @@
 namespace Lynton
 {
 
+	// interface for a rendering context
 	class GraphicsContext
 	{
 	public:

@@ -6,6 +6,7 @@
 namespace Lynton
 {
 
+	// interface for abstracting Vertex Arrays from different rendering apis
 	class VertexArray
 	{
 	public:

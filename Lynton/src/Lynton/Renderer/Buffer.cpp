@@ -1,3 +1,6 @@
+/*
+ * functions to create VertexBuffer and IndexBuffer instances for the currently used rendering api
+ */
 #include "lypch.h"
 #include "Buffer.h"
 

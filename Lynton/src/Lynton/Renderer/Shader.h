@@ -5,6 +5,7 @@
 namespace Lynton
 {
 
+	// handle shaders
 	class Shader
 	{
 	private:

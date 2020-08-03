@@ -5,6 +5,7 @@
 namespace Lynton
 {
 
+	// collection of functions to do specific single things regarding graphics rendering using an object inherited from RendererAPI
 	class RenderCommand
 	{
 	private:

@@ -1,5 +1,5 @@
 /*
- * a bunch of interfaces for abstracting different rendering apis
+ * interfaces for abstracting Vertex Buffer (incl. Attributes) and Index Buffer from different rendering apis
  */
 #pragma once
 

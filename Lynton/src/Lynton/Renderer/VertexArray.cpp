@@ -7,6 +7,7 @@
 namespace Lynton
 {
 
+    // create VertexArray instances for the currently used rendering api
 	VertexArray* VertexArray::create()
 	{
         switch (Renderer::get_api())
