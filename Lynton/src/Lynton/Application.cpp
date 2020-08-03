@@ -6,7 +6,7 @@
 #include "Lynton/Events/ApplicationEvent.h"
 #include "Lynton/Log.h"
 
-#include <Glad/glad.h>
+#include "Lynton/Renderer/Renderer.h"
 
 #include "Input.h"
 
@@ -169,16 +169,18 @@ namespace Lynton
 	{
 		while (m_running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::set_clear_color({0.1f, 0.1f, 0.1f, 1});
+			RenderCommand::clear();
 
-			m_shader2->bind();
-			m_square_vao->bind();
-			glDrawElements(GL_TRIANGLES, m_square_vao->get_index_buffer()->get_count(), GL_UNSIGNED_INT, nullptr);
+			Renderer::begin_scene();
+			{
+			    m_shader2->bind();
+		        Renderer::submit(m_square_vao);
 
-			m_shader->bind();
-			m_vertex_array->bind();
-			glDrawElements(GL_TRIANGLES, m_vertex_array->get_index_buffer()->get_count(), GL_UNSIGNED_INT, nullptr);
+			    m_shader->bind();
+			    Renderer::submit(m_vertex_array);    
+			}
+		    Renderer::end_scene();
 
 			for (Layer* layer : m_layer_stack)
 				layer->on_update();

@@ -11,10 +11,10 @@ namespace Lynton
 	{
         switch (Renderer::get_api())
         {
-        case RendererAPI::none:
+        case RendererAPI::API::none:
             LY_CORE_ASSERT(false, "RendererAPI::none is not supported!")
             return nullptr;
-        case RendererAPI::open_gl:
+        case RendererAPI::API::open_gl:
             return new OpenGLVertexArray();
         default:
             LY_CORE_ASSERT(false, "The requested RendererAPI is not supported!")

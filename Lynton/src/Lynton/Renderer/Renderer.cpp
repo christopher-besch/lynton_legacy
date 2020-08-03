@@ -3,7 +3,17 @@
 
 namespace Lynton
 {
+    void Renderer::begin_scene()
+    {
+    }
 
-	RendererAPI Renderer::s_renderer_api = RendererAPI::open_gl;
+    void Renderer::end_scene()
+    {
+    }
 
+    void Renderer::submit(const std::shared_ptr<VertexArray>& vertex_array)
+    {
+        vertex_array->bind();
+        RenderCommand::draw_indexed(vertex_array);
+    }
 }
