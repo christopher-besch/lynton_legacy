@@ -8,12 +8,6 @@
 
 #include "Lynton/ImGui/ImGuiLayer.h"
 
-#include "Lynton/Renderer/Shader.h"
-#include "Lynton/Renderer/Buffer.h"
-#include "Lynton/Renderer/VertexArray.h"
-
-#include "Lynton/Renderer/OrthographicCamera.h"
-
 namespace Lynton
 {
 
@@ -25,15 +19,7 @@ namespace Lynton
 		bool m_running = true;
 		LayerStack m_layer_stack;
 
-		std::shared_ptr<Shader> m_shader;
-		std::shared_ptr<VertexArray> m_vertex_array;
-
-		std::shared_ptr<Shader> m_shader2;
-		std::shared_ptr<VertexArray> m_square_vao;
-
 		static Application* s_instance;
-
-		OrthographicCamera m_camera;
 	public:
 		Application();
 		virtual ~Application();

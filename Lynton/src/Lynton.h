@@ -13,6 +13,14 @@
 #include "Lynton/Input.h"
 #include "Lynton/KeyCodes.h"
 
+// renderer
+#include "Lynton/Renderer/Renderer.h"
+#include "Lynton/Renderer/RenderCommand.h"
+
+#include "Lynton/Renderer/GraphicsContext.h"
+#include "Lynton/Renderer/OrthographicCamera.h"
+#include "Lynton/Renderer/Shader.h"
+
 /////////////////
 // entry point //
 /////////////////

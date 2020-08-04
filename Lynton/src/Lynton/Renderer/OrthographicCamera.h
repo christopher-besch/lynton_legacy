@@ -19,16 +19,28 @@ namespace Lynton
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
 
-		void set_position(const glm::vec3& position)
+		inline void set_position(const glm::vec3& position)
 		{
 		    m_position = position;
 			recalculate_view_matrix();
 		}
+		inline void move_position(const glm::vec3& delta)
+		{
+			m_position.x += delta.x;
+			m_position.y += delta.y;
+			m_position.z += delta.z;
+			recalculate_view_matrix();
+		}
 	    inline const glm::vec3& get_position() const { return m_position; }
 
-		void set_z_rotation(float rotation)
+		inline void set_z_rotation(float rotation)
 		{
 		    m_rotation = rotation;
+			recalculate_view_matrix();
+		}
+		inline void move_z_rotation(float delta)
+		{
+			m_rotation += delta;
 			recalculate_view_matrix();
 		}
 		inline float get_z_rotation() const { return m_rotation; }
