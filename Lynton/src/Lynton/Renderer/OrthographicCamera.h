@@ -33,7 +33,7 @@ namespace Lynton
 		}
 	    inline const glm::vec3& get_position() const { return m_position; }
 
-		inline void set_z_rotation(float rotation)
+		inline void set_rotation(float rotation)
 		{
 		    m_rotation = rotation;
 			recalculate_view_matrix();
@@ -43,7 +43,7 @@ namespace Lynton
 			m_rotation += delta;
 			recalculate_view_matrix();
 		}
-		inline float get_z_rotation() const { return m_rotation; }
+		inline float get_rotation() const { return m_rotation; }
 
 		const glm::mat4& get_projection_matrix() const { return m_projection_matrix; }
 		const glm::mat4& get_view_matrix() const { return m_view_matrix; }

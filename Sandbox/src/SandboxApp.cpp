@@ -15,10 +15,10 @@ private:
 
     Lynton::OrthographicCamera m_camera;
 	float m_camera_move_speed = 0.01f;
-	float m_camera_turn_speed = 5.0f;
+	float m_camera_turn_speed = 2.0f;
 public:
 	ExampleLayer()
-		: m_camera(-1.6f, 1.6f, -0.9f, 0.9f), Layer("Example")
+		: Layer("Example"), m_camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		m_vertex_array.reset(Lynton::VertexArray::create());
 		// should get unbound here <- otherwise everything bound after here gets associated with the vao
@@ -110,7 +110,6 @@ public:
 	    )";
 		m_shader.reset(new Lynton::Shader(vertex_src, fragment_src));
 
-		// shader
 		vertex_src = R"(
             #version 330 core
 
@@ -119,7 +118,6 @@ public:
 	        uniform mat4 u_view_projection;
 
 		    out vec3 v_position;
-
 
 		    void main()
 		    {
@@ -147,19 +145,17 @@ public:
 
 	void on_update() override
 	{
-		if (Lynton::Input::is_key_pressed(LY_KEY_W))
-			m_camera.move_position({ 0.0f,            m_camera_move_speed,  0.0f });
-		if (Lynton::Input::is_key_pressed(LY_KEY_A))
-			m_camera.move_position({ -m_camera_move_speed, 0.0f,            0.0f });
-		if (Lynton::Input::is_key_pressed(LY_KEY_S))
-			m_camera.move_position({ 0.0f,            -m_camera_move_speed, 0.0f });
-		if (Lynton::Input::is_key_pressed(LY_KEY_D))
-			m_camera.move_position({ m_camera_move_speed,  0.0f,            0.0f });
+		glm::vec3 position = m_camera.get_position();
+		position.y += Lynton::Input::is_key_pressed(LY_KEY_W) * m_camera_move_speed;
+		position.x -= Lynton::Input::is_key_pressed(LY_KEY_A) * m_camera_move_speed;
+		position.y -= Lynton::Input::is_key_pressed(LY_KEY_S) * m_camera_move_speed;
+		position.x += Lynton::Input::is_key_pressed(LY_KEY_D) * m_camera_move_speed;
+		m_camera.set_position(position);
 
-		if (Lynton::Input::is_key_pressed(LY_KEY_Q))
-			m_camera.move_z_rotation(m_camera_turn_speed);
-		if (Lynton::Input::is_key_pressed(LY_KEY_E))
-			m_camera.move_z_rotation(-m_camera_turn_speed);
+		float rotation = m_camera.get_rotation();
+		rotation += Lynton::Input::is_key_pressed(LY_KEY_Q) * m_camera_turn_speed;
+		rotation -= Lynton::Input::is_key_pressed(LY_KEY_E) * m_camera_turn_speed;
+		m_camera.set_rotation(rotation);
 
 		Lynton::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 1 });
         Lynton::RenderCommand::clear();
@@ -174,7 +170,24 @@ public:
 
 	void on_imgui_render() override
 	{
-		
+		ImGui::Begin("Settings");
+		ImGui::Text("Application average %.1f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+        Lynton::Application& app = Lynton::Application::get();
+
+		ImGui::Text("Window Parameters");
+		const std::string window_size = "width: " + std::to_string(app.get_window().get_width()) +
+			" height:  " + std::to_string(app.get_window().get_height());
+		ImGui::Text(window_size.c_str());
+
+		bool vsync = app.get_window().is_vsync();
+		ImGui::Checkbox("VSync", &vsync);
+		app.get_window().set_vsync(vsync);
+
+		ImGui::Text("Camera");
+		ImGui::SliderFloat("Movement Speed", &m_camera_move_speed, 0.0f, 0.2f);
+		ImGui::SliderFloat("Turning Speed", &m_camera_turn_speed, 0.0f, 5.0f);
+		ImGui::End();
 	}
 
 	void on_event(Lynton::Event& event) override
