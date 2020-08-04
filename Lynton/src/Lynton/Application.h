@@ -12,6 +12,8 @@
 #include "Lynton/Renderer/Buffer.h"
 #include "Lynton/Renderer/VertexArray.h"
 
+#include "Lynton/Renderer/OrthographicCamera.h"
+
 namespace Lynton
 {
 
@@ -29,8 +31,9 @@ namespace Lynton
 		std::shared_ptr<Shader> m_shader2;
 		std::shared_ptr<VertexArray> m_square_vao;
 
-
 		static Application* s_instance;
+
+		OrthographicCamera m_camera;
 	public:
 		Application();
 		virtual ~Application();

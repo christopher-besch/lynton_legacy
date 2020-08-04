@@ -76,6 +76,7 @@
     <ClInclude Include="src\Lynton\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Lynton\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Lynton\Renderer\OrthographicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
@@ -113,5 +114,6 @@
     <ClCompile Include="src\Lynton\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Lynton\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>

@@ -17,6 +17,7 @@ namespace Lynton
 	Application* Application::s_instance = nullptr;
 
 	Application::Application()
+	    : m_camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		LY_CORE_ASSERT(!s_instance, "Application already exists!")
 		s_instance = this;
@@ -89,6 +90,8 @@ namespace Lynton
 		    layout(location = 0) in vec3 a_position;
 		    layout(location = 1) in vec4 a_color;
 
+		    uniform mat4 u_view_projection;
+
 		    out vec3 v_position;
 		    out vec4 v_color;
 
@@ -96,7 +99,7 @@ namespace Lynton
 		    {
 		        v_position = a_position;
                 v_color = a_color;
-		        gl_Position = vec4(a_position, 1.0);
+		        gl_Position = u_view_projection * vec4(a_position, 1.0);
 		    }
 
 	    )";
@@ -123,12 +126,15 @@ namespace Lynton
 
 		    layout(location = 0) in vec3 a_position;
 
+	        uniform mat4 u_view_projection;
+
 		    out vec3 v_position;
+
 
 		    void main()
 		    {
 		        v_position = a_position;
-		        gl_Position = vec4(a_position, 1.0);
+		        gl_Position = u_view_projection * vec4(a_position, 1.0);
 		    }
 
 	    )";
@@ -172,14 +178,14 @@ namespace Lynton
 			RenderCommand::set_clear_color({0.1f, 0.1f, 0.1f, 1});
 			RenderCommand::clear();
 
-			Renderer::begin_scene();
-			{
-			    m_shader2->bind();
-		        Renderer::submit(m_square_vao);
+			m_camera.set_position({ 0.5f, 0.5f, 0.0f });
+			m_camera.set_z_rotation(45.0f);
 
-			    m_shader->bind();
-			    Renderer::submit(m_vertex_array);    
-			}
+			Renderer::begin_scene(m_camera);
+			
+			Renderer::submit(m_shader2, m_square_vao);
+			Renderer::submit(m_shader, m_vertex_array);
+			
 		    Renderer::end_scene();
 
 			for (Layer* layer : m_layer_stack)
