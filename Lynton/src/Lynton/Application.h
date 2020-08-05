@@ -7,6 +7,7 @@
 #include "Window.h"
 
 #include "Lynton/ImGui/ImGuiLayer.h"
+#include "Lynton/Core/TimeStep.h"
 
 namespace Lynton
 {
@@ -14,12 +15,14 @@ namespace Lynton
 	class  Application
 	{
 	private:
+		static Application* s_instance;
+
 		std::unique_ptr<Window> m_window;
 		ImGuiLayer* m_imgui_layer;
 		bool m_running = true;
 		LayerStack m_layer_stack;
 
-		static Application* s_instance;
+		float m_last_frame_time;
 	public:
 		Application();
 		virtual ~Application();

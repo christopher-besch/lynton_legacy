@@ -9,6 +9,7 @@
 #include "Lynton/Renderer/Renderer.h"
 
 #include "Input.h"
+#include "GLFW/glfw3.h"
 
 namespace Lynton
 {
@@ -50,8 +51,13 @@ namespace Lynton
 	{
 		while (m_running)
 		{
+			// ToDo: temporary
+			float time = (float)glfwGetTime();
+			TimeStep time_step = time - m_last_frame_time;
+			m_last_frame_time = time;
+
 			for (Layer* layer : m_layer_stack)
-				layer->on_update();
+				layer->on_update(time_step);
 
 			m_imgui_layer->begin();
 			for (Layer* layer : m_layer_stack)

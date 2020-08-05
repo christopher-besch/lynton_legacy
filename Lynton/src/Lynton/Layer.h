@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core/TimeStep.h"
 #include "Lynton/Core.h"
 #include "Lynton/Events/Event.h"
 
@@ -16,7 +17,7 @@ namespace Lynton
 
 		virtual void on_attach() {}
 		virtual void on_detach() {}
-		virtual void on_update() {}
+		virtual void on_update(TimeStep time_step) {}
 		virtual void on_event(Event& event) {}
 		virtual void on_imgui_render() {}
 

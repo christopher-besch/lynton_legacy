@@ -13,6 +13,8 @@
 #include "Lynton/Input.h"
 #include "Lynton/KeyCodes.h"
 
+#include "Lynton/Core/TimeStep.h"
+
 // renderer
 #include "Lynton/Renderer/Renderer.h"
 #include "Lynton/Renderer/RenderCommand.h"

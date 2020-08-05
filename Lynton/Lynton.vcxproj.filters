@@ -77,6 +77,7 @@
     <ClInclude Include="src\Lynton\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Lynton\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Lynton\Core\TimeStep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Application.cpp">
