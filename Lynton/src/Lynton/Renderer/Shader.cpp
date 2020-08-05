@@ -123,6 +123,13 @@ namespace Lynton
     {
 		glUseProgram(0);
     }
+
+	void Shader::upload_uniform_vec4(const std::string& name, const glm::vec4& vector)
+	{
+		int location = glGetUniformLocation(m_renderer_id, name.c_str());
+		glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
+	}
+
 	void Shader::upload_uniform_mat4(const std::string& name, const glm::mat4& matrix)
 	{
 		int location = glGetUniformLocation(m_renderer_id, name.c_str());

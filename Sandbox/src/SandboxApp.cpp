@@ -34,6 +34,8 @@ private:
 	// in scale units/second
 	float m_scale_speed = 0.1f;
 
+	std::shared_ptr<Lynton::Shader> m_flat_color_shader;
+
 public:
 	ExampleLayer()
 		: Layer("Example"), m_camera(-1.6f, 1.6f, -0.9f, 0.9f)
@@ -73,7 +75,7 @@ public:
 		m_triangle_vao->set_index_buffer(index_buffer);
 
 		// shader
-		std::string triangle_vertex_src = R"(
+		const std::string triangle_vertex_src = R"(
             #version 330 core
 
 		    layout(location = 0) in vec3 a_position;
@@ -93,7 +95,7 @@ public:
 		    }
 
 	    )";
-		std::string triangle_fragment_src = R"(
+		const std::string triangle_fragment_src = R"(
             #version 330 core
 
 		    layout(location = 0) out vec4 color;
@@ -139,7 +141,7 @@ public:
 		square_ib.reset(Lynton::IndexBuffer::create(sizeof(square_indices) / sizeof(uint32_t), square_indices));
 		m_square_vao->set_index_buffer(square_ib);
 
-		std::string square_vertex_src = R"(
+		const std::string square_vertex_src = R"(
             #version 330 core
 
 		    layout(location = 0) in vec3 a_position;
@@ -156,13 +158,12 @@ public:
 		    }
 
 	    )";
-		std::string square_fragment_src = R"(
+		const std::string square_fragment_src = R"(
             #version 330 core
 
 		    layout(location = 0) out vec4 color;
 
 		    in vec3 v_position;
-		    in vec4 v_color;
 
 		    void main()
 		    {
@@ -171,6 +172,40 @@ public:
 
 	    )";
 		m_square_shader.reset(new Lynton::Shader(square_vertex_src, square_fragment_src));
+
+		const std::string flat_color_vertex_src = R"(
+            #version 330 core
+
+		    layout(location = 0) in vec3 a_position;
+
+	        uniform mat4 u_view_projection;
+		    uniform mat4 u_transform;
+
+		    out vec3 v_position;
+
+		    void main()
+		    {
+		        v_position = a_position;
+		        gl_Position = u_view_projection * u_transform * vec4(a_position, 1.0);
+		    }
+
+	    )";
+		const std::string flat_color_fragment_src = R"(
+            #version 330 core
+
+		    layout(location = 0) out vec4 color;
+
+		    uniform vec4 u_color;
+
+		    in vec3 v_position;
+
+		    void main()
+		    {
+		        color = u_color;
+		    }
+
+	    )";
+		m_flat_color_shader.reset(new Lynton::Shader(flat_color_vertex_src, flat_color_fragment_src));
 	}
 
 	void on_update(Lynton::TimeStep time_step) override
@@ -220,6 +255,24 @@ public:
 
         Lynton::Renderer::submit(m_square_shader, m_square_vao, square_transform);
         Lynton::Renderer::submit(m_triangle_shader, m_triangle_vao, triangle_transform);
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));
+
+	    constexpr glm::vec4 red_color = { 0.8f, 0.2f, 0.3f, 1.0f };
+		constexpr glm::vec4 blue_color = { 0.2f, 0.3f, 0.8f, 1.0f };
+		for (int y = 0; y < 20; y++)
+		{
+		    for (int x = 0; x < 20; x++)
+		    {
+				glm::vec3 pos(x * 0.06f, y * 0.06f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				if (bool(y % 2) != bool(x % 2))
+					m_flat_color_shader->upload_uniform_vec4("u_color", red_color);
+				else
+					m_flat_color_shader->upload_uniform_vec4("u_color", blue_color);
+				Lynton::Renderer::submit(m_flat_color_shader, m_square_vao, transform);
+		    }
+		}
 
         Lynton::Renderer::end_scene();
 	}
