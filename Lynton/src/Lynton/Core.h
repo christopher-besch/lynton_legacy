@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef LY_PLATFORM_WINDOWS
 	
 #else
@@ -21,3 +23,14 @@
 #define BIT(x) (1 << x)
 
 #define LY_BIND_EVENT_FUNCTION(function) std::bind(&function, this, std::placeholders::_1)
+
+namespace Lynton
+{
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+}

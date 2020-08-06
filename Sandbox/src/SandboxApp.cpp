@@ -10,14 +10,14 @@
 class ExampleLayer : public Lynton::Layer
 {
 private:
-	std::shared_ptr<Lynton::Shader> m_triangle_shader;
-	std::shared_ptr<Lynton::VertexArray> m_triangle_vao;
+	Lynton::Ref<Lynton::Shader> m_triangle_shader;
+	Lynton::Ref<Lynton::VertexArray> m_triangle_vao;
 	glm::vec3 m_triangle_position = { 0.0f, 0.0f, 0.0f };
 	float m_triangle_rotation = 0.0f;
 	float m_triangle_scale = 1.0f;
 
-	std::shared_ptr<Lynton::Shader> m_square_shader;
-	std::shared_ptr<Lynton::VertexArray> m_square_vao;
+	Lynton::Ref<Lynton::Shader> m_square_shader;
+	Lynton::Ref<Lynton::VertexArray> m_square_vao;
 	glm::vec3 m_square_position = { 0.0f, 0.0f, 0.0f };
 	float m_square_rotation = 0.0f;
 	float m_square_scale = 1.0f;
@@ -37,7 +37,7 @@ private:
 	// in scale units/second
 	float m_scale_speed = 0.1f;
 
-	std::shared_ptr<Lynton::Shader> m_flat_color_shader;
+	Lynton::Ref<Lynton::Shader> m_flat_color_shader;
 	glm::vec3 m_square_color = { 0.2f, 0.3f, 0.8f };
 
 public:
@@ -60,7 +60,7 @@ public:
 			 0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 0.6f, 0.1f,
 			 0.0f,  0.5f, 0.0f, 1.0f, 0.1f, 0.0f, 0.9f
 		};
-		std::shared_ptr<Lynton::VertexBuffer> vertex_buffer;
+		Lynton::Ref<Lynton::VertexBuffer> vertex_buffer;
 		vertex_buffer.reset(Lynton::VertexBuffer::create(sizeof(triangle_vertices), triangle_vertices));
 		// vertex buffer layout
         Lynton::BufferLayout layout = {
@@ -74,7 +74,7 @@ public:
 		uint32_t triangle_indices[1 * 3] = {
 			0, 1, 2
 		};
-		std::shared_ptr<Lynton::IndexBuffer> index_buffer;
+		Lynton::Ref<Lynton::IndexBuffer> index_buffer;
 		index_buffer.reset(Lynton::IndexBuffer::create(sizeof(triangle_indices) / sizeof(uint32_t), triangle_indices));
 		m_triangle_vao->set_index_buffer(index_buffer);
 
@@ -129,7 +129,7 @@ public:
 			 0.5f,  0.5f, 0.0f,
 			-0.5f,  0.5f, 0.0f
 		};
-		std::shared_ptr<Lynton::VertexBuffer> square_vb;
+		Lynton::Ref<Lynton::VertexBuffer> square_vb;
 		square_vb.reset(Lynton::VertexBuffer::create(sizeof(square_vertices), square_vertices));
 
 		square_vb->set_layout({
@@ -141,7 +141,7 @@ public:
 			0, 1, 2,
 			2, 3, 0
 		};
-		std::shared_ptr<Lynton::IndexBuffer> square_ib;
+		Lynton::Ref<Lynton::IndexBuffer> square_ib;
 		square_ib.reset(Lynton::IndexBuffer::create(sizeof(square_indices) / sizeof(uint32_t), square_indices));
 		m_square_vao->set_index_buffer(square_ib);
 

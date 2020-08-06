@@ -38,8 +38,8 @@ namespace Lynton
 #define LY_CORE_FATAL(...) ::Lynton::Log::get_core_logger()->fatal(__VA_ARGS__)
 
 // client log macros
-#define LY_TRACE(...)      ::Lynton::Log::get_client_logger()->trace(__VA_ARGS__)
-#define LY_INFO(...)       ::Lynton::Log::get_client_logger()->info(__VA_ARGS__)
-#define LY_WARN(...)       ::Lynton::Log::get_client_logger()->warn(__VA_ARGS__)
-#define LY_ERROR(...)      ::Lynton::Log::get_client_logger()->error(__VA_ARGS__)
-#define LY_FATAL(...)      ::Lynton::Log::get_client_logger()->fatal(__VA_ARGS__)
+#define LY_TRACE(...) ::Lynton::Log::get_client_logger()->trace(__VA_ARGS__)
+#define LY_INFO(...)  ::Lynton::Log::get_client_logger()->info(__VA_ARGS__)
+#define LY_WARN(...)  ::Lynton::Log::get_client_logger()->warn(__VA_ARGS__)
+#define LY_ERROR(...) ::Lynton::Log::get_client_logger()->error(__VA_ARGS__)
+#define LY_FATAL(...) ::Lynton::Log::get_client_logger()->fatal(__VA_ARGS__)

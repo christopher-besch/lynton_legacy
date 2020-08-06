@@ -49,7 +49,7 @@ namespace Lynton
         glBindVertexArray(0);
     }
 
-    void OpenGLVertexArray::add_vertex_buffer(const std::shared_ptr<VertexBuffer>& vertex_buffer)
+    void OpenGLVertexArray::add_vertex_buffer(const Ref<VertexBuffer>& vertex_buffer)
     {
         glBindVertexArray(m_renderer_id);
         vertex_buffer->bind();
@@ -73,7 +73,7 @@ namespace Lynton
         m_vertex_buffer.push_back(vertex_buffer);
     }
 
-    void OpenGLVertexArray::set_index_buffer(const std::shared_ptr<IndexBuffer>& index_buffer)
+    void OpenGLVertexArray::set_index_buffer(const Ref<IndexBuffer>& index_buffer)
     {
         glBindVertexArray(m_renderer_id);
         index_buffer->bind();
