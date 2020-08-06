@@ -3,6 +3,9 @@
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "Platform/OpenGL/OpenGLShader.h"
 
 class ExampleLayer : public Lynton::Layer
 {
@@ -35,6 +38,7 @@ private:
 	float m_scale_speed = 0.1f;
 
 	std::shared_ptr<Lynton::Shader> m_flat_color_shader;
+	glm::vec3 m_square_color = { 0.2f, 0.3f, 0.8f };
 
 public:
 	ExampleLayer()
@@ -110,7 +114,7 @@ public:
 		    }
 
 	    )";
-		m_triangle_shader.reset(new Lynton::Shader(triangle_vertex_src, triangle_fragment_src));
+		m_triangle_shader.reset(Lynton::Shader::create(triangle_vertex_src, triangle_fragment_src));
 
 		////////////
 		// square //
@@ -171,7 +175,7 @@ public:
 		    }
 
 	    )";
-		m_square_shader.reset(new Lynton::Shader(square_vertex_src, square_fragment_src));
+		m_square_shader.reset(Lynton::Shader::create(square_vertex_src, square_fragment_src));
 
 		const std::string flat_color_vertex_src = R"(
             #version 330 core
@@ -195,17 +199,17 @@ public:
 
 		    layout(location = 0) out vec4 color;
 
-		    uniform vec4 u_color;
+		    uniform vec3 u_color;
 
 		    in vec3 v_position;
 
 		    void main()
 		    {
-		        color = u_color;
+		        color = vec4(u_color, 1.0f);
 		    }
 
 	    )";
-		m_flat_color_shader.reset(new Lynton::Shader(flat_color_vertex_src, flat_color_fragment_src));
+		m_flat_color_shader.reset(Lynton::Shader::create(flat_color_vertex_src, flat_color_fragment_src));
 	}
 
 	void on_update(Lynton::TimeStep time_step) override
@@ -258,18 +262,15 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));
 
-	    constexpr glm::vec4 red_color = { 0.8f, 0.2f, 0.3f, 1.0f };
-		constexpr glm::vec4 blue_color = { 0.2f, 0.3f, 0.8f, 1.0f };
-		for (int y = 0; y < 20; y++)
+		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->bind();
+		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->upload_uniform_vec3("u_color", m_square_color);
+
+	    for (int y = 0; y < 20; y++)
 		{
 		    for (int x = 0; x < 20; x++)
 		    {
 				glm::vec3 pos(x * 0.06f, y * 0.06f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				if (bool(y % 2) != bool(x % 2))
-					m_flat_color_shader->upload_uniform_vec4("u_color", red_color);
-				else
-					m_flat_color_shader->upload_uniform_vec4("u_color", blue_color);
 				Lynton::Renderer::submit(m_flat_color_shader, m_square_vao, transform);
 		    }
 		}
@@ -320,6 +321,8 @@ public:
 			m_square_rotation = 0.0f;
 			m_square_scale = 1.0f;
 		}
+
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_square_color));
 
 		ImGui::End();
 	}

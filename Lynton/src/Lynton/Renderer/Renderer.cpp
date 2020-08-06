@@ -1,6 +1,8 @@
 #include "lypch.h"
 #include "Renderer.h"
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 namespace Lynton
 {
     Renderer::SceneData* Renderer::s_scene_data = new Renderer::SceneData;
@@ -17,8 +19,8 @@ namespace Lynton
     void Renderer::submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertex_array, const glm::mat4& transform)
     {
         shader->bind();
-        shader->upload_uniform_mat4("u_view_projection", s_scene_data->view_projection_matrix);
-        shader->upload_uniform_mat4("u_transform", transform);
+        std::dynamic_pointer_cast<OpenGLShader>(shader)->upload_uniform_mat4("u_view_projection", s_scene_data->view_projection_matrix);
+        std::dynamic_pointer_cast<OpenGLShader>(shader)->upload_uniform_mat4("u_transform", transform);
 
         vertex_array->bind();
         RenderCommand::draw_indexed(vertex_array);

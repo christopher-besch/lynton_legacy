@@ -7,20 +7,16 @@
 namespace Lynton
 {
 
-	// handle shaders
+	// interface for handling shader
 	class Shader
 	{
-	private:
-		uint32_t m_renderer_id;
 	public:
-		Shader(const std::string& vertex_src, const std::string& fragment_src);
-		~Shader();
+		virtual ~Shader() = default;
 
-		void bind() const;
-		void unbind() const;
+		virtual void bind() const = 0;
+		virtual void unbind() const = 0;
 
-		void upload_uniform_vec4(const std::string& name, const glm::vec4& vector);
-		void upload_uniform_mat4(const std::string& name, const glm::mat4& matrix);
+		static Shader* create(const std::string& vertex_src, const std::string& fragment_src);
 	};
 
 }
