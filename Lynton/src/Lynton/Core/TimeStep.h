@@ -3,6 +3,7 @@
 namespace Lynton
 {
 
+	// time between frames
 	class TimeStep
 	{
 	private:

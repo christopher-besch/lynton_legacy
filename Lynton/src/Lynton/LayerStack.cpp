@@ -37,7 +37,7 @@ namespace Lynton
         }
     }
 
-    void LayerStack::pop_over_layer(Layer* overlay)
+    void LayerStack::pop_overlay(Layer* overlay)
     {
         auto iterator = std::find(m_layers.begin(), m_layers.end(), overlay);
         if (iterator != m_layers.end())

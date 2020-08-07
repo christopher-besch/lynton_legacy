@@ -19,7 +19,7 @@ namespace Lynton
 
 
 	// platform independent abstraction (interface) of a desktop system based window
-	class  Window
+	class Window
 	{
 	public:
 		// function pointer of a void returning, Event& taking function

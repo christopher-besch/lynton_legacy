@@ -23,6 +23,8 @@
 #include "Lynton/Renderer/OrthographicCamera.h"
 #include "Lynton/Renderer/Shader.h"
 
+#include "Lynton/Renderer/Texture.h"
+
 /////////////////
 // entry point //
 /////////////////

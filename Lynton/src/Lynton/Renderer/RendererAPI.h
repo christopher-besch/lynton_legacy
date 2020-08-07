@@ -8,6 +8,7 @@ namespace Lynton
 {
 
 	// interface for abstracting simple graphics rendering calls
+	// singleton
 	class RendererAPI
 	{
 	public:

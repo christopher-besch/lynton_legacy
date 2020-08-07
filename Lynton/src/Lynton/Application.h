@@ -12,6 +12,7 @@
 namespace Lynton
 {
 
+	// singleton
 	class  Application
 	{
 	private:

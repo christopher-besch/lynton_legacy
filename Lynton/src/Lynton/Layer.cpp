@@ -9,7 +9,6 @@ namespace Lynton
 
 	Layer::~Layer()
 	{
-	    
 	}
 
 }

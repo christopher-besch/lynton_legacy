@@ -37,7 +37,7 @@ namespace Lynton
 
 			LY_CORE_ERROR("{0}", infoLog.data());
 			LY_CORE_ASSERT(false, "Vertex shader compilation failure!")
-				return;
+			return;
 		}
 
 		// create an empty fragment shader handle
@@ -68,7 +68,7 @@ namespace Lynton
 
 			LY_CORE_ERROR("{0}", infoLog.data());
 			LY_CORE_ASSERT(false, "Fragment shader compilation failure!")
-				return;
+			return;
 		}
 
 		// vertex and fragment shaders are successfully compiled.
@@ -103,7 +103,7 @@ namespace Lynton
 
 			LY_CORE_ERROR("{0}", infoLog.data());
 			LY_CORE_ASSERT(false, "Shader link failure!")
-				return;
+			return;
 		}
 
 		// always detach shaders after a successful link.

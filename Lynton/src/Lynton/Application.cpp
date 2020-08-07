@@ -14,7 +14,6 @@
 namespace Lynton
 {
 
-	// make Application a singleton
 	Application* Application::s_instance = nullptr;
 
 	Application::Application()

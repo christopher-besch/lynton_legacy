@@ -17,6 +17,7 @@ include_dir["GLFW"] = "Lynton/vendor/GLFW/include"
 include_dir["Glad"] = "Lynton/vendor/Glad/include"
 include_dir["ImGui"] = "Lynton/vendor/imgui"
 include_dir["glm"] = "Lynton/vendor/glm"
+include_dir["stb_image"] = "Lynton/vendor/stb_image"
 
 include "Lynton/vendor/GLFW"
 include "Lynton/vendor/Glad"
@@ -38,7 +39,11 @@ project "Lynton"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 	
 	defines
@@ -53,7 +58,8 @@ project "Lynton"
 		"%{include_dir.GLFW}",
 		"%{include_dir.Glad}",
 		"%{include_dir.ImGui}",
-		"%{include_dir.glm}"
+		"%{include_dir.glm}",
+		"%{include_dir.stb_image}"
 	}
 	
 	links

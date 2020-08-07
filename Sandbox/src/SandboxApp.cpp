@@ -38,7 +38,11 @@ private:
 	float m_scale_speed = 0.1f;
 
 	Lynton::Ref<Lynton::Shader> m_flat_color_shader;
+	Lynton::Ref<Lynton::Shader> m_texture_shader;
+
 	glm::vec3 m_square_color = { 0.2f, 0.3f, 0.8f };
+
+	Lynton::Ref<Lynton::Texture2D> m_texture;
 
 public:
 	ExampleLayer()
@@ -123,17 +127,18 @@ public:
 		// ToDo: temporary
 		m_square_vao.reset(Lynton::VertexArray::create());
 
-		float square_vertices[4 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float square_vertices[4 * ( 3 + 2 )] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 		Lynton::Ref<Lynton::VertexBuffer> square_vb;
 		square_vb.reset(Lynton::VertexBuffer::create(sizeof(square_vertices), square_vertices));
 
 		square_vb->set_layout({
-			{Lynton::ShaderDataType::float3, "a_position" }
+			{Lynton::ShaderDataType::float3, "a_position" },
+			{Lynton::ShaderDataType::float2, "a_tex_coord" }
 			});
 		m_square_vao->add_vertex_buffer(square_vb);
 
@@ -210,6 +215,47 @@ public:
 
 	    )";
 		m_flat_color_shader.reset(Lynton::Shader::create(flat_color_vertex_src, flat_color_fragment_src));
+
+		const std::string texture_vertex_src = R"(
+            #version 330 core
+
+		    layout(location = 0) in vec3 a_position;
+		    layout(location = 1) in vec2 a_tex_coord;
+
+	        uniform mat4 u_view_projection;
+		    uniform mat4 u_transform;
+
+		    out vec2 v_tex_coord;
+
+		    void main()
+		    {
+		        v_tex_coord = a_tex_coord;
+		        gl_Position = u_view_projection * u_transform * vec4(a_position, 1.0);
+		    }
+
+	    )";
+		const std::string texture_fragment_src = R"(
+            #version 330 core
+
+		    layout(location = 0) out vec4 color;
+
+		    in vec2 v_tex_coord;
+
+		    // texture slot
+		    uniform sampler2D u_texture;
+
+		    void main()
+		    {
+		        color = texture(u_texture, v_tex_coord);
+		    }
+
+	    )";
+		m_texture_shader.reset(Lynton::Shader::create(texture_vertex_src, texture_fragment_src));
+
+		m_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_texture_shader)->bind();
+		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_texture_shader)->upload_uniform_int("u_texture", 0);
 	}
 
 	void on_update(Lynton::TimeStep time_step) override
@@ -257,7 +303,8 @@ public:
         Lynton::Renderer::begin_scene(m_camera);
 
 
-        Lynton::Renderer::submit(m_square_shader, m_square_vao, square_transform);
+		m_texture->bind();
+	    Lynton::Renderer::submit(m_texture_shader, m_square_vao, square_transform);
         Lynton::Renderer::submit(m_triangle_shader, m_triangle_vao, triangle_transform);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));

@@ -29,6 +29,7 @@ namespace Lynton
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
+
     // IndexBuffer
     OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t count, uint32_t* indices)
         : m_count(count)
@@ -43,7 +44,6 @@ namespace Lynton
     {
         glDeleteBuffers(1, &m_renderer_id);
     }
-
 
     void OpenGLIndexBuffer::bind() const
     {

@@ -8,6 +8,7 @@
 namespace Lynton
 {
 
+	// engine defined ImGui overlay
 	class  ImGuiLayer : public Layer
 	{
 	private:

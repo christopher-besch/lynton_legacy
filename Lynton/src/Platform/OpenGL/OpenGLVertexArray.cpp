@@ -37,8 +37,6 @@ namespace Lynton
         glDeleteVertexArrays(1, &m_renderer_id);
     }
 
-
-
     void OpenGLVertexArray::bind() const
     {
         glBindVertexArray(m_renderer_id);
