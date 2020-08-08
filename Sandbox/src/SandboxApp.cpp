@@ -250,7 +250,7 @@ public:
 		    }
 
 	    )";
-		m_texture_shader.reset(Lynton::Shader::create(texture_vertex_src, texture_fragment_src));
+		m_texture_shader.reset(Lynton::Shader::create("assets/shaders/Texture.glsl"));
 		m_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
 
 		m_cherno_logo_texture = Lynton::Texture2D::create("assets/textures/ChernoLogo.png");

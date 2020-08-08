@@ -6,6 +6,9 @@
 
 #include "Lynton/Renderer/Shader.h"
 
+// ToDo: remove
+typedef unsigned int GLenum;
+
 namespace Lynton
 {
 
@@ -13,7 +16,12 @@ namespace Lynton
 	{
 	private:
 		uint32_t m_renderer_id;
+	private:
+		void compile(const std::unordered_map<GLenum, std::string>& shader_sources);
+		std::string read_file(const std::string& filepath);
+		std::unordered_map<GLenum, std::string> pre_process(const std::string& source);
 	public:
+		OpenGLShader(const std::string& filepath);
 		OpenGLShader(const std::string& vertex_src, const std::string& fragment_src);
 		virtual ~OpenGLShader();
 

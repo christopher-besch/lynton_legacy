@@ -32,17 +32,6 @@ namespace Lynton
 			LY_CORE_ASSERT(false, "The Texture loader doesn't support images with {0} channels!", channels);
 		}
 		
-		LY_CORE_TRACE("GL_RGB8");
-		LY_CORE_TRACE(GL_RGB8);
-		LY_CORE_TRACE("GL_RGBA");
-		LY_CORE_TRACE(GL_RGBA);
-		LY_CORE_TRACE("GL_RGB");
-		LY_CORE_TRACE(GL_RGB);
-
-		LY_CORE_TRACE(channels);
-		LY_CORE_TRACE(internal_format);
-		LY_CORE_TRACE(data_format);
-
 		LY_CORE_ASSERT(internal_format & data_format, "Format not supported!");
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_renderer_id);
