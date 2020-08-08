@@ -21,6 +21,8 @@ namespace Lynton
 
 		static SceneData* s_scene_data;
 	public:
+		static void init();
+
 		static void begin_scene(OrthographicCamera& camera);
 
 		static void end_scene();

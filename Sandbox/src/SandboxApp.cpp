@@ -42,7 +42,7 @@ private:
 
 	glm::vec3 m_square_color = { 0.2f, 0.3f, 0.8f };
 
-	Lynton::Ref<Lynton::Texture2D> m_texture;
+	Lynton::Ref<Lynton::Texture2D> m_texture, m_cherno_logo_texture;
 
 public:
 	ExampleLayer()
@@ -251,8 +251,9 @@ public:
 
 	    )";
 		m_texture_shader.reset(Lynton::Shader::create(texture_vertex_src, texture_fragment_src));
-
 		m_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
+
+		m_cherno_logo_texture = Lynton::Texture2D::create("assets/textures/ChernoLogo.png");
 
 		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_texture_shader)->bind();
 		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_texture_shader)->upload_uniform_int("u_texture", 0);
@@ -305,6 +306,8 @@ public:
 
 		m_texture->bind();
 	    Lynton::Renderer::submit(m_texture_shader, m_square_vao, square_transform);
+		m_cherno_logo_texture->bind();
+		Lynton::Renderer::submit(m_texture_shader, m_square_vao, square_transform);
         Lynton::Renderer::submit(m_triangle_shader, m_triangle_vao, triangle_transform);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));
