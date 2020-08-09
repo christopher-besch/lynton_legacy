@@ -16,17 +16,20 @@ namespace Lynton
 	{
 	private:
 		uint32_t m_renderer_id;
+		std::string m_name;
 	private:
 		void compile(const std::unordered_map<GLenum, std::string>& shader_sources);
 		std::string read_file(const std::string& filepath);
 		std::unordered_map<GLenum, std::string> pre_process(const std::string& source);
 	public:
 		OpenGLShader(const std::string& filepath);
-		OpenGLShader(const std::string& vertex_src, const std::string& fragment_src);
+		OpenGLShader(const std::string& name, const std::string& vertex_src, const std::string& fragment_src);
 		virtual ~OpenGLShader();
 
-		void bind() const override;
-		void unbind() const override;
+		virtual void bind() const override;
+		virtual void unbind() const override;
+
+		inline virtual const std::string& get_name() const override { return m_name; }
 
 		void upload_uniform_int(const std::string& name, const int value);
 		void upload_uniform_float(const std::string& name, const float value);

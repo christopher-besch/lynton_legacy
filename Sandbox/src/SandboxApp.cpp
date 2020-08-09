@@ -10,6 +10,8 @@
 class ExampleLayer : public Lynton::Layer
 {
 private:
+	Lynton::ShaderLibrary m_shader_library;
+
 	Lynton::Ref<Lynton::Shader> m_triangle_shader;
 	Lynton::Ref<Lynton::VertexArray> m_triangle_vao;
 	glm::vec3 m_triangle_position = { 0.0f, 0.0f, 0.0f };
@@ -38,7 +40,6 @@ private:
 	float m_scale_speed = 0.1f;
 
 	Lynton::Ref<Lynton::Shader> m_flat_color_shader;
-	Lynton::Ref<Lynton::Shader> m_texture_shader;
 
 	glm::vec3 m_square_color = { 0.2f, 0.3f, 0.8f };
 
@@ -118,7 +119,7 @@ public:
 		    }
 
 	    )";
-		m_triangle_shader.reset(Lynton::Shader::create(triangle_vertex_src, triangle_fragment_src));
+		m_triangle_shader = Lynton::Shader::create("Triangle", triangle_vertex_src, triangle_fragment_src);
 
 		////////////
 		// square //
@@ -180,7 +181,7 @@ public:
 		    }
 
 	    )";
-		m_square_shader.reset(Lynton::Shader::create(square_vertex_src, square_fragment_src));
+		m_square_shader = Lynton::Shader::create("Square", square_vertex_src, square_fragment_src);
 
 		const std::string flat_color_vertex_src = R"(
             #version 330 core
@@ -214,7 +215,7 @@ public:
 		    }
 
 	    )";
-		m_flat_color_shader.reset(Lynton::Shader::create(flat_color_vertex_src, flat_color_fragment_src));
+		m_flat_color_shader = Lynton::Shader::create("FlatColor", flat_color_vertex_src, flat_color_fragment_src);
 
 		const std::string texture_vertex_src = R"(
             #version 330 core
@@ -250,13 +251,13 @@ public:
 		    }
 
 	    )";
-		m_texture_shader.reset(Lynton::Shader::create("assets/shaders/Texture.glsl"));
+		auto texture_shader = m_shader_library.load("assets/shaders/Texture.glsl");
 		m_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
 
 		m_cherno_logo_texture = Lynton::Texture2D::create("assets/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_texture_shader)->bind();
-		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_texture_shader)->upload_uniform_int("u_texture", 0);
+		std::dynamic_pointer_cast<Lynton::OpenGLShader>(texture_shader)->bind();
+		std::dynamic_pointer_cast<Lynton::OpenGLShader>(texture_shader)->upload_uniform_int("u_texture", 0);
 	}
 
 	void on_update(Lynton::TimeStep time_step) override
@@ -303,11 +304,12 @@ public:
 
         Lynton::Renderer::begin_scene(m_camera);
 
+		auto texture_shader = m_shader_library.get("Texture");
 
 		m_texture->bind();
-	    Lynton::Renderer::submit(m_texture_shader, m_square_vao, square_transform);
+	    Lynton::Renderer::submit(texture_shader, m_square_vao, square_transform);
 		m_cherno_logo_texture->bind();
-		Lynton::Renderer::submit(m_texture_shader, m_square_vao, square_transform);
+		Lynton::Renderer::submit(texture_shader, m_square_vao, square_transform);
         Lynton::Renderer::submit(m_triangle_shader, m_triangle_vao, triangle_transform);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));

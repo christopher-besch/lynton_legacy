@@ -25,9 +25,17 @@ namespace Lynton
 
 		auto shader_sources = pre_process(source);
 		compile(shader_sources);
+
+		// extract name from file path
+		auto behind_last_slash = filepath.find_last_of("/\\");
+		behind_last_slash = behind_last_slash == std::string::npos ? 0 : behind_last_slash + 1;
+		auto last_dot = filepath.rfind(".");
+		auto count = last_dot == std::string::npos ? filepath.size() - behind_last_slash : last_dot - behind_last_slash;
+		m_name = filepath.substr(behind_last_slash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertex_src, const std::string& fragment_src)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertex_src, const std::string& fragment_src)
+	    : m_name(name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertex_src;
@@ -38,7 +46,9 @@ namespace Lynton
 	void OpenGLShader::compile(const std::unordered_map<GLenum, std::string>& shader_sources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> gl_shader_ids(shader_sources.size());
+		LY_CORE_ASSERT(shader_sources.size() <= 16, "Only up to 16 shaders are supported!")
+		std::array<GLenum, 8> gl_shader_ids;
+		int gl_shader_id_index = 0;
 		for (auto& kv : shader_sources)
 		{
 			GLenum type = kv.first;
@@ -67,7 +77,7 @@ namespace Lynton
 				return;
 			}
 			glAttachShader(program, shader);
-			gl_shader_ids.push_back(type);
+			gl_shader_ids[gl_shader_id_index++] = (shader);
 		}
 
         glLinkProgram(program);
@@ -99,7 +109,7 @@ namespace Lynton
 	std::string OpenGLShader::read_file(const std::string& filepath)
 	{
 		std::string result;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -123,7 +133,7 @@ namespace Lynton
 		while (pos != std::string::npos)
 		{
 			size_t eol = source.find_first_of("\r\n", pos);
-			// LY_CORE_ASSERT(eol != std::string::npos, "Syntax error while shader loading!");
+			LY_CORE_ASSERT(eol != std::string::npos, "Syntax error while shader loading!");
 			size_t begin = pos + type_token_length + 1;
 			std::string type = source.substr(begin, eol - begin);
 			LY_CORE_ASSERT(shader_type_from_string(type), "Invalid shader type specified!");
