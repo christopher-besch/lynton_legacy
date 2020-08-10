@@ -154,6 +154,7 @@
     <ClInclude Include="src\Lynton\Layer.h" />
     <ClInclude Include="src\Lynton\LayerStack.h" />
     <ClInclude Include="src\Lynton\Log.h" />
+    <ClInclude Include="src\Lynton\OrthographicCameraController.h" />
     <ClInclude Include="src\Lynton\Renderer\Buffer.h" />
     <ClInclude Include="src\Lynton\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Lynton\Renderer\OrthographicCamera.h" />
@@ -592,6 +593,7 @@
     <ClCompile Include="src\Lynton\Log.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Lynton\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Lynton\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\RendererAPI.cpp" />

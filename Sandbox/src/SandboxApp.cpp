@@ -17,21 +17,16 @@ private:
 	glm::vec3 m_triangle_position = { 0.0f, 0.0f, 0.0f };
 	float m_triangle_rotation = 0.0f;
 	float m_triangle_scale = 1.0f;
+	bool m_move_triangle = false;
 
 	Lynton::Ref<Lynton::Shader> m_square_shader;
 	Lynton::Ref<Lynton::VertexArray> m_square_vao;
 	glm::vec3 m_square_position = { 0.0f, 0.0f, 0.0f };
 	float m_square_rotation = 0.0f;
 	float m_square_scale = 1.0f;
+	bool m_move_square = false;
 
-	glm::vec3 m_camera_position = { 0.0f, 0.0f, 0.0f };
-	float m_camera_rotation = 0.0f;
-
-	bool m_move_camera = false;
-	bool m_move_triangle = true;
-	bool m_move_square = true;
-
-    Lynton::OrthographicCamera m_camera;
+    Lynton::OrthographicCameraController m_camera_controller;
 	// in (1/2 screen)/second
 	float m_move_speed = 2.0f;
 	// in degrees/second
@@ -47,10 +42,8 @@ private:
 
 public:
 	ExampleLayer()
-		: Layer("Example"), m_camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		: Layer("Example"), m_camera_controller(1280.0f / 720.0f, true)
 	{
-		m_camera_position = m_camera.get_position();
-		m_camera_rotation = m_camera.get_rotation();
 
 	    //////////////
 		// triangle //
@@ -262,12 +255,8 @@ public:
 
 	void on_update(Lynton::TimeStep time_step) override
 	{
-		m_camera_position.y += Lynton::Input::is_key_pressed(LY_KEY_W) * m_move_camera * m_move_speed * time_step;
-		m_camera_position.x -= Lynton::Input::is_key_pressed(LY_KEY_A) * m_move_camera * m_move_speed * time_step;
-		m_camera_position.y -= Lynton::Input::is_key_pressed(LY_KEY_S) * m_move_camera * m_move_speed * time_step;
-		m_camera_position.x += Lynton::Input::is_key_pressed(LY_KEY_D) * m_move_camera * m_move_speed * time_step;
-		m_camera_rotation += Lynton::Input::is_key_pressed(LY_KEY_Q)   * m_move_camera * m_turn_speed * time_step;
-		m_camera_rotation -= Lynton::Input::is_key_pressed(LY_KEY_E)   * m_move_camera * m_turn_speed * time_step;
+		// update
+		m_camera_controller.on_update(time_step);
 
 		m_triangle_position.y += Lynton::Input::is_key_pressed(LY_KEY_W)       * m_move_triangle * m_move_speed * time_step;
 		m_triangle_position.x -= Lynton::Input::is_key_pressed(LY_KEY_A)       * m_move_triangle * m_move_speed * time_step;
@@ -287,9 +276,6 @@ public:
 		m_square_scale -= Lynton::Input::is_key_pressed(LY_KEY_LEFT_SHIFT)   * m_move_square * m_scale_speed * time_step;
 		m_square_scale += Lynton::Input::is_key_pressed(LY_KEY_LEFT_CONTROL) * m_move_square * m_scale_speed * time_step;
 
-		m_camera.set_rotation(m_camera_rotation);
-		m_camera.set_position(m_camera_position);
-
 		glm::mat4 triangle_transform = glm::translate(glm::mat4(1.0f), m_triangle_position) *
 			glm::scale(glm::mat4(1.0f), glm::vec3(m_triangle_scale)) *
 			glm::rotate(glm::mat4(1.0f), glm::radians(m_triangle_rotation), glm::vec3(0, 0, 1));
@@ -299,10 +285,11 @@ public:
 			glm::scale(glm::mat4(1.0f), glm::vec3(m_square_scale)) *
 			glm::rotate(glm::mat4(1.0f), glm::radians(m_square_rotation), glm::vec3(0, 0, 1));
 
-		Lynton::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 1 });
+		// render
+	    Lynton::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 1 });
         Lynton::RenderCommand::clear();
 
-        Lynton::Renderer::begin_scene(m_camera);
+        Lynton::Renderer::begin_scene(m_camera_controller.get_camera());
 
 		auto texture_shader = m_shader_library.get("Texture");
 
@@ -348,7 +335,6 @@ public:
 		ImGui::Text("");
 
 		ImGui::Text("Movement:");
-		ImGui::Checkbox("Camera", &m_move_camera);
 		ImGui::Checkbox("Triangle", &m_move_triangle);
 		ImGui::Checkbox("Square", &m_move_square);
 		ImGui::SliderFloat("Movement Speed", &m_move_speed, 0.0f, 10.0f);
@@ -362,9 +348,6 @@ public:
 		ImGui::Checkbox("Reset Positions, Rotation and Scale", &reset );
 		if (reset)
 		{
-			m_camera_position = { 0.0f, 0.0f, 0.0f };
-			m_camera_rotation = 0.0f;
-
 			m_triangle_position = { 0.0f, 0.0f, 0.0f };
 			m_triangle_rotation = 0.0f;
 			m_triangle_scale = 1.0f;
@@ -381,7 +364,9 @@ public:
 
 	void on_event(Lynton::Event& event) override
 	{
-		Lynton::EventDispatcher dispatcher(event);
+		m_camera_controller.on_Event(event);
+
+	    Lynton::EventDispatcher dispatcher(event);
 		dispatcher.dispatch<Lynton::KeyPressedEvent>(LY_BIND_EVENT_FUNCTION(ExampleLayer::on_key_pressed_event));
 	}
 
@@ -389,9 +374,6 @@ public:
 	{
 	    switch (event.get_key_code())
 	    {
-		case LY_KEY_1:
-			m_move_camera = !m_move_camera;
-			return true;
 		case LY_KEY_2:
 			m_move_triangle = !m_move_triangle;
 			return true;

@@ -21,6 +21,7 @@
 
 #include "Lynton/Renderer/GraphicsContext.h"
 #include "Lynton/Renderer/OrthographicCamera.h"
+#include "Lynton/OrthographicCameraController.h"
 #include "Lynton/Renderer/Shader.h"
 
 #include "Lynton/Renderer/Texture.h"

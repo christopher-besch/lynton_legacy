@@ -83,12 +83,12 @@ namespace Lynton
 		EventDispatcher(Event& event)
 			: m_event(event) {}
 
-		template<typename T>
-		bool dispatch(event_function<T> func)
+		template<typename T, typename F>
+		bool dispatch(const F& func)
 		{
 			if (m_event.get_event_type() == T::get_static_type())
 			{
-				m_event.m_handled = func(*(T*)&m_event);
+				m_event.m_handled = func(static_cast<T&>(m_event));
 				return true;
 			}
 			return false;
