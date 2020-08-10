@@ -30,6 +30,9 @@ namespace Lynton
 
 		inline OrthographicCamera get_camera() { return m_camera; }
 		inline const OrthographicCamera get_camera() const { return m_camera; }
+
+		inline void set_zoom_level(float level) { m_zoom_level = level; }
+		inline float get_zoom_level() { return m_zoom_level; }
 	private:
 		bool on_mouse_scrolled(MouseScrolledEvent& event);
 		bool on_window_resized(WindowResizedEvent& event);

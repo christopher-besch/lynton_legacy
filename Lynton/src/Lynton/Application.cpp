@@ -57,8 +57,11 @@ namespace Lynton
 			TimeStep time_step = time - m_last_frame_time;
 			m_last_frame_time = time;
 
-			for (Layer* layer : m_layer_stack)
-				layer->on_update(time_step);
+			if (!m_minimized)
+			{
+		        for (Layer* layer : m_layer_stack)
+				    layer->on_update(time_step);
+			}
 
 			m_imgui_layer->begin();
 			for (Layer* layer : m_layer_stack)
@@ -74,6 +77,7 @@ namespace Lynton
 		EventDispatcher dispatcher(event);
 		// when the event is a WindowCloseEvent -> call on_window_close
 		dispatcher.dispatch<WindowCloseEvent>(LY_BIND_EVENT_FUNCTION(Application::on_window_close));
+		dispatcher.dispatch<WindowResizedEvent>(LY_BIND_EVENT_FUNCTION(Application::on_window_resize));
 
 		// ToDo: put break into loop instead of if?
 	    // sending the event through every layer until one handles it -> overlays get events first
@@ -90,5 +94,18 @@ namespace Lynton
 		m_running = false;
 		return true;
     }
+
+	bool Application::on_window_resize(WindowResizedEvent& event)
+	{
+		m_minimized = event.get_width() == 0 || event.get_height() == 0;
+	    if (m_minimized)
+		{
+			return false;
+		}
+
+		Renderer::on_window_resize(event.get_width(), event.get_height());
+
+		return true;
+	}
 
 }
