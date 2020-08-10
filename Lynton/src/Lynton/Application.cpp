@@ -98,14 +98,10 @@ namespace Lynton
 	bool Application::on_window_resize(WindowResizedEvent& event)
 	{
 		m_minimized = event.get_width() == 0 || event.get_height() == 0;
-	    if (m_minimized)
-		{
-			return false;
-		}
 
 		Renderer::on_window_resize(event.get_width(), event.get_height());
 
-		return true;
+		return false;
 	}
 
 }

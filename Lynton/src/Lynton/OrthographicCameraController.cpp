@@ -23,14 +23,13 @@ namespace Lynton
 
         if (m_rotation)
         {
-            m_camera_rotation += Input::is_key_pressed(LY_KEY_Q)  * m_camera_turn_speed * time_step;
-            m_camera_rotation -= Input::is_key_pressed(LY_KEY_E)  * m_camera_turn_speed * time_step;
+            m_camera_rotation += Input::is_key_pressed(LY_KEY_Q) * m_camera_turn_speed * time_step;
+            m_camera_rotation -= Input::is_key_pressed(LY_KEY_E) * m_camera_turn_speed * time_step;
             m_camera.set_rotation(m_camera_rotation);
         }
-
     }
 
-    void OrthographicCameraController::on_Event(Event& event)
+    void OrthographicCameraController::on_event(Event& event)
     {
         EventDispatcher dispatcher(event);
         dispatcher.dispatch<MouseScrolledEvent>(LY_BIND_EVENT_FUNCTION(OrthographicCameraController::on_mouse_scrolled));

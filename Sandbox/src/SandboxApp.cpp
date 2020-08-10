@@ -364,7 +364,7 @@ public:
 
 	void on_event(Lynton::Event& event) override
 	{
-		m_camera_controller.on_Event(event);
+        m_camera_controller.on_event(event);
 
 	    Lynton::EventDispatcher dispatcher(event);
 		dispatcher.dispatch<Lynton::KeyPressedEvent>(LY_BIND_EVENT_FUNCTION(ExampleLayer::on_key_pressed_event));

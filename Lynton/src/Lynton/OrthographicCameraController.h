@@ -26,7 +26,7 @@ namespace Lynton
 		OrthographicCameraController(float aspect_ratio, bool rotation = false);
 
 		void on_update(TimeStep time_step);
-		void on_Event(Event& event);
+		void on_event(Event& event);
 
 		inline OrthographicCamera get_camera() { return m_camera; }
 		inline const OrthographicCamera get_camera() const { return m_camera; }
