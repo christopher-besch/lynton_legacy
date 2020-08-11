@@ -4,7 +4,7 @@
 #include "Lynton/Events/ApplicationEvent.h"
 #include "Lynton/Events/MouseEvent.h"
 #include "Lynton/Events/KeyEvent.h"
-#include "Lynton/Core.h"
+#include "Lynton/Core/Core.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 

@@ -1,8 +1,8 @@
 #include "lypch.h"
 #include "OrthographicCameraController.h"
 
-#include "Lynton/Input.h"
-#include "Lynton/KeyCodes.h"
+#include "Lynton/Core/Input.h"
+#include "Lynton/Core/KeyCodes.h"
 
 namespace Lynton
 {

@@ -4,14 +4,14 @@
 
 #include "lypch.h"
 
-#include "Lynton/Layer.h"
+#include "Lynton/Core/Layer.h"
 #include "Lynton/ImGui/ImGuiLayer.h"
 
-#include "Lynton/Application.h"
-#include "Lynton/Log.h"
+#include "Lynton/Core/Application.h"
+#include "Lynton/Core/Log.h"
 
-#include "Lynton/Input.h"
-#include "Lynton/KeyCodes.h"
+#include "Lynton/Core/Input.h"
+#include "Lynton/Core/KeyCodes.h"
 
 #include "Lynton/Core/TimeStep.h"
 
@@ -21,7 +21,7 @@
 
 #include "Lynton/Renderer/GraphicsContext.h"
 #include "Lynton/Renderer/OrthographicCamera.h"
-#include "Lynton/OrthographicCameraController.h"
+#include "Lynton/Renderer/OrthographicCameraController.h"
 #include "Lynton/Renderer/Shader.h"
 
 #include "Lynton/Renderer/Texture.h"

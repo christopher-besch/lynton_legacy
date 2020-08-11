@@ -4,7 +4,7 @@
 
 #include "lypch.h"
 
-#include "Lynton/Core.h"
+#include "Lynton/Core/Core.h"
 
 namespace Lynton
 {

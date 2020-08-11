@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderer/OrthographicCamera.h"
+#include "Lynton/Renderer/OrthographicCamera.h"
 #include "Lynton/Core/TimeStep.h"
 
 #include "Lynton/Events/ApplicationEvent.h"

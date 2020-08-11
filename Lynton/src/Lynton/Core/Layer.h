@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/TimeStep.h"
-#include "Lynton/Core.h"
+#include "Lynton/Core/TimeStep.h"
+#include "Lynton/Core/Core.h"
 #include "Lynton/Events/Event.h"
 
 namespace Lynton

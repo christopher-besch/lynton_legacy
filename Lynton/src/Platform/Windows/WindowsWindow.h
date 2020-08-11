@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Lynton/Window.h"
+#include "Lynton/Core/Window.h"
 #include "Lynton/Renderer/GraphicsContext.h"
 
 #include "GLFW/glfw3.h"

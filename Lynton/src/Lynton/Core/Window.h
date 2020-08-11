@@ -2,7 +2,7 @@
 
 #include "lypch.h"
 
-#include "Lynton/Core.h"
+#include "Lynton/Core/Core.h"
 #include "Lynton/Events/Event.h"
 
 namespace Lynton

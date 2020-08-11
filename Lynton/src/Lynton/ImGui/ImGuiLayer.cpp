@@ -1,6 +1,6 @@
 #include "lypch.h"
 #include "ImGuiLayer.h"
-#include "Lynton/Application.h"
+#include "Lynton/Core/Application.h"
 
 #include "glad/glad.h"
 

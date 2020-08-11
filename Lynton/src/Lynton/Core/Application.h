@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Core.h"
-#include "Lynton/LayerStack.h"
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "Lynton/Core/LayerStack.h"
+#include "Lynton/Events/Event.h"
+#include "Lynton/Events/ApplicationEvent.h"
 #include "Window.h"
 
 #include "Lynton/ImGui/ImGuiLayer.h"

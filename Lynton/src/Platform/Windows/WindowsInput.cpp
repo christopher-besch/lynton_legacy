@@ -1,7 +1,7 @@
 #include "lypch.h"
 #include "WindowsInput.h"
 
-#include "Lynton/Application.h"
+#include "Lynton/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Lynton

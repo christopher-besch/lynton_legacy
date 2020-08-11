@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Lynton/Input.h"
+#include "Lynton/Core/Input.h"
 
 namespace Lynton
 {

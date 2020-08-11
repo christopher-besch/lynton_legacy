@@ -4,7 +4,7 @@
 #include "Core.h"
 
 #include "Lynton/Events/ApplicationEvent.h"
-#include "Lynton/Log.h"
+#include "Lynton/Core/Log.h"
 
 #include "Lynton/Renderer/Renderer.h"
 
