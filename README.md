@@ -10,3 +10,4 @@ based on [the Hazel Engine from The Cherno](https://github.com/TheCherno/Hazel)
 - Glad
 - Imgui
 - glm
+- stb_image
