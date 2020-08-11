@@ -1,11 +1,15 @@
 #include "Lynton.h"
+#include <Lynton/Core/EntryPoint.h>
 
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+// ToDO: remove
 #include "Platform/OpenGL/OpenGLShader.h"
+
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Lynton::Layer
 {
@@ -49,7 +53,7 @@ public:
 		// triangle //
 		//////////////
 		
-		m_triangle_vao.reset(Lynton::VertexArray::create());
+		m_triangle_vao = Lynton::VertexArray::create();
 		// should get unbound here <- otherwise everything bound after here gets associated with the vao
 
 		// vertex buffer
@@ -119,7 +123,7 @@ public:
 		////////////
 
 		// ToDo: temporary
-		m_square_vao.reset(Lynton::VertexArray::create());
+		m_square_vao = Lynton::VertexArray::create();
 
 		float square_vertices[4 * ( 3 + 2 )] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -392,7 +396,8 @@ class Sandbox : public Lynton::Application
 public:
 	Sandbox()
 	{
-		push_layer(new ExampleLayer());
+		// push_layer(new ExampleLayer());
+		push_layer(new Sandbox2D());
 	}
 
 	~Sandbox()

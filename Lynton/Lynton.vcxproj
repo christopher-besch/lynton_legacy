@@ -143,6 +143,7 @@
     <ClInclude Include="src\Lynton.h" />
     <ClInclude Include="src\Lynton\Core\Application.h" />
     <ClInclude Include="src\Lynton\Core\Core.h" />
+    <ClInclude Include="src\Lynton\Core\EntryPoint.h" />
     <ClInclude Include="src\Lynton\Core\Input.h" />
     <ClInclude Include="src\Lynton\Core\KeyCodes.h" />
     <ClInclude Include="src\Lynton\Core\Layer.h" />

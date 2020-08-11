@@ -63,6 +63,9 @@
     <ClInclude Include="src\Lynton\Core\Core.h">
       <Filter>src\Lynton\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lynton\Core\EntryPoint.h">
+      <Filter>src\Lynton\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Lynton\Core\Input.h">
       <Filter>src\Lynton\Core</Filter>
     </ClInclude>

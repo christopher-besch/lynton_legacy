@@ -119,7 +119,7 @@ namespace Lynton
 			in.close();
 		}
 		else
-			LY_CORE_ERROR("COuld not open file '{0}'!", filepath);
+			LY_CORE_ERROR("Could not open file '{0}'!", filepath);
 		return result;
 	}
 
