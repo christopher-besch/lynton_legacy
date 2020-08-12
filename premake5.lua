@@ -80,7 +80,6 @@ project "Lynton"
 		
 		defines
 		{
-			"LY_PLATFORM_WINDOWS",
 			"GLFW_INCLUDE_NONE"
 		}
 	
@@ -130,11 +129,6 @@ project "Sandbox"
 	
 	filter "system:windows"
 		systemversion "latest"
-		
-		defines
-		{
-			"LY_PLATFORM_WINDOWS"
-		}
 	
 	filter "configurations:Debug"
 		defines "LY_DEBUG"

@@ -19,7 +19,7 @@ namespace Lynton
 			glm::mat4 view_projection_matrix;
 		};
 
-		static SceneData* s_scene_data;
+		static Scope<SceneData> s_scene_data;
 	public:
 		static void init();
 		static void on_window_resize(uint32_t width, uint32_t height);

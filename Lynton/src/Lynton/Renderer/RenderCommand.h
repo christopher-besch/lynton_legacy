@@ -10,7 +10,7 @@ namespace Lynton
     class RenderCommand
 	{
 	private:
-	    static RendererAPI* s_renderer_api;
+	    static Scope<RendererAPI> s_renderer_api;
 	public:
 		inline static void init()
 		{

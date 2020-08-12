@@ -6,7 +6,7 @@
 
 namespace Lynton
 {
-    Renderer::SceneData* Renderer::s_scene_data = new Renderer::SceneData;
+    Scope<Renderer::SceneData> Renderer::s_scene_data = create_scope<Renderer::SceneData>();
 
     void Renderer::init()
     {

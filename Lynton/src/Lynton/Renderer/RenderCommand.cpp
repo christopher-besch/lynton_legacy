@@ -6,6 +6,6 @@
 namespace Lynton
 {
 
-	RendererAPI* RenderCommand::s_renderer_api = new OpenGLRendererAPI;
+	Scope<RendererAPI> RenderCommand::s_renderer_api = create_scope<OpenGLRendererAPI>();
 
 }

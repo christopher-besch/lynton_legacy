@@ -7,7 +7,7 @@
 namespace Lynton
 {
 
-    Input* Input::s_instance = new WindowsInput();
+    Scope<Input> Input::s_instance = create_scope<WindowsInput>();
 
     bool WindowsInput::is_key_pressed_impl(int keycode)
     {

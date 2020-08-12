@@ -8,7 +8,7 @@ namespace Lynton
 	class  Input
 	{
 	private:
-		static Input* s_instance;
+		static Scope<Input> s_instance;
 	public:
 		Input(const Input&) = delete;
 		Input& operator=(const Input&) = delete;

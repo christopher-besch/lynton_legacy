@@ -50,11 +50,11 @@ namespace Lynton
 	{
 		std::string name;
 		ShaderDataType type;
-		uint32_t size;
+		size_t size;
 		uint32_t offset;
 		bool normalized;
 
-		BufferElement() {}
+		BufferElement() = default;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
 		    : name(name), type(type), size(shader_data_type_size(type)), offset(0), normalized(normalized) {}
@@ -91,7 +91,7 @@ namespace Lynton
 		void calculate_offset_and_stride()
 		{
 			// pointer to the beginning of the attribute inside each vertex
-			uint32_t offset = 0;
+			size_t offset = 0;
 			// size of each vertex
 			m_stride = 0;
 		    for (auto& element : m_elements)

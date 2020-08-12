@@ -10,7 +10,7 @@
 
 namespace Lynton
 {
-	static bool s_glfw_initialized = false;
+	static uint8_t s_glfw_window_count = 0;
 
 	static void glfw_error_callback(int error, const char* description)
 	{
@@ -40,19 +40,18 @@ namespace Lynton
 
 		LY_CORE_INFO("Creating window \"{0}\" ({1}, {2})", props.title, props.width, props.height);
 
-		if (!s_glfw_initialized)
+		if (s_glfw_window_count == 0)
 		{
-			// ToDo: glwfTerminate on system shutdown
+			LY_CORE_INFO("Initiated GLFW");
 			int success = glfwInit();
 			LY_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(glfw_error_callback);
-
-			s_glfw_initialized = true;
 		}
 
 		m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
+		++s_glfw_window_count;
 
-		m_context = new OpenGLContext(m_window);
+		m_context = create_scope<OpenGLContext>(m_window);
 		// includes make context current stuff
 		m_context->init();
 
@@ -162,6 +161,12 @@ namespace Lynton
 	void WindowsWindow::shutdown()
 	{
 		glfwDestroyWindow(m_window);
+		s_glfw_window_count -= 1;
+		if (s_glfw_window_count == 0)
+		{
+			LY_CORE_INFO("Terminating GLFW");
+			glfwTerminate();
+		}
 	}
 
 	void WindowsWindow::on_update()

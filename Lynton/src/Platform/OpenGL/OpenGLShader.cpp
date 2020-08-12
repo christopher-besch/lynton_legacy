@@ -132,20 +132,25 @@ namespace Lynton
 		
 		const char* type_token = "#type";
 		size_t type_token_length = strlen(type_token);
+		// start of shader declaration line
 		size_t pos = source.find(type_token, 0);
 		while (pos != std::string::npos)
 		{
+			// end of shader type declaration line
 			size_t eol = source.find_first_of("\r\n", pos);
-			LY_CORE_ASSERT(eol != std::string::npos, "Syntax error while shader loading!");
+			LY_CORE_ASSERT(eol != std::string::npos, "Shader syntax error!");
+			// start of shader type name (after "#type " keyword)
 			size_t begin = pos + type_token_length + 1;
 			std::string type = source.substr(begin, eol - begin);
 			LY_CORE_ASSERT(shader_type_from_string(type), "Invalid shader type specified!");
-		
+
+			// start of shader code after shader type declaration line
 			size_t next_line_pos = source.find_first_not_of("\r\n", eol);
+			LY_CORE_ASSERT(next_line_pos != std::string::npos, "Shader syntax error!");
+			// start of next shader type declaration
 			pos = source.find(type_token, next_line_pos);
-			shader_sources[shader_type_from_string(type)] =
-				source.substr(next_line_pos,
-					pos - (next_line_pos == std::string::npos ? source.size() - 1 : next_line_pos));
+
+			shader_sources[shader_type_from_string(type)] = (pos == std::string::npos) ? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos);
 		}
 		return shader_sources;
 	}
