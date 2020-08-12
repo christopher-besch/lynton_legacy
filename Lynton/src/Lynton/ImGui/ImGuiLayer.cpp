@@ -18,10 +18,6 @@ namespace Lynton
     ImGuiLayer::ImGuiLayer()
         : Layer("ImGuiLayer") {}
 
-    ImGuiLayer::~ImGuiLayer()
-    {
-    }
-
     void ImGuiLayer::on_attach()
     {
         // setup dear ImGui context

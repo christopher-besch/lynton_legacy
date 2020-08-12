@@ -32,20 +32,14 @@ namespace Lynton
 		push_overlay(m_imgui_layer);
 	}
 
-	Application::~Application()
-	{
-	}
-
 	void Application::push_layer(Layer* layer)
     {
 		m_layer_stack.push_layer(layer);
-		layer->on_attach();
     }
 
 	void Application::push_overlay(Layer* layer)
     {
 		m_layer_stack.push_overlay(layer);
-		layer->on_attach();
     }
 
 	void Application::run()

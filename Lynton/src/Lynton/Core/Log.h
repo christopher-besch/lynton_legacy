@@ -31,15 +31,15 @@ namespace Lynton
 }
 
 // core log macros
-#define LY_CORE_TRACE(...) ::Lynton::Log::get_core_logger()->trace(__VA_ARGS__)
-#define LY_CORE_INFO(...)  ::Lynton::Log::get_core_logger()->info(__VA_ARGS__)
-#define LY_CORE_WARN(...)  ::Lynton::Log::get_core_logger()->warn(__VA_ARGS__)
-#define LY_CORE_ERROR(...) ::Lynton::Log::get_core_logger()->error(__VA_ARGS__)
-#define LY_CORE_FATAL(...) ::Lynton::Log::get_core_logger()->fatal(__VA_ARGS__)
+#define LY_CORE_TRACE(...)    ::Lynton::Log::get_core_logger()->trace(__VA_ARGS__)
+#define LY_CORE_INFO(...)     ::Lynton::Log::get_core_logger()->info(__VA_ARGS__)
+#define LY_CORE_WARN(...)     ::Lynton::Log::get_core_logger()->warn(__VA_ARGS__)
+#define LY_CORE_ERROR(...)    ::Lynton::Log::get_core_logger()->error(__VA_ARGS__)
+#define LY_CORE_CRITICAL(...) ::Lynton::Log::get_core_logger()->critical(__VA_ARGS__)
 
 // client log macros
-#define LY_TRACE(...) ::Lynton::Log::get_client_logger()->trace(__VA_ARGS__)
-#define LY_INFO(...)  ::Lynton::Log::get_client_logger()->info(__VA_ARGS__)
-#define LY_WARN(...)  ::Lynton::Log::get_client_logger()->warn(__VA_ARGS__)
-#define LY_ERROR(...) ::Lynton::Log::get_client_logger()->error(__VA_ARGS__)
-#define LY_FATAL(...) ::Lynton::Log::get_client_logger()->fatal(__VA_ARGS__)
+#define LY_TRACE(...)    ::Lynton::Log::get_client_logger()->trace(__VA_ARGS__)
+#define LY_INFO(...)     ::Lynton::Log::get_client_logger()->info(__VA_ARGS__)
+#define LY_WARN(...)     ::Lynton::Log::get_client_logger()->warn(__VA_ARGS__)
+#define LY_ERROR(...)    ::Lynton::Log::get_client_logger()->error(__VA_ARGS__)
+#define LY_CRITICAL(...) ::Lynton::Log::get_client_logger()->critical(__VA_ARGS__)

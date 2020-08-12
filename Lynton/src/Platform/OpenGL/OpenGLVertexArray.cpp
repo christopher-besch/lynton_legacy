@@ -64,7 +64,7 @@ namespace Lynton
                 shader_data_type_to_gl_enum(element.type),
                 element.normalized ? GL_TRUE : GL_FALSE,
                 vertex_buffer->get_layout().get_stride(),
-                (const void*)element.offset);
+                (const void*)(intptr_t)element.offset);
             index++;
         }
 

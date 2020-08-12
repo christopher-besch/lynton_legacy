@@ -27,7 +27,7 @@ namespace Lynton
 		float m_last_frame_time;
 	public:
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		void run();
 

@@ -15,7 +15,7 @@ namespace Lynton
 		float m_time = 0.0f;
 	public:
 		ImGuiLayer();
-		~ImGuiLayer();
+		virtual ~ImGuiLayer() = default;
 
 		virtual void on_attach() override;
 		virtual void on_detach() override;

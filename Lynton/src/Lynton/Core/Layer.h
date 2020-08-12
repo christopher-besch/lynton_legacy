@@ -13,7 +13,7 @@ namespace Lynton
 		std::string m_debug_name;
 	public:
 		Layer(const std::string& name = "Layer");
-		virtual ~Layer();
+		virtual ~Layer() = default;
 
 		virtual void on_attach() {}
 		virtual void on_detach() {}

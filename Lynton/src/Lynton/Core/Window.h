@@ -25,7 +25,7 @@ namespace Lynton
 		// function pointer of a void returning, Event& taking function
 		using EventCallback = std::function<void(Event&)>;
 
-		virtual ~Window() {}
+		virtual ~Window() = default;
 
 		virtual void on_update() = 0;
 
