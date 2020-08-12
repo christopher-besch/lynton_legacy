@@ -5,9 +5,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-// ToDo: remove
-#include "Platform/OpenGL/OpenGLShader.h"
-
 Sandbox2D::Sandbox2D()
     : Layer("Sandbox2D"), m_camera_controller(1280.0f / 720.0f, true)
 {
@@ -57,14 +54,10 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 
 	Lynton::Renderer2D::begin_scene(m_camera_controller.get_camera());
 
-	Lynton::Renderer2D::draw_quad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Lynton::Renderer2D::draw_quad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Lynton::Renderer2D::draw_quad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
 
 	Lynton::Renderer2D::end_scene();
-
-	// std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->bind();
-	// std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->upload_uniform_vec4("u_color", m_square_color);
-	// 
-	// Lynton::Renderer::submit(m_flat_color_shader, m_vertex_array, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 }
 
 void Sandbox2D::on_event(Lynton::Event& event)

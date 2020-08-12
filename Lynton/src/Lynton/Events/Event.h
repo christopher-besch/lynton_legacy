@@ -45,7 +45,7 @@ namespace Lynton
 	};
 
 // select the type <- a couple of methods definitions to retrieve the type
-#define EVENT_CLASS_TYPE(type) static EventType get_static_type() { return EventType::##type; }\
+#define EVENT_CLASS_TYPE(type) static EventType get_static_type() { return EventType::type; }\
 							   virtual EventType get_event_type() const override { return get_static_type(); }\
 							   virtual const char* get_name() const override { return #type; }
 // select the category <- a couple of methods definitions to retrieve the category

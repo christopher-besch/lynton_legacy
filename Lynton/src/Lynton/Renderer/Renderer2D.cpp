@@ -1,8 +1,10 @@
 #include "lypch.h"
 #include "Renderer2D.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "RenderCommand.h"
-#include "Platform/OpenGL/OpenGLShader.h"
 
 namespace Lynton
 {
@@ -54,9 +56,8 @@ namespace Lynton
     void Renderer2D::begin_scene(const OrthographicCamera& camera)
     {
 		// ToDo: temporary
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->flat_color_shader)->bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->flat_color_shader)->upload_uniform_mat4("u_view_projection", camera.get_view_projection_matrix());
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->flat_color_shader)->upload_uniform_mat4("u_transform", glm::mat4(1.0f));
+		s_data->flat_color_shader->bind();
+		s_data->flat_color_shader->set_mat4("u_view_projection", camera.get_view_projection_matrix());
     }
 
     void Renderer2D::end_scene()
@@ -70,8 +71,11 @@ namespace Lynton
 
     void Renderer2D::draw_quad(const glm::vec3& position, const glm::vec2 size, const glm::vec4& color)
     {
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->flat_color_shader)->bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->flat_color_shader)->upload_uniform_vec4("u_color", color);
+		s_data->flat_color_shader->bind();
+		s_data->flat_color_shader->set_vec4("u_color", color);
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_data->flat_color_shader->set_mat4("u_transform", transform);
 
 		s_data->quad_vertex_array->bind();
 		RenderCommand::draw_indexed(s_data->quad_vertex_array);

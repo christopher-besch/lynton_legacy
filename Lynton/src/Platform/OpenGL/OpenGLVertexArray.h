@@ -9,6 +9,7 @@ namespace Lynton
 	{
 	private:
 		uint32_t m_renderer_id;
+		uint32_t m_vertex_buffer_index = 0;
 		std::vector<Ref<VertexBuffer>> m_vertex_buffer;
 		Ref<IndexBuffer> m_index_buffer;
 	public:

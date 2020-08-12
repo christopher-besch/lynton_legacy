@@ -55,17 +55,16 @@ namespace Lynton
         LY_CORE_ASSERT(vertex_buffer->get_layout().get_elements().size(), "Vertex Buffer has no layout!")
 
         const auto& layout = vertex_buffer->get_layout();
-        uint32_t index = 0;
         for (const auto& element : layout)
         {
-            glEnableVertexAttribArray(index);
-            glVertexAttribPointer(index,
+            glEnableVertexAttribArray(m_vertex_buffer_index);
+            glVertexAttribPointer(m_vertex_buffer_index,
                 element.get_component_count(),
                 shader_data_type_to_gl_enum(element.type),
                 element.normalized ? GL_TRUE : GL_FALSE,
                 vertex_buffer->get_layout().get_stride(),
                 (const void*)(intptr_t)element.offset);
-            index++;
+            m_vertex_buffer_index++;
         }
 
         m_vertex_buffer.push_back(vertex_buffer);

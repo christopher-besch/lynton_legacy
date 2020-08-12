@@ -12,7 +12,10 @@ namespace Lynton
     {
         // layers are intended to live through the lifetime of the application
         for (Layer* layer : m_layers)
+        {
+            layer->on_detach();
             delete layer;
+        }
     }
 
     void LayerStack::push_layer(Layer* layer)

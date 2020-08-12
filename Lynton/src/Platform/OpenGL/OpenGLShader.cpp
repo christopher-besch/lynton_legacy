@@ -102,7 +102,10 @@ namespace Lynton
 		}
 
 		for (auto id : gl_shader_ids)
+		{
 			glDetachShader(program, id);
+			glDeleteShader(id);
+		}
 		m_renderer_id = program;
 	}
 
@@ -149,6 +152,7 @@ namespace Lynton
 
 	OpenGLShader::~OpenGLShader()
 	{
+		glDeleteProgram(m_renderer_id);
 	}
 
 	void OpenGLShader::bind() const
@@ -159,6 +163,26 @@ namespace Lynton
 	void OpenGLShader::unbind() const
 	{
 		glUseProgram(0);
+	}
+
+    void OpenGLShader::set_mat4(const std::string& name, const glm::mat4& matrix)
+    {
+		upload_uniform_mat4(name, matrix);
+    }
+
+    void OpenGLShader::set_vec3(const std::string& name, const glm::vec3& vector)
+    {
+		upload_uniform_vec3(name, vector);
+    }
+
+    void OpenGLShader::set_vec4(const std::string& name, const glm::vec4& vector)
+    {
+		upload_uniform_vec4(name, vector);
+    }
+
+	void OpenGLShader::set_int(const std::string& name, int value)
+	{
+		upload_uniform_int(name, value);
 	}
 
     void OpenGLShader::upload_uniform_int(const std::string& name, const int value)

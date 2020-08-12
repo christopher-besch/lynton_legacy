@@ -6,9 +6,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-// ToDO: remove
-#include "Platform/OpenGL/OpenGLShader.h"
-
 #include "Sandbox2D.h"
 
 class ExampleLayer : public Lynton::Layer
@@ -253,8 +250,8 @@ public:
 
 		m_cherno_logo_texture = Lynton::Texture2D::create("assets/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<Lynton::OpenGLShader>(texture_shader)->bind();
-		std::dynamic_pointer_cast<Lynton::OpenGLShader>(texture_shader)->upload_uniform_int("u_texture", 0);
+		texture_shader->bind();
+		texture_shader->set_int("u_texture", 0);
 	}
 
 	void on_update(Lynton::TimeStep time_step) override
@@ -305,8 +302,8 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));
 
-		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->bind();
-		std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->upload_uniform_vec3("u_color", m_square_color);
+		m_flat_color_shader->bind();
+		m_flat_color_shader->set_vec3("u_color", m_square_color);
 
 	    for (int y = 0; y < 20; y++)
 		{
