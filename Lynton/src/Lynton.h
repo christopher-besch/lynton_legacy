@@ -17,6 +17,7 @@
 
 // renderer
 #include "Lynton/Renderer/Renderer.h"
+#include "Lynton/Renderer/Renderer2D.h"
 #include "Lynton/Renderer/RenderCommand.h"
 
 #include "Lynton/Renderer/GraphicsContext.h"

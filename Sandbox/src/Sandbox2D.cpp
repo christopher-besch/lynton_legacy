@@ -40,7 +40,6 @@ void Sandbox2D::on_attach()
 	m_vertex_array->set_index_buffer(index_buffer);
 
 	m_flat_color_shader = Lynton::Shader::create("assets/shaders/FlatColor.glsl");
-
 }
 
 void Sandbox2D::on_detach()
@@ -53,18 +52,19 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 	m_camera_controller.on_update(time_step);
 
 	// render
-	Lynton::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
+	Lynton::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 0.0f });
 	Lynton::RenderCommand::clear();
 
-	Lynton::Renderer::begin_scene(m_camera_controller.get_camera());
+	Lynton::Renderer2D::begin_scene(m_camera_controller.get_camera());
 
-	std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->bind();
-	std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->upload_uniform_vec4("u_color", m_square_color);
+	Lynton::Renderer2D::draw_quad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 
-	Lynton::Renderer::submit(m_flat_color_shader, m_vertex_array, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-	
-	Lynton::Renderer::end_scene();
+	Lynton::Renderer2D::end_scene();
 
+	// std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->bind();
+	// std::dynamic_pointer_cast<Lynton::OpenGLShader>(m_flat_color_shader)->upload_uniform_vec4("u_color", m_square_color);
+	// 
+	// Lynton::Renderer::submit(m_flat_color_shader, m_vertex_array, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 }
 
 void Sandbox2D::on_event(Lynton::Event& event)
@@ -78,5 +78,4 @@ void Sandbox2D::on_imgui_render()
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_square_color));
 	ImGui::End();
-
 }
