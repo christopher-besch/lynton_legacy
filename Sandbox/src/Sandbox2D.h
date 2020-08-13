@@ -7,9 +7,7 @@ class Sandbox2D : public Lynton::Layer
 private:
 	Lynton::OrthographicCameraController m_camera_controller;
 
-	// ToDo: temporary
-	Lynton::Ref<Lynton::Shader> m_flat_color_shader;
-	Lynton::Ref<Lynton::VertexArray> m_vertex_array;
+	Lynton::Ref<Lynton::Texture2D> m_checker_board_texture;
 
 	glm::vec4 m_square_color = { 0.5f, 0.7f, 1.0f, 1.0f };
 public:

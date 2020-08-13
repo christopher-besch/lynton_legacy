@@ -4,6 +4,7 @@
 
 #include "OrthographicCameraController.h"
 #include "Shader.h"
+#include "Texture.h"
 #include "VertexArray.h"
 #include "Lynton/Renderer/OrthographicCamera.h"
 
@@ -21,6 +22,8 @@ namespace Lynton
 		// primitives
 		static void draw_quad(const glm::vec2& position, const glm::vec2 size, const glm::vec4& color);
 		static void draw_quad(const glm::vec3& position, const glm::vec2 size, const glm::vec4& color);
+		static void draw_quad(const glm::vec2& position, const glm::vec2 size, const Ref<Texture>& texture);
+		static void draw_quad(const glm::vec3& position, const glm::vec2 size, const Ref<Texture>& texture);
 	};
 
 }

@@ -12,31 +12,7 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::on_attach()
 {
-	m_vertex_array = Lynton::VertexArray::create();
-
-	float square_vertices[4 * 3] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f
-	};
-	Lynton::Ref<Lynton::VertexBuffer> vertex_buffer;
-	vertex_buffer.reset(Lynton::VertexBuffer::create(sizeof(square_vertices), square_vertices));
-
-	vertex_buffer->set_layout({
-		{ Lynton::ShaderDataType::float3, "a_position" }
-		});
-	m_vertex_array->add_vertex_buffer(vertex_buffer);
-
-	uint32_t indices[2 * 3] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-	Lynton::Ref<Lynton::IndexBuffer> index_buffer;
-	index_buffer.reset(Lynton::IndexBuffer::create(sizeof(indices) / sizeof(uint32_t), indices));
-	m_vertex_array->set_index_buffer(index_buffer);
-
-	m_flat_color_shader = Lynton::Shader::create("assets/shaders/FlatColor.glsl");
+	m_checker_board_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::on_detach()
@@ -54,8 +30,9 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 
 	Lynton::Renderer2D::begin_scene(m_camera_controller.get_camera());
 
-	Lynton::Renderer2D::draw_quad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Lynton::Renderer2D::draw_quad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_square_color);
 	Lynton::Renderer2D::draw_quad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+	Lynton::Renderer2D::draw_quad({ 0.2f, 0.5f, -0.1 }, { 10.0f, 10.0f }, m_checker_board_texture);
 
 	Lynton::Renderer2D::end_scene();
 }
