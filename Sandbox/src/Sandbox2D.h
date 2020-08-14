@@ -9,6 +9,14 @@ private:
 
 	Lynton::Ref<Lynton::Texture2D> m_checker_board_texture;
 
+	struct ProfileResult
+	{
+		const char* name;
+		float time;
+	};
+
+	std::vector<ProfileResult> m_profile_results;
+
 	glm::vec4 m_square_color = { 0.5f, 0.7f, 1.0f, 1.0f };
 public:
 	Sandbox2D();
