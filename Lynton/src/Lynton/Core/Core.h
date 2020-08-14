@@ -45,7 +45,8 @@
 
 
 #ifdef LY_DEBUG
-    #define LY_ENABLE_ASSERTS
+	#define LY_ENABLE_ASSERTS
+	#define LY_PROFILE 1
 #endif
 
 

@@ -19,3 +19,4 @@
 #include <unordered_set>
 
 #include "Lynton/Core/Log.h"
+#include "Lynton/Debug/Instrumentor.h"

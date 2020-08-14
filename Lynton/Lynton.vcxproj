@@ -155,6 +155,7 @@
     <ClInclude Include="src\Lynton\Core\Log.h" />
     <ClInclude Include="src\Lynton\Core\TimeStep.h" />
     <ClInclude Include="src\Lynton\Core\Window.h" />
+    <ClInclude Include="src\Lynton\Debug\Instrumentor.h" />
     <ClInclude Include="src\Lynton\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Lynton\Events\Event.h" />
     <ClInclude Include="src\Lynton\Events\KeyEvent.h" />
