@@ -207,6 +207,13 @@ namespace Lynton
 		upload_uniform_vec4(name, vector);
     }
 
+	void OpenGLShader::set_float(const std::string& name, const float value)
+	{
+		LY_PROFILE_FUNCTION();
+
+		upload_uniform_float(name, value);
+	}
+
 	void OpenGLShader::set_int(const std::string& name, int value)
 	{
 		LY_PROFILE_FUNCTION();

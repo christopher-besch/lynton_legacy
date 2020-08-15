@@ -32,6 +32,7 @@ namespace Lynton
 		virtual void set_mat4(const std::string& name, const glm::mat4& matrix) override;
 		virtual void set_vec3(const std::string& name, const glm::vec3& vector) override;
 		virtual void set_vec4(const std::string& name, const glm::vec4& vector) override;
+		virtual void set_float(const std::string& name, const float value) override;
 		virtual void set_int(const std::string& name, const int value) override;
 
 		inline virtual const std::string& get_name() const override { return m_name; }

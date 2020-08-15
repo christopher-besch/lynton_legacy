@@ -19,6 +19,7 @@ namespace Lynton
 		virtual void set_mat4(const std::string& name, const glm::mat4& matrix) = 0;
 		virtual void set_vec3(const std::string& name, const glm::vec3& vector) = 0;
 		virtual void set_vec4(const std::string& name, const glm::vec4& vector) = 0;
+		virtual void set_float(const std::string& name, const float value) = 0;
 		virtual void set_int(const std::string& name, int value) = 0;
 
 		virtual const std::string& get_name() const = 0;
