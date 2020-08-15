@@ -18,6 +18,8 @@ namespace Lynton
 
 	Application::Application()
 	{
+		LY_PROFILE_FUNCTION()
+
 		LY_CORE_ASSERT(!s_instance, "Application already exists!")
 		s_instance = this;
 
@@ -34,18 +36,28 @@ namespace Lynton
 
 	void Application::push_layer(Layer* layer)
     {
+		LY_PROFILE_FUNCTION();
+
 		m_layer_stack.push_layer(layer);
+		layer->on_attach();
     }
 
 	void Application::push_overlay(Layer* layer)
     {
+		LY_PROFILE_FUNCTION();
+
 		m_layer_stack.push_overlay(layer);
+		layer->on_attach();
     }
 
 	void Application::run()
 	{
+		LY_PROFILE_FUNCTION();
+
 		while (m_running)
 		{
+			LY_PROFILE_SCOPE("Run Loop");
+
 			// ToDo: temporary
 			float time = (float)glfwGetTime();
 			TimeStep time_step = time - m_last_frame_time;
@@ -53,13 +65,19 @@ namespace Lynton
 
 			if (!m_minimized)
 			{
+				LY_PROFILE_SCOPE("LayerStack on_update");
+
 		        for (Layer* layer : m_layer_stack)
 				    layer->on_update(time_step);
 			}
 
 			m_imgui_layer->begin();
-			for (Layer* layer : m_layer_stack)
-				layer->on_imgui_render();
+			{
+				LY_PROFILE_SCOPE("LayerStack on_imgui_render");
+
+			    for (Layer* layer : m_layer_stack)
+				    layer->on_imgui_render();
+			}
 			m_imgui_layer->end();
 
 			m_window->on_update();
@@ -68,6 +86,8 @@ namespace Lynton
 
 	void Application::on_event(Event& event)
 	{
+		LY_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(event);
 		// when the event is a WindowCloseEvent -> call on_window_close
 		dispatcher.dispatch<WindowCloseEvent>(LY_BIND_EVENT_FUNCTION(Application::on_window_close));
@@ -91,6 +111,8 @@ namespace Lynton
 
 	bool Application::on_window_resize(WindowResizedEvent& event)
 	{
+		LY_PROFILE_FUNCTION();
+
 		m_minimized = event.get_width() == 0 || event.get_height() == 0;
 
 		Renderer::on_window_resize(event.get_width(), event.get_height());

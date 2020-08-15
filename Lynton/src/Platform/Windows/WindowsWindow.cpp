@@ -24,16 +24,22 @@ namespace Lynton
 	
 	WindowsWindow::WindowsWindow(const WindowProperties& props)
 	{
+		LY_PROFILE_FUNCTION();
+
 		init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		LY_PROFILE_FUNCTION();
+
 		shutdown();
 	}
 
 	void WindowsWindow::init(const WindowProperties& props)
 	{
+		LY_PROFILE_FUNCTION();
+
 		m_data.title = props.title;
 		m_data.width = props.width;
 		m_data.height = props.height;
@@ -42,14 +48,20 @@ namespace Lynton
 
 		if (s_glfw_window_count == 0)
 		{
+			LY_PROFILE_SCOPE("glfwInit");
+
 			LY_CORE_INFO("Initiated GLFW");
 			int success = glfwInit();
 			LY_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(glfw_error_callback);
 		}
 
-		m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
-		++s_glfw_window_count;
+	    {
+			LY_PROFILE_SCOPE("glfwCreateWindow");
+
+	        m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
+		    ++s_glfw_window_count;
+	    }
 
 		m_context = create_scope<OpenGLContext>(m_window);
 		// includes make context current stuff
@@ -160,6 +172,8 @@ namespace Lynton
 
 	void WindowsWindow::shutdown()
 	{
+		LY_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_window);
 		s_glfw_window_count -= 1;
 		if (s_glfw_window_count == 0)
@@ -171,12 +185,16 @@ namespace Lynton
 
 	void WindowsWindow::on_update()
 	{
+		LY_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_context->swap_buffers();
 	}
 
 	void WindowsWindow::set_vsync(bool enabled)
 	{
+		LY_PROFILE_FUNCTION();
+
 		if (enabled)
 			glfwSwapInterval(1);
 		else

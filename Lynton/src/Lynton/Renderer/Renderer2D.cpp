@@ -20,8 +20,9 @@ namespace Lynton
 
     void Renderer2D::init()
     {
-		s_data = new Renderer2DStorage();
+		LY_PROFILE_FUNCTION();
 
+		s_data = new Renderer2DStorage();
 		s_data->quad_vertex_array = VertexArray::create();
 
 		float square_vertices[4 * ( 3 + 2 )] = {
@@ -58,17 +59,23 @@ namespace Lynton
 
     void Renderer2D::shutdown()
     {
+		LY_PROFILE_FUNCTION();
+
 		delete s_data;
     }
 
     void Renderer2D::begin_scene(const OrthographicCamera& camera)
     {
+		LY_PROFILE_FUNCTION();
+
 		s_data->texture_shader->bind();
 		s_data->texture_shader->set_mat4("u_view_projection", camera.get_view_projection_matrix());
     }
 
     void Renderer2D::end_scene()
     {
+		LY_PROFILE_FUNCTION();
+
     }
 
     void Renderer2D::draw_quad(const glm::vec2& position, const glm::vec2 size, const glm::vec4& color)
@@ -78,6 +85,8 @@ namespace Lynton
 
     void Renderer2D::draw_quad(const glm::vec3& position, const glm::vec2 size, const glm::vec4& color)
     {
+		LY_PROFILE_FUNCTION();
+
 		s_data->texture_shader->set_vec4("u_color", color);
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -96,6 +105,8 @@ namespace Lynton
 
 	void Renderer2D::draw_quad(const glm::vec3& position, const glm::vec2 size, const Ref<Texture>& texture)
 	{
+		LY_PROFILE_FUNCTION();
+
 		s_data->texture_shader->set_vec4("u_color", glm::vec4(1.0f));
 
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });

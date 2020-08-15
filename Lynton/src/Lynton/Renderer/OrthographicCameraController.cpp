@@ -15,6 +15,8 @@ namespace Lynton
 
     void OrthographicCameraController::on_update(TimeStep time_step)
     {
+        LY_PROFILE_FUNCTION();
+
         m_camera_position.y += Input::is_key_pressed(LY_KEY_W) * m_camera_move_speed * time_step;
         m_camera_position.x -= Input::is_key_pressed(LY_KEY_A) * m_camera_move_speed * time_step;
         m_camera_position.y -= Input::is_key_pressed(LY_KEY_S) * m_camera_move_speed * time_step;
@@ -31,6 +33,8 @@ namespace Lynton
 
     void OrthographicCameraController::on_event(Event& event)
     {
+        LY_PROFILE_FUNCTION();
+
         EventDispatcher dispatcher(event);
         dispatcher.dispatch<MouseScrolledEvent>(LY_BIND_EVENT_FUNCTION(OrthographicCameraController::on_mouse_scrolled));
         dispatcher.dispatch<WindowResizedEvent>(LY_BIND_EVENT_FUNCTION(OrthographicCameraController::on_window_resized));
@@ -38,6 +42,8 @@ namespace Lynton
 
     bool OrthographicCameraController::on_mouse_scrolled(MouseScrolledEvent& event)
     {
+        LY_PROFILE_FUNCTION();
+
         m_zoom_level -= event.get_y() * 0.25f;
         m_zoom_level = std::max(m_zoom_level, 0.25f);
         m_camera.set_projection(-m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level);
@@ -46,6 +52,8 @@ namespace Lynton
 
     bool OrthographicCameraController::on_window_resized(WindowResizedEvent& event)
     {
+        LY_PROFILE_FUNCTION();
+
         m_aspect_ration = static_cast<float>(event.get_width()) / static_cast<float>(event.get_height());
         m_camera.set_projection(-m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level);
         return false;

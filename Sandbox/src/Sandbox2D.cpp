@@ -12,11 +12,15 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::on_attach()
 {
+	LY_PROFILE_FUNCTION();
+
 	m_checker_board_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::on_detach()
 {
+	LY_PROFILE_FUNCTION();
+
 }
 
 void Sandbox2D::on_update(Lynton::TimeStep time_step)
@@ -24,10 +28,7 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 	LY_PROFILE_FUNCTION();
 
 	// update
-	{
-		LY_PROFILE_SCOPE("Render Update");
-	    m_camera_controller.on_update(time_step);
-    }
+	m_camera_controller.on_update(time_step);
 
 	// render
     {

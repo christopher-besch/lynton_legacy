@@ -15,6 +15,8 @@ namespace Lynton
 
     void OpenGLContext::init()
     {
+        LY_PROFILE_FUNCTION();
+
         glfwMakeContextCurrent(m_window_handle);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         LY_CORE_ASSERT(status, "Could not initialize Glad!")
@@ -36,6 +38,8 @@ namespace Lynton
 
     void OpenGLContext::swap_buffers()
     {
+        LY_PROFILE_FUNCTION();
+
         glfwSwapBuffers(m_window_handle);
     }
 }

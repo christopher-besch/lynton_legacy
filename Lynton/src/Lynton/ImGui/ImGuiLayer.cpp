@@ -20,6 +20,8 @@ namespace Lynton
 
     void ImGuiLayer::on_attach()
     {
+        LY_PROFILE_FUNCTION();
+
         // setup dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -53,6 +55,8 @@ namespace Lynton
 
     void ImGuiLayer::on_detach()
     {
+        LY_PROFILE_FUNCTION();
+
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
@@ -62,6 +66,8 @@ namespace Lynton
 
     void ImGuiLayer::begin()
     {
+        LY_PROFILE_FUNCTION();
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -69,6 +75,8 @@ namespace Lynton
 
     void ImGuiLayer::end()
     {
+        LY_PROFILE_FUNCTION();
+
         ImGuiIO& io = ImGui::GetIO();
         Application& app = Application::get();
         io.DisplaySize = ImVec2((float)app.get_window().get_width(), (float)app.get_window().get_height());

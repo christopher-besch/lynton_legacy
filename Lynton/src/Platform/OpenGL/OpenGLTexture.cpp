@@ -8,6 +8,8 @@ namespace Lynton
     OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
         : m_width(width), m_height(height)
     {
+		LY_PROFILE_FUNCTION();
+
 		m_internal_format = GL_RGBA8;
 		m_data_format = GL_RGBA;
 		m_bytes_per_pixel = 4;
@@ -26,9 +28,16 @@ namespace Lynton
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 	    : m_path(path)
 	{
+		LY_PROFILE_FUNCTION();
+
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(true);
-		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		stbi_uc* data = nullptr;
+		{
+			LY_PROFILE_SCOPE("stbi_load in OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
+
+		    data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		}
 		LY_CORE_ASSERT(data, "Failed to load image ({0})!", path)
 		m_width = width;
 		m_height = height;
@@ -67,17 +76,23 @@ namespace Lynton
 
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
+		LY_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &m_renderer_id);
 	}
 
     void OpenGLTexture2D::set_data(void* data, size_t size)
     {
+		LY_PROFILE_FUNCTION();
+
 		LY_CORE_ASSERT(size == m_width * m_height * m_bytes_per_pixel, "Data must be entire texture!");
 		glTextureSubImage2D(m_renderer_id, 0, 0, 0, m_width, m_height, m_data_format, GL_UNSIGNED_BYTE, data);
     }
 
 	void OpenGLTexture2D::bind(uint32_t slot) const
 	{
+		LY_PROFILE_FUNCTION();
+
 		glBindTextureUnit(slot, m_renderer_id);
 	}
 

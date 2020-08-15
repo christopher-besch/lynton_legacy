@@ -21,6 +21,8 @@ namespace Lynton
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		LY_PROFILE_FUNCTION();
+
 		std::string source = read_file(filepath);
 
 		auto shader_sources = pre_process(source);
@@ -37,6 +39,8 @@ namespace Lynton
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertex_src, const std::string& fragment_src)
 	    : m_name(name)
 	{
+		LY_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertex_src;
 		sources[GL_FRAGMENT_SHADER] = fragment_src;
@@ -45,6 +49,8 @@ namespace Lynton
 
 	void OpenGLShader::compile(const std::unordered_map<GLenum, std::string>& shader_sources)
 	{
+		LY_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		LY_CORE_ASSERT(shader_sources.size() <= 16, "Only up to 16 shaders are supported!")
 		std::array<GLenum, 8> gl_shader_ids;
@@ -111,6 +117,8 @@ namespace Lynton
 
 	std::string OpenGLShader::read_file(const std::string& filepath)
 	{
+		LY_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
@@ -128,6 +136,8 @@ namespace Lynton
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::pre_process(const std::string& source)
 	{
+		LY_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shader_sources;
 		
 		const char* type_token = "#type";
@@ -157,36 +167,50 @@ namespace Lynton
 
 	OpenGLShader::~OpenGLShader()
 	{
+		LY_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_renderer_id);
 	}
 
 	void OpenGLShader::bind() const
 	{
+		LY_PROFILE_FUNCTION();
+
 		glUseProgram(m_renderer_id);
 	}
 
 	void OpenGLShader::unbind() const
 	{
+		LY_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
     void OpenGLShader::set_mat4(const std::string& name, const glm::mat4& matrix)
     {
+		LY_PROFILE_FUNCTION();
+
 		upload_uniform_mat4(name, matrix);
     }
 
     void OpenGLShader::set_vec3(const std::string& name, const glm::vec3& vector)
     {
+		LY_PROFILE_FUNCTION();
+
 		upload_uniform_vec3(name, vector);
     }
 
     void OpenGLShader::set_vec4(const std::string& name, const glm::vec4& vector)
     {
+		LY_PROFILE_FUNCTION();
+
 		upload_uniform_vec4(name, vector);
     }
 
 	void OpenGLShader::set_int(const std::string& name, int value)
 	{
+		LY_PROFILE_FUNCTION();
+
 		upload_uniform_int(name, value);
 	}
 
