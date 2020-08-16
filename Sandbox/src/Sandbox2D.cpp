@@ -43,7 +43,8 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 
 	    Lynton::Renderer2D::draw_quad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_square_color);
 	    Lynton::Renderer2D::draw_quad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-	    Lynton::Renderer2D::draw_rotated_quad({ 0.2f, 0.5f, -0.1 }, { 10.0f, 10.0f }, glm::radians(45.0f), m_checker_board_texture, 10.0f, glm::vec4(1.0f, 0.8f, 0.7f, 1.0f));
+		// Lynton::Renderer2D::draw_rotated_quad({ 0.2f, 0.5f, -0.1 }, { 10.0f, 10.0f }, glm::radians(45.0f), m_checker_board_texture, 10.0f, glm::vec4(1.0f, 0.8f, 0.7f, 1.0f));
+		Lynton::Renderer2D::draw_rotated_quad({ 0.5f, 0.8f, -0.1 }, { 5.0f, 5.0f }, glm::radians(45.0f), m_checker_board_texture, 1.0f, m_square_color);
 
 	    Lynton::Renderer2D::end_scene();
     }
