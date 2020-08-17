@@ -15,7 +15,7 @@ namespace Lynton
 		virtual void set_viewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) override;
 		virtual void clear() override;
 
-		virtual void draw_indexed(const Ref<VertexArray>& vertex_array) override;
+		virtual void draw_indexed(const Ref<VertexArray>& vertex_array, uint32_t index_count = 0) override;
 
 	};
 

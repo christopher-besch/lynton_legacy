@@ -60,7 +60,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 1.0f, 0.1f, 0.0f, 0.9f
 		};
 		Lynton::Ref<Lynton::VertexBuffer> vertex_buffer;
-		vertex_buffer.reset(Lynton::VertexBuffer::create(sizeof(triangle_vertices), triangle_vertices));
+		vertex_buffer = Lynton::VertexBuffer::create(sizeof(triangle_vertices), triangle_vertices);
 		// vertex buffer layout
         Lynton::BufferLayout layout = {
 			{Lynton::ShaderDataType::float3, "a_position" },
@@ -74,7 +74,7 @@ public:
 			0, 1, 2
 		};
 		Lynton::Ref<Lynton::IndexBuffer> index_buffer;
-		index_buffer.reset(Lynton::IndexBuffer::create(sizeof(triangle_indices) / sizeof(uint32_t), triangle_indices));
+		index_buffer = Lynton::IndexBuffer::create(sizeof(triangle_indices) / sizeof(uint32_t), triangle_indices);
 		m_triangle_vao->set_index_buffer(index_buffer);
 
 		// shader
@@ -129,7 +129,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 		Lynton::Ref<Lynton::VertexBuffer> square_vb;
-		square_vb.reset(Lynton::VertexBuffer::create(sizeof(square_vertices), square_vertices));
+		square_vb = Lynton::VertexBuffer::create(sizeof(square_vertices), square_vertices);
 
 		square_vb->set_layout({
 			{Lynton::ShaderDataType::float3, "a_position" },
@@ -142,7 +142,7 @@ public:
 			2, 3, 0
 		};
 		Lynton::Ref<Lynton::IndexBuffer> square_ib;
-		square_ib.reset(Lynton::IndexBuffer::create(sizeof(square_indices) / sizeof(uint32_t), square_indices));
+		square_ib = Lynton::IndexBuffer::create(sizeof(square_indices) / sizeof(uint32_t), square_indices);
 		m_square_vao->set_index_buffer(square_ib);
 
 		const std::string square_vertex_src = R"(

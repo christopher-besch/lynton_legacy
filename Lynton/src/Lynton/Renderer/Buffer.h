@@ -128,10 +128,13 @@ namespace Lynton
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 
+		virtual void set_data(const void* data, uint32_t size) = 0;
+
 		virtual void set_layout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& get_layout() const = 0;
 
-		static VertexBuffer* create(uint32_t size, float* vertices);
+		static Ref<VertexBuffer> create(uint32_t size);
+		static Ref<VertexBuffer> create(uint32_t size, float* vertices);
 	};
 
 	class IndexBuffer
@@ -144,7 +147,7 @@ namespace Lynton
 
 		virtual uint32_t get_count() const = 0;
 
-		static IndexBuffer* create(uint32_t count, uint32_t* indices);
+		static Ref<IndexBuffer> create(uint32_t count, uint32_t* indices);
 	};
 
 }

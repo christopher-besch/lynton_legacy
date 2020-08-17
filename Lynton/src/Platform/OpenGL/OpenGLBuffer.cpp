@@ -6,6 +6,16 @@
 namespace Lynton
 {
     // VertexBuffer
+    OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+    {
+        LY_PROFILE_FUNCTION();
+
+        glCreateBuffers(1, &m_renderer_id);
+        glBindBuffer(GL_ARRAY_BUFFER, m_renderer_id);
+        // ToDo: hardcoded for now
+        glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+    }
+
     OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size, float* vertices)
     {
         LY_PROFILE_FUNCTION();
@@ -35,6 +45,12 @@ namespace Lynton
         LY_PROFILE_FUNCTION();
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+    void OpenGLVertexBuffer::set_data(const void* data, uint32_t size)
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, m_renderer_id);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
     }
 
 

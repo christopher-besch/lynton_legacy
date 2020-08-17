@@ -11,11 +11,14 @@ namespace Lynton
         uint32_t m_renderer_id;
         BufferLayout m_layout;
     public:
+        OpenGLVertexBuffer(uint32_t size);
         OpenGLVertexBuffer(uint32_t size, float* vertices);
         virtual ~OpenGLVertexBuffer();
 
         virtual void bind() const override;
         virtual void unbind() const override;
+
+        virtual void set_data(const void* data, uint32_t size) override;
 
         inline virtual void set_layout(const BufferLayout& layout) override { m_layout = layout; };
         inline virtual const BufferLayout& get_layout() const override { return m_layout; };
