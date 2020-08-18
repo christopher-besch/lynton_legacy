@@ -40,9 +40,7 @@ namespace Lynton
 		LY_PROFILE_FUNCTION();
 
 		s_data.quad_vertex_array = VertexArray::create();
-		
 		s_data.quad_vertex_buffer = VertexBuffer::create(s_data.max_vertices * sizeof(QuadVertex));
-
 		s_data.quad_vertex_buffer->set_layout({
 			{ ShaderDataType::float3, "a_position" },
 			{ ShaderDataType::float4, "a_color" },
@@ -52,8 +50,8 @@ namespace Lynton
 
 		s_data.quad_vertex_buffer_base = new QuadVertex[s_data.max_vertices];
 
-		uint32_t offset = 0;
 		uint32_t* quad_indices = new uint32_t[s_data.max_indices];
+		uint32_t offset = 0;
 		for (uint32_t i = 0; i < s_data.max_indices; i += 6)
 		{
 			// first triangle
@@ -101,7 +99,7 @@ namespace Lynton
     {
 		LY_PROFILE_FUNCTION();
 
-		uint32_t data_size = (uint8_t)s_data.quad_vertex_buffer_ptr - (uint8_t)s_data.quad_vertex_buffer_base;
+		uint32_t data_size = (uint8_t*)s_data.quad_vertex_buffer_ptr - (uint8_t*)s_data.quad_vertex_buffer_base;
 		s_data.quad_vertex_buffer->set_data(s_data.quad_vertex_buffer_base, data_size);
 
 		flush();
@@ -123,24 +121,25 @@ namespace Lynton
     {
 		LY_PROFILE_FUNCTION();
 
-		s_data.quad_vertex_buffer_base->position = position;
-		s_data.quad_vertex_buffer_base->color = color;
-		s_data.quad_vertex_buffer_base->tex_coord = { 0.0f, 0.0f };
+		// position is the lower left vertex
+		s_data.quad_vertex_buffer_ptr->position = position;
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 0.0f };
 		s_data.quad_vertex_buffer_ptr++;
 
-		s_data.quad_vertex_buffer_base->position = { position.x + size.x, position.y, position.z };
-		s_data.quad_vertex_buffer_base->color = color;
-		s_data.quad_vertex_buffer_base->tex_coord = { 1.0f, 0.0f };
+		s_data.quad_vertex_buffer_ptr->position = { position.x + size.x, position.y, position.z };
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 0.0f };
 		s_data.quad_vertex_buffer_ptr++;
 
-		s_data.quad_vertex_buffer_base->position = { position.x + size.x, position.y + size.y, position.z };
-		s_data.quad_vertex_buffer_base->color = color;
-		s_data.quad_vertex_buffer_base->tex_coord = { 1.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->position = { position.x + size.x, position.y + size.y, position.z };
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 1.0f };
 		s_data.quad_vertex_buffer_ptr++;
 
-		s_data.quad_vertex_buffer_base->position = { position.x, position.y + size.y, position.z };
-		s_data.quad_vertex_buffer_base->color = color;
-		s_data.quad_vertex_buffer_base->tex_coord = { 0.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->position = { position.x, position.y + size.y, position.z };
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 1.0f };
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_index_count += 6;

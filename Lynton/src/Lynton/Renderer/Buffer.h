@@ -137,6 +137,7 @@ namespace Lynton
 		static Ref<VertexBuffer> create(uint32_t size, float* vertices);
 	};
 
+	// only 32 bit indices are supported
 	class IndexBuffer
 	{
 	public:
@@ -147,6 +148,7 @@ namespace Lynton
 
 		virtual uint32_t get_count() const = 0;
 
+		// ToDo: flip
 		static Ref<IndexBuffer> create(uint32_t count, uint32_t* indices);
 	};
 
