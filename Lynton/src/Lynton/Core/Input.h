@@ -20,6 +20,8 @@ namespace Lynton
 		inline static bool is_mouse_button_pressed(MouseCode button) { return s_instance->is_mouse_button_pressed_impl(button); }
 		inline static bool get_mouse_x() { return s_instance->get_mouse_x_impl(); }
 		inline static std::pair<float, float> get_mouse_position() { return s_instance->get_mouse_position_impl(); }
+
+		static Scope<Input> create();
 	protected:
 		Input() = default;
 

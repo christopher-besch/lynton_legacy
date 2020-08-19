@@ -594,9 +594,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Core\Application.cpp" />
+    <ClCompile Include="src\Lynton\Core\Input.cpp" />
     <ClCompile Include="src\Lynton\Core\Layer.cpp" />
     <ClCompile Include="src\Lynton\Core\LayerStack.cpp" />
     <ClCompile Include="src\Lynton\Core\Log.cpp" />
+    <ClCompile Include="src\Lynton\Core\Window.cpp" />
     <ClCompile Include="src\Lynton\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Lynton\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Buffer.cpp" />

@@ -9,6 +9,8 @@
 #include "Lynton/ImGui/ImGuiLayer.h"
 #include "Lynton/Core/TimeStep.h"
 
+int main(int argc, char** argv);
+
 namespace Lynton
 {
 
@@ -17,6 +19,7 @@ namespace Lynton
 	{
 	private:
 		static Application* s_instance;
+		friend int ::main(int argc, char** argv);
 
 		std::unique_ptr<Window> m_window;
 		ImGuiLayer* m_imgui_layer;
@@ -29,8 +32,6 @@ namespace Lynton
 		Application();
 		virtual ~Application();
 
-		void run();
-
 		void on_event(Event& event);
 
 		void push_layer(Layer* layer);
@@ -41,6 +42,8 @@ namespace Lynton
 		inline static Application& get() { return *s_instance; }
 		inline bool& get_running() { return m_running; }
 	private:
+		void run();
+
 		bool on_window_close(WindowCloseEvent& event);
 		bool on_window_resize(WindowResizedEvent& event);
 	};

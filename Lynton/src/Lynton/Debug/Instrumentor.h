@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <chrono>
 #include <fstream>
-
+#include <iomanip>
 #include <string>
 #include <thread>
 
@@ -44,10 +44,13 @@
 namespace Lynton
 {
 
+    using FloatingPointMicroseconds = std::chrono::duration<double, std::micro>;
+
     struct ProfileResult
     {
         std::string name;
-        long long start, end;
+        FloatingPointMicroseconds start;
+        std::chrono::microseconds elapsed_time;
         std::thread::id thread_id;
     };
 
@@ -106,14 +109,15 @@ namespace Lynton
             std::string name = result.name;
             std::replace(name.begin(), name.end(), '"', '\'');
 
+            json << std::setprecision(3) << std::fixed;
             json << ",{";
             json << "\"cat\":\"function\",";
-            json << "\"dur\":" << (result.end - result.start) << ',';
+            json << "\"dur\":" << (result.elapsed_time.count()) << ',';
             json << "\"name\":\"" << name << "\",";
             json << "\"ph\":\"X\",";
             json << "\"pid\":0,";
             json << "\"tid\":" << result.thread_id << ",";
-            json << "\"ts\":" << result.start;
+            json << "\"ts\":" << result.start.count();
             json << "}";
 
             std::lock_guard lock(m_mutex);
@@ -158,13 +162,13 @@ namespace Lynton
     {
     private:
         const char* m_name;
-        std::chrono::time_point<std::chrono::high_resolution_clock> m_start_timepoint;
+        std::chrono::time_point<std::chrono::steady_clock> m_start_timepoint;
         bool m_stopped;
     public:
         InstrumentationTimer(const char* name)
             : m_name(name), m_stopped(false)
         {
-            m_start_timepoint = std::chrono::high_resolution_clock::now();
+            m_start_timepoint = std::chrono::steady_clock::now();
         }
 
         ~InstrumentationTimer()
@@ -175,12 +179,11 @@ namespace Lynton
 
         void stop()
         {
-            auto end_timepoint = std::chrono::high_resolution_clock::now();
+            auto end_timepoint = std::chrono::steady_clock::now();
+            auto high_res_start = FloatingPointMicroseconds{ m_start_timepoint.time_since_epoch() };
+            auto elapsed_time = std::chrono::time_point_cast<std::chrono::microseconds>(end_timepoint).time_since_epoch() - std::chrono::time_point_cast<std::chrono::microseconds>(m_start_timepoint).time_since_epoch();
 
-            long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_start_timepoint).time_since_epoch().count();
-            long long end = std::chrono::time_point_cast<std::chrono::microseconds>(end_timepoint).time_since_epoch().count();
-
-            Instrumentor::get().write_profile({ m_name, start, end, std::this_thread::get_id() });
+            Instrumentor::get().write_profile({ m_name, high_res_start, elapsed_time, std::this_thread::get_id() });
 
             m_stopped = true;
         }

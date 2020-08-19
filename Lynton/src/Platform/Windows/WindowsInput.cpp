@@ -7,8 +7,6 @@
 namespace Lynton
 {
 
-    Scope<Input> Input::s_instance = create_scope<WindowsInput>();
-
     bool WindowsInput::is_key_pressed_impl(KeyCode key)
     {
         auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());

@@ -1479,5 +1479,7 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Lynton\Core\Input.cpp" />
+    <ClCompile Include="src\Lynton\Core\Window.cpp" />
   </ItemGroup>
 </Project>

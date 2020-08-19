@@ -19,11 +19,6 @@ namespace Lynton
 	{
 		LY_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
-
-	Scope<Window> Window::create(const WindowProperties& props)
-	{
-		return create_scope<WindowsWindow>(props);
-	}
 	
 	WindowsWindow::WindowsWindow(const WindowProperties& props)
 	{
