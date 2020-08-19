@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Event.h"
+#include "Lynton/Events/Event.h"
 
 namespace Lynton
 {
@@ -31,7 +31,7 @@ namespace Lynton
 	class  WindowCloseEvent : public Event
 	{
 	public:
-		WindowCloseEvent() {}
+		WindowCloseEvent() = default;
 
 		EVENT_CLASS_TYPE(window_close)
 		EVENT_CLASS_CATEGORY(event_category_application)
@@ -41,7 +41,7 @@ namespace Lynton
 	class  AppTickEvent : public Event
 	{
 	public:
-		AppTickEvent() {}
+		AppTickEvent() = default;
 
 		EVENT_CLASS_TYPE(app_tick)
 		EVENT_CLASS_CATEGORY(event_category_application)
@@ -51,7 +51,7 @@ namespace Lynton
 	class  AppUpdateEvent : public Event
 	{
 	public:
-		AppUpdateEvent() {}
+		AppUpdateEvent() = default;
 
 		EVENT_CLASS_TYPE(app_update)
 		EVENT_CLASS_CATEGORY(event_category_application)
@@ -61,7 +61,7 @@ namespace Lynton
 	class  AppRenderEvent : public Event
 	{
 	public:
-		AppRenderEvent() {}
+		AppRenderEvent() = default;
 
 		EVENT_CLASS_TYPE(app_render)
 		EVENT_CLASS_CATEGORY(event_category_application)

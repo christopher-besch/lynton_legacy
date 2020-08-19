@@ -4,7 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "RenderCommand.h"
+#include "Lynton/Renderer/RenderCommand.h"
+#include "Lynton/Renderer/Shader.h"
 
 namespace Lynton
 {

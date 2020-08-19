@@ -2,10 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "OrthographicCameraController.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "VertexArray.h"
+#include "Lynton/Renderer/Texture.h"
 #include "Lynton/Renderer/OrthographicCamera.h"
 
 namespace Lynton

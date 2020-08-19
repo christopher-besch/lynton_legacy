@@ -5,8 +5,8 @@
 namespace Lynton
 {
 
-	std::shared_ptr<spdlog::logger> Log::s_core_logger;
-	std::shared_ptr<spdlog::logger> Log::s_client_logger;
+	Ref<spdlog::logger> Log::s_core_logger;
+	Ref<spdlog::logger> Log::s_client_logger;
 
 	void Log::init()
 	{

@@ -1,8 +1,7 @@
 #include "lypch.h"
 #include "Renderer.h"
 
-#include "Renderer2D.h"
-#include "Platform/OpenGL/OpenGLShader.h"
+#include "Lynton/Renderer/Renderer2D.h"
 
 namespace Lynton
 {
@@ -14,6 +13,11 @@ namespace Lynton
 
         RenderCommand::init();
         Renderer2D::init();
+    }
+
+    void Renderer::shutdown()
+    {
+        Renderer2D::shutdown();
     }
 
     void Renderer::on_window_resize(uint32_t width, uint32_t height)
@@ -33,8 +37,8 @@ namespace Lynton
     void Renderer::submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array, const glm::mat4& transform)
     {
         shader->bind();
-        std::dynamic_pointer_cast<OpenGLShader>(shader)->upload_uniform_mat4("u_view_projection", s_scene_data->view_projection_matrix);
-        std::dynamic_pointer_cast<OpenGLShader>(shader)->upload_uniform_mat4("u_transform", transform);
+        shader->set_mat4("u_view_projection", s_scene_data->view_projection_matrix);
+        shader->set_mat4("u_transform", transform);
 
         vertex_array->bind();
         RenderCommand::draw_indexed(vertex_array);

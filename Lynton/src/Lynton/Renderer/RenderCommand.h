@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RendererAPI.h"
+#include "Lynton/Renderer/RendererAPI.h"
 
 namespace Lynton
 {

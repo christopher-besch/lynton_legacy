@@ -9,6 +9,8 @@ namespace Lynton
 	public:
 		virtual void init() = 0;
 		virtual void swap_buffers() = 0;
+
+		static Scope<GraphicsContext> create(void* window);
 	};
 
 }

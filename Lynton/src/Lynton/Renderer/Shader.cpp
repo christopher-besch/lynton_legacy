@@ -1,7 +1,7 @@
 #include "lypch.h"
 #include "Shader.h"
 
-#include "Renderer.h"
+#include "Lynton/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
 namespace Lynton
@@ -15,7 +15,7 @@ namespace Lynton
             LY_CORE_ASSERT(false, "RendererAPI::none is not supported!")
             return nullptr;
         case RendererAPI::API::open_gl:
-            return std::make_shared<OpenGLShader>(filepath);
+            return create_ref<OpenGLShader>(filepath);
         default:
             LY_CORE_ASSERT(false, "The requested RendererAPI is not supported!")
             return nullptr;
@@ -30,7 +30,7 @@ namespace Lynton
             LY_CORE_ASSERT(false, "RendererAPI::none is not supported!")
             return nullptr;
         case RendererAPI::API::open_gl:
-            return std::make_shared<OpenGLShader>(name, vertex_src, fragment_src);
+            return create_ref<OpenGLShader>(name, vertex_src, fragment_src);
         default:
             LY_CORE_ASSERT(false, "The requested RendererAPI is not supported!")
             return nullptr;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Event.h"
+#include "Lynton/Events/Event.h"
 
 namespace Lynton
 {

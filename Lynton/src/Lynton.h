@@ -7,6 +7,8 @@
 #include "Lynton/Core/Layer.h"
 #include "Lynton/ImGui/ImGuiLayer.h"
 
+#include "Lynton/Core/Core.h"
+
 #include "Lynton/Core/Application.h"
 #include "Lynton/Core/Log.h"
 

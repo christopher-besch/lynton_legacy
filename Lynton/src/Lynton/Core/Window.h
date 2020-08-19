@@ -39,6 +39,6 @@ namespace Lynton
 
 		virtual void* get_native_window() const = 0;
 
-		static Window* create(const WindowProperties& props = WindowProperties());
+		static Scope<Window> create(const WindowProperties& props = WindowProperties());
 	};
 }

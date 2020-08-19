@@ -1,8 +1,8 @@
 #pragma once
 
 #include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
-#include "spdlog/fmt/ostr.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/fmt/ostr.h>
 
 #include "Core.h"
 
@@ -12,17 +12,17 @@ namespace Lynton
 	class  Log
 	{
 	private:
-		static std::shared_ptr<spdlog::logger> s_core_logger;
-		static std::shared_ptr<spdlog::logger> s_client_logger;
+		static Ref<spdlog::logger> s_core_logger;
+		static Ref<spdlog::logger> s_client_logger;
 	public:
 		static void init();
 
-		inline static std::shared_ptr<spdlog::logger>& get_core_logger()
+		inline static Ref<spdlog::logger>& get_core_logger()
 		{
 			return s_core_logger;
 		}
 
-		inline static std::shared_ptr<spdlog::logger>& get_client_logger()
+		inline static Ref<spdlog::logger>& get_client_logger()
 		{
 			return s_client_logger;
 		}

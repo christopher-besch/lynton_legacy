@@ -1,4 +1,5 @@
 #pragma once
+#include "Lynton/Core/Core.h"
 
 #ifdef LY_PLATFORM_WINDOWS
 

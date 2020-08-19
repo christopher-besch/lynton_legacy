@@ -8,7 +8,7 @@
 
 #include "Lynton/Renderer/Renderer.h"
 
-#include "Input.h"
+#include "Lynton/Core/Input.h"
 #include "GLFW/glfw3.h"
 
 namespace Lynton
@@ -24,7 +24,7 @@ namespace Lynton
 		s_instance = this;
 
 		// create window handler
-		m_window = std::unique_ptr<Window>(Window::create());
+		m_window = Window::create();
 		m_window->set_event_callback(LY_BIND_EVENT_FUNCTION(Application::on_event));
 
 		Renderer::init();
@@ -32,6 +32,11 @@ namespace Lynton
 		// ImGui
 		m_imgui_layer = new ImGuiLayer();
 		push_overlay(m_imgui_layer);
+	}
+
+	Application::~Application()
+	{
+		Renderer::shutdown();
 	}
 
 	void Application::push_layer(Layer* layer)

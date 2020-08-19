@@ -1,7 +1,7 @@
 #include "lypch.h"
 #include "Texture.h"
 
-#include "Renderer.h"
+#include "Lynton/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace Lynton

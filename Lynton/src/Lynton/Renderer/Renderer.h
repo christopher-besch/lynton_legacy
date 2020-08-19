@@ -1,10 +1,9 @@
 #pragma once
 
-#include "RenderCommand.h"
-#include "Shader.h"
-#include "VertexArray.h"
+#include "Lynton/Renderer/RenderCommand.h"
+#include "Lynton/Renderer/Shader.h"
 
-#include "OrthographicCamera.h"
+#include "Lynton/Renderer/OrthographicCamera.h"
 
 namespace Lynton
 {
@@ -22,6 +21,8 @@ namespace Lynton
 		static Scope<SceneData> s_scene_data;
 	public:
 		static void init();
+		static void shutdown();
+
 		static void on_window_resize(uint32_t width, uint32_t height);
 
 		static void begin_scene(OrthographicCamera& camera);

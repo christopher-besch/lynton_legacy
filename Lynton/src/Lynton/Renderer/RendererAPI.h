@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "VertexArray.h"
+#include "Lynton/Renderer/VertexArray.h"
 
 namespace Lynton
 {
@@ -28,6 +28,8 @@ namespace Lynton
 		virtual void draw_indexed(const Ref<VertexArray>& vertex_array, uint32_t index_count = 0) = 0;
 
 		inline static API get_api() { return s_api; }
+
+		static Scope<RendererAPI> create();
 	};
 
 }

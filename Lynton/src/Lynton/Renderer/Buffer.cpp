@@ -2,7 +2,7 @@
 #include "lypch.h"
 #include "Buffer.h"
 
-#include "Renderer.h"
+#include "Lynton/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
 namespace Lynton

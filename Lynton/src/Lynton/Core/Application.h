@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Core.h"
+#include "Lynton/Core/Core.h"
 #include "Lynton/Core/LayerStack.h"
 #include "Lynton/Events/Event.h"
 #include "Lynton/Events/ApplicationEvent.h"
-#include "Window.h"
+#include "Lynton/Core/Window.h"
 
 #include "Lynton/ImGui/ImGuiLayer.h"
 #include "Lynton/Core/TimeStep.h"
@@ -27,7 +27,7 @@ namespace Lynton
 		float m_last_frame_time;
 	public:
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		void run();
 

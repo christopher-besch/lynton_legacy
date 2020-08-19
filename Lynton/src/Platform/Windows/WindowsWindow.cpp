@@ -17,9 +17,9 @@ namespace Lynton
 		LY_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::create(const WindowProperties& props)
+	Scope<Window> Window::create(const WindowProperties& props)
 	{
-		return new WindowsWindow(props);
+		return create_scope<WindowsWindow>(props);
 	}
 	
 	WindowsWindow::WindowsWindow(const WindowProperties& props)
@@ -50,7 +50,6 @@ namespace Lynton
 		{
 			LY_PROFILE_SCOPE("glfwInit");
 
-			LY_CORE_INFO("Initiated GLFW");
 			int success = glfwInit();
 			LY_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(glfw_error_callback);
@@ -63,7 +62,7 @@ namespace Lynton
 		    ++s_glfw_window_count;
 	    }
 
-		m_context = create_scope<OpenGLContext>(m_window);
+		m_context = GraphicsContext::create(m_window);
 		// includes make context current stuff
 		m_context->init();
 
@@ -175,10 +174,9 @@ namespace Lynton
 		LY_PROFILE_FUNCTION();
 
 		glfwDestroyWindow(m_window);
-		s_glfw_window_count -= 1;
+		--s_glfw_window_count;
 		if (s_glfw_window_count == 0)
 		{
-			LY_CORE_INFO("Terminating GLFW");
 			glfwTerminate();
 		}
 	}
