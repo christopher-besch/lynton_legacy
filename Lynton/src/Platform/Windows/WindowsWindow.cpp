@@ -5,6 +5,9 @@
 #include "Lynton/Events/MouseEvent.h"
 #include "Lynton/Events/KeyEvent.h"
 #include "Lynton/Core/Core.h"
+#include "Lynton/Renderer/Renderer.h"
+
+#include "Lynton/Core/Input.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
@@ -57,6 +60,10 @@ namespace Lynton
 
 	    {
 			LY_PROFILE_SCOPE("glfwCreateWindow");
+#if defined(LY_DEBUG)
+			if (Renderer::get_api() == RendererAPI::API::open_gl)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
 
 	        m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
 		    ++s_glfw_window_count;
@@ -97,20 +104,19 @@ namespace Lynton
 				{
 					case GLFW_PRESS:
 					{
-					    KeyPressedEvent event(key, 0);
+					    KeyPressedEvent event(static_cast<KeyCode>(key), 0);
 					    data.event_callback(event);
 					    break;
 					}
 					case GLFW_RELEASE:
 					{
-					    KeyReleasedEvent event(key);
+					    KeyReleasedEvent event(static_cast<KeyCode>(key));
 					    data.event_callback(event);
 					    break;
 					}
 					case GLFW_REPEAT:
 					{
-					    //                         <- should actually be variable but glfw doesn't support that
-					    KeyPressedEvent event(key, 1);
+					    KeyPressedEvent event(static_cast<KeyCode>(key), 1);
 					    data.event_callback(event);
 					    break;
 					}
@@ -122,11 +128,11 @@ namespace Lynton
 				}
 			});
 
-		glfwSetCharCallback(m_window, [](GLFWwindow* window, unsigned int character)
+		glfwSetCharCallback(m_window, [](GLFWwindow* window, unsigned int keycode)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-				KeyTypedEvent event(character);
+				KeyTypedEvent event(static_cast<KeyCode>(keycode));
 				data.event_callback(event);
 			});
 
@@ -138,13 +144,13 @@ namespace Lynton
 					{
 					case GLFW_PRESS:
 					{
-						MouseButtonPressedEvent event(button);
+						MouseButtonPressedEvent event(static_cast<MouseCode>(button));
 						data.event_callback(event);
 						break;
 					}
 					case GLFW_RELEASE:
 					{
-						MouseButtonReleasedEvent event(button);
+						MouseButtonReleasedEvent event(static_cast<MouseCode>(button));
 						data.event_callback(event);
 						break;
 					}

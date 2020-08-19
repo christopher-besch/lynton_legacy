@@ -9,19 +9,19 @@ namespace Lynton
 
     Scope<Input> Input::s_instance = create_scope<WindowsInput>();
 
-    bool WindowsInput::is_key_pressed_impl(int keycode)
+    bool WindowsInput::is_key_pressed_impl(KeyCode key)
     {
         auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
 
-        int state = glfwGetKey(window, keycode);
+        int state = glfwGetKey(window, static_cast<int32_t>(key));
         return state == GLFW_PRESS || state == GLFW_REPEAT;
     }
 
-    bool WindowsInput::is_mouse_button_pressed_impl(int button)
+    bool WindowsInput::is_mouse_button_pressed_impl(MouseCode button)
     {
         auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
 
-        int state = glfwGetMouseButton(window, button);
+        int state = glfwGetMouseButton(window, static_cast<int32_t>(button));
         return state == GLFW_PRESS;
     }
 

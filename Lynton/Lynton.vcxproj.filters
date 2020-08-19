@@ -10,6 +10,9 @@
     <Filter Include="src\Lynton\Core">
       <UniqueIdentifier>{F858A603-64E4-13C8-6DF5-96BCD9FF6FC8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Lynton\Debug">
+      <UniqueIdentifier>{16D37D78-02CC-9CCA-2BFE-814F17567CD6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Lynton\Events">
       <UniqueIdentifier>{8488C28B-F09E-C021-3916-4C43A56B91A9}</UniqueIdentifier>
     </Filter>
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="src\Lynton\Core\Window.h">
       <Filter>src\Lynton\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lynton\Debug\Instrumentor.h">
+      <Filter>src\Lynton\Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Lynton\Events\ApplicationEvent.h">
       <Filter>src\Lynton\Events</Filter>
@@ -1389,7 +1395,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Lynton\Debug\Instrumentor.h" />
+    <ClInclude Include="src\Lynton\Core\MouseCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Core\Application.cpp">
@@ -1411,6 +1417,9 @@
       <Filter>src\Lynton\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\Renderer\Buffer.cpp">
+      <Filter>src\Lynton\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lynton\Renderer\GraphicsContext.cpp">
       <Filter>src\Lynton\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\Renderer\OrthographicCamera.cpp">
@@ -1470,6 +1479,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Lynton\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@
 
 #include "Lynton/Core/Input.h"
 #include "Lynton/Core/KeyCodes.h"
+#include "Lynton/Core/MouseCodes.h"
 
 #include "Lynton/Core/TimeStep.h"
 

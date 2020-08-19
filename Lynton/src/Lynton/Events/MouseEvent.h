@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Lynton/Events/Event.h"
+#include "Lynton/Core/Input.h"
 
 namespace Lynton
 {
@@ -54,13 +55,13 @@ namespace Lynton
 	class  MouseButtonEvent : public Event
 	{
 	protected:
-		int m_button;
+		MouseCode m_button;
 	public:
-		inline int get_mouse_button() const { return m_button; }
+		inline MouseCode get_mouse_button() const { return m_button; }
 
 		EVENT_CLASS_CATEGORY(event_category_mouse | event_category_input)
 	protected:
-		MouseButtonEvent(int button)
+		MouseButtonEvent(MouseCode button)
 			: m_button(button) {}
 	};
 
@@ -68,7 +69,7 @@ namespace Lynton
 	class  MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int button)
+		MouseButtonPressedEvent(MouseCode button)
 			: MouseButtonEvent(button) {}
 
 		std::string to_string() const override
@@ -86,7 +87,7 @@ namespace Lynton
 	class  MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int button)
+		MouseButtonReleasedEvent(MouseCode button)
 			: MouseButtonEvent(button) {}
 
 		std::string to_string() const override

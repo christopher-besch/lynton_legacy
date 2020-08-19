@@ -153,6 +153,7 @@
     <ClInclude Include="src\Lynton\Core\Layer.h" />
     <ClInclude Include="src\Lynton\Core\LayerStack.h" />
     <ClInclude Include="src\Lynton\Core\Log.h" />
+    <ClInclude Include="src\Lynton\Core\MouseCodes.h" />
     <ClInclude Include="src\Lynton\Core\TimeStep.h" />
     <ClInclude Include="src\Lynton\Core\Window.h" />
     <ClInclude Include="src\Lynton\Debug\Instrumentor.h" />

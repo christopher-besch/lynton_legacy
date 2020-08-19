@@ -1,20 +1,21 @@
 #pragma once
 
 #include "Lynton/Events/Event.h"
+#include "Lynton/Core/Input.h"
 
 namespace Lynton
 {
 	class  KeyEvent : public Event
 	{
 	protected:
-		int m_key_code;
+		KeyCode m_key_code;
 	public:
-		inline int get_key_code() const { return m_key_code; }
+		inline KeyCode get_key_code() const { return m_key_code; }
 
 		EVENT_CLASS_CATEGORY(event_category_keyboard | event_category_input)
 	protected:
-		KeyEvent(int keycode)
-			: m_key_code(keycode) {}
+		KeyEvent(KeyCode key)
+			: m_key_code(key) {}
 	};
 
 	
@@ -23,8 +24,8 @@ namespace Lynton
 	private:
 		int m_repeat_count;
 	public:
-		KeyPressedEvent(int keycode, int repeat_count)
-			: KeyEvent(keycode), m_repeat_count(repeat_count) {}
+		KeyPressedEvent(KeyCode key, int repeat_count)
+			: KeyEvent(key), m_repeat_count(repeat_count) {}
 
 		inline int get_repeat_count() const { return m_repeat_count; }
 
@@ -42,8 +43,8 @@ namespace Lynton
 	class  KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
-			: KeyEvent(keycode) {}
+		KeyReleasedEvent(KeyCode key)
+			: KeyEvent(key) {}
 
 		std::string to_string() const override
 		{
@@ -59,8 +60,8 @@ namespace Lynton
 	class  KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int keycode)
-			: KeyEvent(keycode) {}
+		KeyTypedEvent(KeyCode key)
+			: KeyEvent(key) {}
 
 		std::string to_string() const override
 		{

@@ -100,9 +100,9 @@ namespace Lynton
 
 		// ToDo: put break into loop instead of if?
 	    // sending the event through every layer until one handles it -> overlays get events first
-		for ( auto iterator = m_layer_stack.end(); iterator != m_layer_stack.begin(); )
+		for ( auto iterator = m_layer_stack.rbegin(); iterator != m_layer_stack.rend(); ++iterator)
 		{
-			(*--iterator)->on_event(event);
+			(*iterator)->on_event(event);
 			if (event.m_handled)
 				break;
 		}
