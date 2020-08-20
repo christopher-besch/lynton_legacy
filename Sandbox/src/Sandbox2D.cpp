@@ -39,12 +39,17 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 
     {
 		LY_PROFILE_SCOPE("Render Draw");
+
+		static float rotation = 0.0f;
+		rotation += time_step * 50.0f;
+
         Lynton::Renderer2D::begin_scene(m_camera_controller.get_camera());
 
-	    Lynton::Renderer2D::draw_quad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_square_color);
-	    Lynton::Renderer2D::draw_quad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-		// Lynton::Renderer2D::draw_rotated_quad({ 0.2f, 0.5f, -0.1 }, { 10.0f, 10.0f }, glm::radians(45.0f), m_checker_board_texture, 10.0f, glm::vec4(1.0f, 0.8f, 0.7f, 1.0f));
-		Lynton::Renderer2D::draw_quad({ -5.0f, -5.0f, -0.1 }, { 10.0f, 10.0f }, m_checker_board_texture, 10.0f);
+		Lynton::Renderer2D::draw_rotated_quad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, glm::radians(-45.0f), { 0.8f, 0.2f, 0.3f, 1.0f });
+		Lynton::Renderer2D::draw_quad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+		Lynton::Renderer2D::draw_quad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+		Lynton::Renderer2D::draw_quad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_checker_board_texture, 10.0f);
+		Lynton::Renderer2D::draw_rotated_quad({ -2.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, glm::radians(rotation), m_checker_board_texture, 20.0f);
 
 	    Lynton::Renderer2D::end_scene();
     }
