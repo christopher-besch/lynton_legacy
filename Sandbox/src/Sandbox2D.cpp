@@ -10,6 +10,8 @@ Sandbox2D::Sandbox2D()
 {
 }
 
+// ToDo: inline wrong blabla
+
 void Sandbox2D::on_attach()
 {
 	LY_PROFILE_FUNCTION();
