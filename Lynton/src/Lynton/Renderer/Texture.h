@@ -18,6 +18,8 @@ namespace Lynton
 		virtual void set_data(void* data, size_t size) = 0;
 
 		virtual void bind(uint32_t slot = 0) const = 0;
+
+		virtual bool operator==(const Texture& other) = 0;
 	};
 
 

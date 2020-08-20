@@ -34,6 +34,7 @@ namespace Lynton
 		virtual void set_vec4(const std::string& name, const glm::vec4& vector) override;
 		virtual void set_float(const std::string& name, const float value) override;
 		virtual void set_int(const std::string& name, const int value) override;
+		virtual void set_int_array(const std::string& name, const int* values, uint32_t count) override;
 
 		inline virtual const std::string& get_name() const override { return m_name; }
 
@@ -44,6 +45,7 @@ namespace Lynton
 		void upload_uniform_vec4(const std::string& name, const glm::vec4& vector);
 		void upload_uniform_mat3(const std::string& name, const glm::mat3& matrix);
 		void upload_uniform_mat4(const std::string& name, const glm::mat4& matrix);
+		void upload_uniform_int_array(const std::string& name, const int* values, uint32_t count);
 	};
 
 }

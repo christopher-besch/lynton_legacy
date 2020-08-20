@@ -15,7 +15,8 @@ namespace Lynton
 		glm::vec3 position;
 		glm::vec4 color;
 		glm::vec2 tex_coord;
-		// ToDo: texid
+		float tex_index;
+		float tiling_factor;
 	};
 
 	struct Renderer2DData
@@ -23,15 +24,21 @@ namespace Lynton
 		const uint32_t max_quads = 10000;
 		const uint32_t max_vertices = max_quads * 4;
 		const uint32_t max_indices = max_quads * 6;
+		// ToDo: renderer capability
+		static const uint32_t max_texture_slots = 32;
 
 		Ref<VertexArray> quad_vertex_array;
 		Ref<VertexBuffer> quad_vertex_buffer;
 		Ref<Shader> texture_shader;
-		Ref<Texture> white_texture;
+		Ref<Texture2D> white_texture;
 
 		uint32_t quad_index_count = 0;
 		QuadVertex* quad_vertex_buffer_base = nullptr;
 		QuadVertex* quad_vertex_buffer_ptr = nullptr;
+
+		// ToDo: Ref<Texture2D> not good
+		std::array<Ref<Texture2D>, max_texture_slots> texture_slots;
+		uint32_t texture_slot_index = 1;
 	};
 
 	static Renderer2DData s_data;
@@ -45,7 +52,9 @@ namespace Lynton
 		s_data.quad_vertex_buffer->set_layout({
 			{ ShaderDataType::float3, "a_position" },
 			{ ShaderDataType::float4, "a_color" },
-			{ ShaderDataType::float2, "a_tex_coord" }
+			{ ShaderDataType::float2, "a_tex_coord" },
+			{ ShaderDataType::float1, "a_tex_index" },
+			{ ShaderDataType::float1, "a_tiling_factor" }
 		});
 		s_data.quad_vertex_array->add_vertex_buffer(s_data.quad_vertex_buffer);
 
@@ -75,9 +84,15 @@ namespace Lynton
 		uint32_t white_texture_data = 0xffffffff;
 		s_data.white_texture->set_data(&white_texture_data, sizeof(white_texture_data));
 
+		int32_t samplers[s_data.max_texture_slots];
+		for (int32_t i = 0; i < s_data.max_texture_slots; i++)
+			samplers[i] = i;
+
 		s_data.texture_shader = Shader::create("assets/shaders/Texture.glsl");
 		s_data.texture_shader->bind();
-		s_data.texture_shader->set_int("u_texture", 0);
+		s_data.texture_shader->set_int_array("u_texture", samplers, s_data.max_texture_slots);
+
+		s_data.texture_slots[0] = s_data.white_texture;
     }
 
     void Renderer2D::shutdown()
@@ -94,6 +109,8 @@ namespace Lynton
 
 		s_data.quad_index_count = 0;
 		s_data.quad_vertex_buffer_ptr = s_data.quad_vertex_buffer_base;
+
+		s_data.texture_slot_index = 1;
     }
 
     void Renderer2D::end_scene()
@@ -110,6 +127,12 @@ namespace Lynton
 	{
 		LY_PROFILE_FUNCTION();
 
+		// bind textures
+		for (uint32_t i = 0; i < s_data.texture_slot_index; i++)
+		{
+			s_data.texture_slots[i]->bind(i);
+		}
+
 		RenderCommand::draw_indexed(s_data.quad_vertex_array, s_data.quad_index_count);
 	}
 
@@ -122,50 +145,99 @@ namespace Lynton
     {
 		LY_PROFILE_FUNCTION();
 
+		// white texture
+		const float tex_index = 0.0f;
+		const float tiling_factor = 1.0f;
+
 		// position is the lower left vertex
 		s_data.quad_vertex_buffer_ptr->position = position;
 		s_data.quad_vertex_buffer_ptr->color = color;
 		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 0.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = tex_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_vertex_buffer_ptr->position = { position.x + size.x, position.y, position.z };
 		s_data.quad_vertex_buffer_ptr->color = color;
 		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 0.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = tex_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_vertex_buffer_ptr->position = { position.x + size.x, position.y + size.y, position.z };
 		s_data.quad_vertex_buffer_ptr->color = color;
 		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = tex_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_vertex_buffer_ptr->position = { position.x, position.y + size.y, position.z };
 		s_data.quad_vertex_buffer_ptr->color = color;
 		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = tex_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_index_count += 6;
     }
 
-	void Renderer2D::draw_quad(const glm::vec2& position, const glm::vec2 size, const Ref<Texture>& texture, float tiling_factor, const glm::vec4& tint_color)
+	void Renderer2D::draw_quad(const glm::vec2& position, const glm::vec2 size, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
 	{
 		draw_quad({ position.x, position.y, 0.0f }, size, texture, tiling_factor, tint_color);
 	}
 
-	void Renderer2D::draw_quad(const glm::vec3& position, const glm::vec2 size, const Ref<Texture>& texture, float tiling_factor, const glm::vec4& tint_color)
+	void Renderer2D::draw_quad(const glm::vec3& position, const glm::vec2 size, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
 	{
 		LY_PROFILE_FUNCTION();
 
-		s_data.texture_shader->set_vec4("u_color", tint_color);
-		s_data.texture_shader->set_float("u_tiling_factor", tiling_factor);
+		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-        glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-            * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		s_data.texture_shader->set_mat4("u_transform", transform);
+		float texture_index = 0.0f;
+		for (uint32_t i = 1; i < s_data.texture_slot_index; i++)
+		{
+		    if (*s_data.texture_slots[i] == *texture)
+		    {
+				texture_index = (float)i;
+				break;
+		    }
+		}
+		if (texture_index == 0.0f)
+		{
+			texture_index = (float)s_data.texture_slot_index;
+			s_data.texture_slots[s_data.texture_slot_index] = texture;
+			s_data.texture_slot_index++;
+		}
 
-		texture->bind();
+		// position is the lower left vertex
+		s_data.quad_vertex_buffer_ptr->position = position;
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 0.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+		s_data.quad_vertex_buffer_ptr++;
 
-		s_data.quad_vertex_array->bind();
-		RenderCommand::draw_indexed(s_data.quad_vertex_array);
+		s_data.quad_vertex_buffer_ptr->position = { position.x + size.x, position.y, position.z };
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 0.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+		s_data.quad_vertex_buffer_ptr++;
+
+		s_data.quad_vertex_buffer_ptr->position = { position.x + size.x, position.y + size.y, position.z };
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+		s_data.quad_vertex_buffer_ptr++;
+
+		s_data.quad_vertex_buffer_ptr->position = { position.x, position.y + size.y, position.z };
+		s_data.quad_vertex_buffer_ptr->color = color;
+		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+		s_data.quad_vertex_buffer_ptr++;
+
+		s_data.quad_index_count += 6;
 	}
 
     void Renderer2D::draw_rotated_quad(const glm::vec2& position, const glm::vec2 size, float rotation, const glm::vec4& color)
@@ -191,12 +263,12 @@ namespace Lynton
 		RenderCommand::draw_indexed(s_data.quad_vertex_array);
     }
 
-    void Renderer2D::draw_rotated_quad(const glm::vec2& position, const glm::vec2 size, float rotation, const Ref<Texture>& texture, float tiling_factor, const glm::vec4& tint_color)
+    void Renderer2D::draw_rotated_quad(const glm::vec2& position, const glm::vec2 size, float rotation, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
     {
 		draw_rotated_quad({ position.x, position.y, 0.0f }, size, rotation, texture, tiling_factor, tint_color);
     }
 
-    void Renderer2D::draw_rotated_quad(const glm::vec3& position, const glm::vec2 size, float rotation, const Ref<Texture>& texture, float tiling_factor, const glm::vec4& tint_color)
+    void Renderer2D::draw_rotated_quad(const glm::vec3& position, const glm::vec2 size, float rotation, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
     {
 		LY_PROFILE_FUNCTION();
 

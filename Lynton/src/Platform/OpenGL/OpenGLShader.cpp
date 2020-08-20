@@ -230,6 +230,13 @@ namespace Lynton
 		upload_uniform_int(name, value);
 	}
 
+	void OpenGLShader::set_int_array(const std::string& name, const int* values, uint32_t count)
+	{
+		LY_PROFILE_FUNCTION();
+
+		upload_uniform_int_array(name, values, count);
+	}
+
     void OpenGLShader::upload_uniform_int(const std::string& name, const int value)
     {
 		int location = glGetUniformLocation(m_renderer_id, name.c_str());
@@ -270,5 +277,10 @@ namespace Lynton
 	{
 		int location = glGetUniformLocation(m_renderer_id, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+	void OpenGLShader::upload_uniform_int_array(const std::string& name, const int* values, uint32_t count)
+	{
+		int location = glGetUniformLocation(m_renderer_id, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 }

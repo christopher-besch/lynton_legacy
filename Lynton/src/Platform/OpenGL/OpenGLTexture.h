@@ -25,6 +25,11 @@ namespace Lynton
 		virtual void set_data(void* data, size_t size) override;
 
 		virtual void bind(uint32_t slot = 0) const;
+
+		virtual bool operator==(const Texture& other) override
+		{
+			return m_renderer_id == ((OpenGLTexture2D&)other).m_renderer_id;
+		}
 	};
 
 }
