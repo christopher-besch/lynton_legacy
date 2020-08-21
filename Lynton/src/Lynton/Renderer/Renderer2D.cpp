@@ -21,9 +21,9 @@ namespace Lynton
 
 	struct Renderer2DData
 	{
-		const uint32_t max_quads = 10000;
-		const uint32_t max_vertices = max_quads * 4;
-		const uint32_t max_indices = max_quads * 6;
+		static const uint32_t max_quads = 20000;
+		static const uint32_t max_vertices = max_quads * 4;
+		static const uint32_t max_indices = max_quads * 6;
 		// ToDo: renderer capability
 		static const uint32_t max_texture_slots = 32;
 
@@ -41,6 +41,8 @@ namespace Lynton
 		uint32_t texture_slot_index = 1;
 
 		glm::vec4 quad_vertex_positions[4];
+
+		Renderer2D::Statistics stats;
 	};
 
 	static Renderer2DData s_data;
@@ -141,7 +143,19 @@ namespace Lynton
 		}
 
 		RenderCommand::draw_indexed(s_data.quad_vertex_array, s_data.quad_index_count);
+
+		s_data.stats.draw_calls++;
 	}
+
+	void Renderer2D::flush_and_reset()
+    {
+		end_scene();
+
+		s_data.quad_index_count = 0;
+		s_data.quad_vertex_buffer_ptr = s_data.quad_vertex_buffer_base;
+
+		s_data.texture_slot_index = 1;
+    }
 
     void Renderer2D::draw_quad(const glm::vec2& position, const glm::vec2 size, const glm::vec4& color)
     {
@@ -151,6 +165,9 @@ namespace Lynton
     void Renderer2D::draw_quad(const glm::vec3& position, const glm::vec2 size, const glm::vec4& color)
     {
 		LY_PROFILE_FUNCTION();
+
+		if (s_data.quad_index_count >= s_data.max_indices)
+		    flush_and_reset();
 
 		// white texture
 		const float texture_index = 0.0f;
@@ -189,6 +206,8 @@ namespace Lynton
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_index_count += 6;
+
+		s_data.stats.quad_count++;
     }
 
 	void Renderer2D::draw_quad(const glm::vec2& position, const glm::vec2 size, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
@@ -199,6 +218,9 @@ namespace Lynton
 	void Renderer2D::draw_quad(const glm::vec3& position, const glm::vec2 size, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
 	{
 		LY_PROFILE_FUNCTION();
+
+		if (s_data.quad_index_count >= s_data.max_indices)
+			flush_and_reset();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -251,6 +273,8 @@ namespace Lynton
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_index_count += 6;
+
+		s_data.stats.quad_count++;
 	}
 
     void Renderer2D::draw_rotated_quad(const glm::vec2& position, const glm::vec2 size, float rotation, const glm::vec4& color)
@@ -261,6 +285,9 @@ namespace Lynton
     void Renderer2D::draw_rotated_quad(const glm::vec3& position, const glm::vec2 size, float rotation, const glm::vec4& color)
     {
 		LY_PROFILE_FUNCTION();
+
+		if (s_data.quad_index_count >= s_data.max_indices)
+			flush_and_reset();
 
 		// white texture
 		const float texture_index = 0.0f;
@@ -300,6 +327,8 @@ namespace Lynton
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_index_count += 6;
+
+		s_data.stats.quad_count++;
     }
 
     void Renderer2D::draw_rotated_quad(const glm::vec2& position, const glm::vec2 size, float rotation, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
@@ -310,6 +339,9 @@ namespace Lynton
     void Renderer2D::draw_rotated_quad(const glm::vec3& position, const glm::vec2 size, float rotation, const Ref<Texture2D>& texture, float tiling_factor, const glm::vec4& tint_color)
     {
 		LY_PROFILE_FUNCTION();
+
+		if (s_data.quad_index_count >= s_data.max_indices)
+			flush_and_reset();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -363,5 +395,17 @@ namespace Lynton
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_index_count += 6;
+
+		s_data.stats.quad_count++;
+    }
+
+    void Renderer2D::reset_stats()
+    {
+		memset(&s_data.stats, 0, sizeof(Statistics));
+    }
+
+    Renderer2D::Statistics Renderer2D::get_stats()
+    {
+		return s_data.stats;
     }
 }
