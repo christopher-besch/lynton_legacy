@@ -17,6 +17,7 @@ void Sandbox2D::on_attach()
 	LY_PROFILE_FUNCTION();
 
 	m_checker_board_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
+	m_sprite_sheet = Lynton::Texture2D::create("assets/game/textures/RPGpack_sheet_2X.png");
 
 	m_particle_props.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_particle_props.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -49,6 +50,7 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 	    Lynton::RenderCommand::clear();
     }
 
+#if 0
     {
 		LY_PROFILE_SCOPE("Render Draw");
 
@@ -75,6 +77,7 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 		Lynton::Renderer2D::end_scene();
 
     }
+#endif
 
 	{
 		LY_PROFILE_SCOPE("Particle System");
@@ -91,12 +94,16 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 			x = (x / width) * bounds.get_width() - bounds.get_width() * 0.5f;
 			y = bounds.get_height() * 0.5f - (y / height) * bounds.get_height();
 			m_particle_props.Position = { x + pos.x, y + pos.y };
-			for (int i = 0; i < 50; i++)
+			for (int i = 0; i < 5; i++)
 				m_particle_system.Emit(m_particle_props);
 		}
 
 		m_particle_system.OnUpdate(time_step);
 		m_particle_system.OnRender(m_camera_controller.get_camera());
+
+		Lynton::Renderer2D::begin_scene(m_camera_controller.get_camera());
+		Lynton::Renderer2D::draw_quad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_sprite_sheet);
+		Lynton::Renderer2D::end_scene();
 	}
 	
 }

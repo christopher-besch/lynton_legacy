@@ -219,10 +219,20 @@ namespace Lynton
 	{
 		LY_PROFILE_FUNCTION();
 
+		constexpr float x = 7.0f, y = 6.0f;
+		constexpr float sheet_width = 2560.0f, sheet_height = 1664.0f;
+		constexpr float sprite_width = 128.0f, sprite_height = 128.0f;
+
 		if (s_data.quad_index_count >= s_data.max_indices)
 			flush_and_reset();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		constexpr glm::vec2 texture_coords[] = {
+			{ (x * sprite_width) / sheet_width, (y * sprite_width) / sheet_height },
+			{ ((x + 1) * sprite_width) / sheet_width, (y * sprite_width) / sheet_height },
+			{ ((x + 1) * sprite_width) / sheet_width, ((y + 1) * sprite_width) / sheet_height },
+			{ (x * sprite_width) / sheet_width, ((y + 1) * sprite_width) / sheet_height }
+		};
 
 		float texture_index = 0.0f;
 		for (uint32_t i = 1; i < s_data.texture_slot_index; i++)
@@ -246,28 +256,28 @@ namespace Lynton
 		// position is the lower left vertex
 		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[0];
 		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 0.0f };
+		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[0];
 		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
 		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[1];
 		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 0.0f };
+		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[1];
 		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
 		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[2];
 		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = { 1.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[2];
 		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
 		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;
 
 		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[3];
 		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = { 0.0f, 1.0f };
+		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[3];
 		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
 		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
 		s_data.quad_vertex_buffer_ptr++;

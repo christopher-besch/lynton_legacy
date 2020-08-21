@@ -10,6 +10,7 @@ private:
 	Lynton::OrthographicCameraController m_camera_controller;
 
 	Lynton::Ref<Lynton::Texture2D> m_checker_board_texture;
+	Lynton::Ref<Lynton::Texture2D> m_sprite_sheet;
 
 	glm::vec4 m_square_color = { 0.5f, 0.7f, 1.0f, 1.0f };
 

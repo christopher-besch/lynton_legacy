@@ -1,13 +1,4 @@
-﻿  ExampleLayer.cpp
-  ParticleSystem.cpp
-  Sandbox2D.cpp
-  SandboxApp.cpp
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\SandboxApp.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\SandboxApp.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ParticleSystem.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ParticleSystem.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ExampleLayer.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ExampleLayer.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Sandbox2D.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Sandbox2D.cpp)
+﻿  Sandbox2D.cpp
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data
   Sandbox.vcxproj -> C:\Users\Stromel\Data\cpp\lynton\Sandbox\..\bin\Release-windows-x86_64\Sandbox\Sandbox.exe
