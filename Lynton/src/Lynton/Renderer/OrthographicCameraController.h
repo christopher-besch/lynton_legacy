@@ -9,6 +9,16 @@
 namespace Lynton
 {
 
+	struct OrthographicCameraBounds
+	{
+		float left, right;
+		float bottom, top;
+
+		float get_width() { return right - left; }
+		float get_height() { return top - bottom; }
+	};
+
+
 	class OrthographicCameraController
 	{
 	private:
@@ -21,6 +31,7 @@ namespace Lynton
 		float m_camera_move_speed = 0.2f;
 		float m_camera_turn_speed = 180.0f;
 
+		OrthographicCameraBounds m_bounds;
 		OrthographicCamera m_camera;
 	public:
 		OrthographicCameraController(float aspect_ratio, bool rotation = false);
@@ -30,6 +41,9 @@ namespace Lynton
 
 		inline OrthographicCamera get_camera() { return m_camera; }
 		inline const OrthographicCamera get_camera() const { return m_camera; }
+
+		inline OrthographicCameraBounds get_bounds() { return m_bounds; }
+		inline const OrthographicCameraBounds get_bounds() const { return m_bounds; }
 
 		inline void set_zoom_level(float level) { m_zoom_level = level; }
 		inline float get_zoom_level() { return m_zoom_level; }

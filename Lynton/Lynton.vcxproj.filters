@@ -84,6 +84,9 @@
     <ClInclude Include="src\Lynton\Core\Log.h">
       <Filter>src\Lynton\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lynton\Core\MouseCodes.h">
+      <Filter>src\Lynton\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Lynton\Core\TimeStep.h">
       <Filter>src\Lynton\Core</Filter>
     </ClInclude>
@@ -1395,10 +1398,12 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Lynton\Core\MouseCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Core\Application.cpp">
+      <Filter>src\Lynton\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lynton\Core\Input.cpp">
       <Filter>src\Lynton\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\Core\Layer.cpp">
@@ -1408,6 +1413,9 @@
       <Filter>src\Lynton\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\Core\Log.cpp">
+      <Filter>src\Lynton\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lynton\Core\Window.cpp">
       <Filter>src\Lynton\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\ImGui\ImGuiBuild.cpp">
@@ -1479,7 +1487,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Lynton\Core\Input.cpp" />
-    <ClCompile Include="src\Lynton\Core\Window.cpp" />
   </ItemGroup>
 </Project>

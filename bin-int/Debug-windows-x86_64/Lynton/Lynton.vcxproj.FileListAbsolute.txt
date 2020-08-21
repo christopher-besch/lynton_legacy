@@ -1,0 +1,2 @@
+C:\Users\Stromel\Data\cpp\lynton\bin\Debug-windows-x86_64\Lynton\Lynton.pdb
+C:\Users\Stromel\Data\cpp\lynton\bin-int\Debug-windows-x86_64\Lynton\Lynton.pdb

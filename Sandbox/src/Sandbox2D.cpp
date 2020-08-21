@@ -17,12 +17,21 @@ void Sandbox2D::on_attach()
 	LY_PROFILE_FUNCTION();
 
 	m_checker_board_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
+
+	m_particle_props.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
+	m_particle_props.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
+	m_particle_props.SizeBegin = 0.5f, m_particle_props.SizeVariation = 0.3f, m_particle_props.SizeEnd = 0.0f;
+	m_particle_props.LifeTime = 5.0f;
+	m_particle_props.Velocity = { 0.0f, 0.0f };
+	m_particle_props.VelocityVariation = { 3.0f, 1.0f };
+	m_particle_props.Position = { 0.0f, 0.0f };
 }
 
 void Sandbox2D::on_detach()
 {
 	LY_PROFILE_FUNCTION();
 
+	
 }
 
 void Sandbox2D::on_update(Lynton::TimeStep time_step)
@@ -66,6 +75,30 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 		Lynton::Renderer2D::end_scene();
 
     }
+
+	{
+		LY_PROFILE_SCOPE("Particle System");
+
+
+		if (Lynton::Input::is_mouse_button_pressed(LY_MOUSE_BUTTON_LEFT))
+		{
+			auto [x, y] = Lynton::Input::get_mouse_position();
+			auto width = Lynton::Application::get().get_window().get_width();
+			auto height = Lynton::Application::get().get_window().get_height();
+
+			auto bounds = m_camera_controller.get_bounds();
+			auto pos = m_camera_controller.get_camera().get_position();
+			x = (x / width) * bounds.get_width() - bounds.get_width() * 0.5f;
+			y = bounds.get_height() * 0.5f - (y / height) * bounds.get_height();
+			m_particle_props.Position = { x + pos.x, y + pos.y };
+			for (int i = 0; i < 50; i++)
+				m_particle_system.Emit(m_particle_props);
+		}
+
+		m_particle_system.OnUpdate(time_step);
+		m_particle_system.OnRender(m_camera_controller.get_camera());
+	}
+	
 }
 
 void Sandbox2D::on_event(Lynton::Event& event)

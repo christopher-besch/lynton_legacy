@@ -8,7 +8,7 @@ namespace Lynton
 {
 
     OrthographicCameraController::OrthographicCameraController(float aspect_ratio, bool rotation)
-        : m_aspect_ration(aspect_ratio), m_rotation(rotation), m_camera(-m_aspect_ration * m_zoom_level, m_aspect_ration* m_zoom_level, -m_zoom_level, m_zoom_level)
+        : m_aspect_ration(aspect_ratio), m_rotation(rotation), m_bounds({ -m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level }), m_camera(m_bounds.left, m_bounds.right, m_bounds.bottom, m_bounds.top)
     {
 
     }
@@ -46,7 +46,8 @@ namespace Lynton
 
         m_zoom_level -= event.get_y() * 0.25f;
         m_zoom_level = std::max(m_zoom_level, 0.25f);
-        m_camera.set_projection(-m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level);
+        m_bounds = { -m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level };
+        m_camera.set_projection(m_bounds.left, m_bounds.right, m_bounds.bottom, m_bounds.top);
         return false;
     }
 
@@ -55,7 +56,8 @@ namespace Lynton
         LY_PROFILE_FUNCTION();
 
         m_aspect_ration = static_cast<float>(event.get_width()) / static_cast<float>(event.get_height());
-        m_camera.set_projection(-m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level);
+        m_bounds = { -m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level };
+        m_camera.set_projection(m_bounds.left, m_bounds.right, m_bounds.bottom, m_bounds.top);
         return false;
     }
 

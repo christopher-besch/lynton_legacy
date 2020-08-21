@@ -2,6 +2,8 @@
 
 #include "Lynton.h"
 
+#include "ParticleSystem.h"
+
 class Sandbox2D : public Lynton::Layer
 {
 private:
@@ -10,6 +12,9 @@ private:
 	Lynton::Ref<Lynton::Texture2D> m_checker_board_texture;
 
 	glm::vec4 m_square_color = { 0.5f, 0.7f, 1.0f, 1.0f };
+
+	ParticleSystem m_particle_system;
+	ParticleProps m_particle_props;
 public:
 	Sandbox2D();
 	virtual ~Sandbox2D() = default;

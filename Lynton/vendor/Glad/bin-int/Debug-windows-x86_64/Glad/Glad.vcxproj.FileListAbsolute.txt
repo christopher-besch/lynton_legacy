@@ -1,0 +1,2 @@
+C:\Users\Stromel\Data\cpp\lynton\Lynton\vendor\Glad\bin\Debug-windows-x86_64\Glad\Glad.pdb
+C:\Users\Stromel\Data\cpp\lynton\Lynton\vendor\Glad\bin-int\Debug-windows-x86_64\Glad\Glad.pdb
