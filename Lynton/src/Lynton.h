@@ -29,3 +29,4 @@
 #include "Lynton/Renderer/Shader.h"
 
 #include "Lynton/Renderer/Texture.h"
+#include "Lynton/Renderer/SubTexture2D.h"

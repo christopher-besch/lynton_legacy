@@ -11,6 +11,7 @@ private:
 
 	Lynton::Ref<Lynton::Texture2D> m_checker_board_texture;
 	Lynton::Ref<Lynton::Texture2D> m_sprite_sheet;
+	Lynton::Ref<Lynton::SubTexture2D> m_stairs_texture, m_barrel_texture, m_tree_texture;
 
 	glm::vec4 m_square_color = { 0.5f, 0.7f, 1.0f, 1.0f };
 

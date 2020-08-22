@@ -43,7 +43,7 @@ void ParticleSystem::OnRender(Lynton::OrthographicCamera& camera)
 
 		float size = glm::lerp(particle.SizeEnd, particle.SizeBegin, life);
 		glm::vec3 position = { particle.Position.x, particle.Position.y, 0.2f };
-		Lynton::Renderer2D::draw_rotated_quad(particle.Position, { size, size }, particle.Rotation, color);
+		Lynton::Renderer2D::draw_rotated_quad(position, { size, size }, particle.Rotation, color);
 	}
 	Lynton::Renderer2D::end_scene();
 }

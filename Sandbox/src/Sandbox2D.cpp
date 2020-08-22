@@ -19,6 +19,10 @@ void Sandbox2D::on_attach()
 	m_checker_board_texture = Lynton::Texture2D::create("assets/textures/Checkerboard.png");
 	m_sprite_sheet = Lynton::Texture2D::create("assets/game/textures/RPGpack_sheet_2X.png");
 
+	m_stairs_texture = Lynton::SubTexture2D::create_from_coords(m_sprite_sheet, { 7, 6 }, { 128, 128 });
+	m_barrel_texture = Lynton::SubTexture2D::create_from_coords(m_sprite_sheet, { 8, 2 }, { 128, 128 });
+	m_tree_texture = Lynton::SubTexture2D::create_from_coords(m_sprite_sheet, { 2, 1 }, { 128, 128 }, { 1, 2 });
+
 	m_particle_props.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_particle_props.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	m_particle_props.SizeBegin = 0.5f, m_particle_props.SizeVariation = 0.3f, m_particle_props.SizeEnd = 0.0f;
@@ -102,7 +106,9 @@ void Sandbox2D::on_update(Lynton::TimeStep time_step)
 		m_particle_system.OnRender(m_camera_controller.get_camera());
 
 		Lynton::Renderer2D::begin_scene(m_camera_controller.get_camera());
-		Lynton::Renderer2D::draw_quad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_sprite_sheet);
+		Lynton::Renderer2D::draw_quad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_stairs_texture);
+		Lynton::Renderer2D::draw_quad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_barrel_texture);
+		Lynton::Renderer2D::draw_quad({ -1.0f, 0.5f, 0.5f }, { 1.0f, 2.0f }, m_tree_texture);
 		Lynton::Renderer2D::end_scene();
 	}
 	
