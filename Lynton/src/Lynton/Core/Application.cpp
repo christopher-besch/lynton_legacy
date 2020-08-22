@@ -55,6 +55,11 @@ namespace Lynton
 		layer->on_attach();
     }
 
+	void Application::close()
+	{
+		m_running = false;
+	}
+
 	void Application::run()
 	{
 		LY_PROFILE_FUNCTION();

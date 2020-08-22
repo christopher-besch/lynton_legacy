@@ -21,6 +21,7 @@ namespace Lynton
 
 		virtual uint32_t get_width() const override { return m_width; }
 		virtual uint32_t get_height() const override { return m_height; }
+		virtual uint32_t get_renderer_id() const override { return m_renderer_id; }
 
 		virtual void set_data(void* data, size_t size) override;
 
