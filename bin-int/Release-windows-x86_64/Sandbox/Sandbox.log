@@ -1,1 +1,6 @@
-﻿  Sandbox.vcxproj -> C:\Users\Stromel\Data\cpp\lynton\Sandbox\..\bin\Release-windows-x86_64\Sandbox\Sandbox.exe
+﻿  Sandbox2D.cpp
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\Stromel\Data\cpp\lynton\Sandbox\src\Sandbox2D.cpp(61,71): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\Stromel\Data\cpp\lynton\Sandbox\src\Sandbox2D.cpp(61,71): warning C4267: 'initializing': conversion from 'size_t' to 'const uint32_t', possible loss of data
+  Sandbox.vcxproj -> C:\Users\Stromel\Data\cpp\lynton\Sandbox\..\bin\Release-windows-x86_64\Sandbox\Sandbox.exe

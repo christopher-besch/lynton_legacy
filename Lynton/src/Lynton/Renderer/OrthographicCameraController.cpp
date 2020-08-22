@@ -40,14 +40,19 @@ namespace Lynton
         dispatcher.dispatch<WindowResizedEvent>(LY_BIND_EVENT_FUNCTION(OrthographicCameraController::on_window_resized));
     }
 
+    void OrthographicCameraController::calculate_view()
+    {
+        m_bounds = { -m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level };
+        m_camera.set_projection(m_bounds.left, m_bounds.right, m_bounds.bottom, m_bounds.top);
+    }
+
     bool OrthographicCameraController::on_mouse_scrolled(MouseScrolledEvent& event)
     {
         LY_PROFILE_FUNCTION();
 
         m_zoom_level -= event.get_y() * 0.25f;
         m_zoom_level = std::max(m_zoom_level, 0.25f);
-        m_bounds = { -m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level };
-        m_camera.set_projection(m_bounds.left, m_bounds.right, m_bounds.bottom, m_bounds.top);
+        calculate_view();
         return false;
     }
 
@@ -56,8 +61,7 @@ namespace Lynton
         LY_PROFILE_FUNCTION();
 
         m_aspect_ration = static_cast<float>(event.get_width()) / static_cast<float>(event.get_height());
-        m_bounds = { -m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level };
-        m_camera.set_projection(m_bounds.left, m_bounds.right, m_bounds.bottom, m_bounds.top);
+        calculate_view();
         return false;
     }
 
