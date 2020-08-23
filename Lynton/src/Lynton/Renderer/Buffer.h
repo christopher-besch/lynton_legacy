@@ -33,8 +33,8 @@ namespace Lynton
 		case ShaderDataType::float2: return sizeof(float) * 2;
 		case ShaderDataType::float3: return sizeof(float) * 3;
 		case ShaderDataType::float4: return sizeof(float) * 4;
-		case ShaderDataType::mat3:   return sizeof(float) * 3 * 3;
-		case ShaderDataType::mat4:   return sizeof(float) * 4 * 4;
+		case ShaderDataType::mat3:   return sizeof(float) * 3; // 3* float3
+		case ShaderDataType::mat4:   return sizeof(float) * 4; // 4* float3
 		case ShaderDataType::int1:   return sizeof(int)   * 1;
 		case ShaderDataType::int2:   return sizeof(int)   * 2;
 		case ShaderDataType::int3:   return sizeof(int)   * 3;

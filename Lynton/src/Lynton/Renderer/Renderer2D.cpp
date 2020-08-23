@@ -94,7 +94,7 @@ namespace Lynton
 
 		s_data.texture_shader = Shader::create("assets/shaders/Texture.glsl");
 		s_data.texture_shader->bind();
-		s_data.texture_shader->set_int_array("u_texture", samplers, s_data.max_texture_slots);
+		s_data.texture_shader->set_int_array("u_textures", samplers, s_data.max_texture_slots);
 
 		s_data.texture_slots[0] = s_data.white_texture;
 
@@ -107,6 +107,8 @@ namespace Lynton
     void Renderer2D::shutdown()
     {
 		LY_PROFILE_FUNCTION();
+
+		delete[] s_data.quad_vertex_buffer_base;
     }
 
     void Renderer2D::begin_scene(const OrthographicCamera& camera)
@@ -126,7 +128,7 @@ namespace Lynton
     {
 		LY_PROFILE_FUNCTION();
 
-		uint32_t data_size = (uint8_t*)s_data.quad_vertex_buffer_ptr - (uint8_t*)s_data.quad_vertex_buffer_base;
+		uint32_t data_size = (uint32_t)((uint8_t*)s_data.quad_vertex_buffer_ptr - (uint8_t*)s_data.quad_vertex_buffer_base);
 		s_data.quad_vertex_buffer->set_data(s_data.quad_vertex_buffer_base, data_size);
 
 		flush();
@@ -135,6 +137,8 @@ namespace Lynton
 	void Renderer2D::flush()
 	{
 		LY_PROFILE_FUNCTION();
+
+		// LY_CORE_ASSERT(s_data.quad_index_count != 0, "Flushing without anything to render!");
 
 		// bind textures
 		for (uint32_t i = 0; i < s_data.texture_slot_index; i++)
@@ -161,48 +165,29 @@ namespace Lynton
     {
 		LY_PROFILE_FUNCTION();
 
-		if (s_data.quad_index_count >= s_data.max_indices)
-		    flush_and_reset();
-
 		// white texture
 		const float texture_index = 0.0f;
 		const float tiling_factor = 1.0f;
-		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } };
+		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+		constexpr size_t quad_vertex_count = 4;
+
+		if (s_data.quad_index_count >= Renderer2DData::max_indices)
+			flush_and_reset();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		// position is the lower left vertex
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[0];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[0];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[1];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[1];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[2];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[2];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[3];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[3];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
+		for (size_t i = 0; i < quad_vertex_count; i++)
+		{
+			s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[i];
+			s_data.quad_vertex_buffer_ptr->color = color;
+			s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[i];
+			s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+			s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+			s_data.quad_vertex_buffer_ptr++;
+		}
 
 		s_data.quad_index_count += 6;
-
 		s_data.stats.quad_count++;
     }
 
@@ -213,8 +198,8 @@ namespace Lynton
 		if (s_data.quad_index_count >= s_data.max_indices)
 			flush_and_reset();
 
-		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } };
+		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+		constexpr size_t quad_vertex_count = 4;
 
 		float texture_index = 0.0f;
 		for (uint32_t i = 1; i < s_data.texture_slot_index; i++)
@@ -227,6 +212,9 @@ namespace Lynton
 		}
 		if (texture_index == 0.0f)
 		{
+			if (s_data.texture_slot_index >= Renderer2DData::max_texture_slots)
+				flush_and_reset();
+
 			texture_index = (float)s_data.texture_slot_index;
 			s_data.texture_slots[s_data.texture_slot_index] = texture;
 			s_data.texture_slot_index++;
@@ -235,37 +223,17 @@ namespace Lynton
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		// position is the lower left vertex
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[0];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[0];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[1];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[1];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[2];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[2];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[3];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[3];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
+		for (size_t i = 0; i < quad_vertex_count; i++)
+		{
+			s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[i];
+			s_data.quad_vertex_buffer_ptr->color = tint_color;
+			s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[i];
+			s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+			s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+			s_data.quad_vertex_buffer_ptr++;
+		}
 
 		s_data.quad_index_count += 6;
-
 		s_data.stats.quad_count++;
 	}
 
@@ -276,7 +244,7 @@ namespace Lynton
 		if (s_data.quad_index_count >= s_data.max_indices)
 			flush_and_reset();
 
-		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		constexpr size_t quad_vertex_count = 4;
 		const glm::vec2* texture_coords = sub_texture->get_tex_coords();
 		const Ref<Texture2D> texture = sub_texture->get_texture();
 
@@ -291,6 +259,9 @@ namespace Lynton
 		}
 		if (texture_index == 0.0f)
 		{
+			if (s_data.texture_slot_index >= Renderer2DData::max_texture_slots)
+				flush_and_reset();
+
 			texture_index = (float)s_data.texture_slot_index;
 			s_data.texture_slots[s_data.texture_slot_index] = texture;
 			s_data.texture_slot_index++;
@@ -299,37 +270,17 @@ namespace Lynton
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		// position is the lower left vertex
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[0];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[0];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[1];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[1];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[2];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[2];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[3];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[3];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
+		for (size_t i = 0; i < quad_vertex_count; i++)
+		{
+			s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[i];
+			s_data.quad_vertex_buffer_ptr->color = tint_color;
+			s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[i];
+			s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+			s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+			s_data.quad_vertex_buffer_ptr++;
+		}
 
 		s_data.quad_index_count += 6;
-
 		s_data.stats.quad_count++;
     }
 
@@ -343,43 +294,24 @@ namespace Lynton
 		// white texture
 		const float texture_index = 0.0f;
 		const float tiling_factor = 1.0f;
-		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } };
+		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+		constexpr size_t quad_vertex_count = 4;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), rotation, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		// position is the lower left vertex
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[0];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[0];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[1];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[1];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[2];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[2];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[3];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[3];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
+		for (size_t i = 0; i < quad_vertex_count; i++)
+		{
+			s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[i];
+			s_data.quad_vertex_buffer_ptr->color = color;
+			s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[i];
+			s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+			s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+			s_data.quad_vertex_buffer_ptr++;
+		}
 
 		s_data.quad_index_count += 6;
-
 		s_data.stats.quad_count++;
     }
 
@@ -391,7 +323,8 @@ namespace Lynton
 			flush_and_reset();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } };
+		constexpr glm::vec2 texture_coords[4] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+		constexpr size_t quad_vertex_count = 4;
 
 		float texture_index = 0.0f;
 		for (uint32_t i = 1; i < s_data.texture_slot_index; i++)
@@ -404,6 +337,9 @@ namespace Lynton
 		}
 		if (texture_index == 0.0f)
 		{
+			if (s_data.texture_slot_index >= Renderer2DData::max_texture_slots)
+				flush_and_reset();
+
 			texture_index = (float)s_data.texture_slot_index;
 			s_data.texture_slots[s_data.texture_slot_index] = texture;
 			s_data.texture_slot_index++;
@@ -413,37 +349,17 @@ namespace Lynton
 			* glm::rotate(glm::mat4(1.0f), rotation, { 0.0f, 0.0f, 1.0f })
 		    * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		// position is the lower left vertex
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[0];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[0];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[1];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[1];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[2];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[2];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[3];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[3];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
+		for (size_t i = 0; i < quad_vertex_count; i++)
+		{
+			s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[i];
+			s_data.quad_vertex_buffer_ptr->color = color;
+			s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[i];
+			s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+			s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+			s_data.quad_vertex_buffer_ptr++;
+		}
 
 		s_data.quad_index_count += 6;
-
 		s_data.stats.quad_count++;
     }
 
@@ -455,6 +371,7 @@ namespace Lynton
 			flush_and_reset();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		constexpr size_t quad_vertex_count = 4;
 		const glm::vec2* texture_coords = sub_texture->get_tex_coords();
 		const Ref<Texture2D> texture = sub_texture->get_texture();
 
@@ -469,6 +386,9 @@ namespace Lynton
 		}
 		if (texture_index == 0.0f)
 		{
+			if (s_data.texture_slot_index >= Renderer2DData::max_texture_slots)
+				flush_and_reset();
+
 			texture_index = (float)s_data.texture_slot_index;
 			s_data.texture_slots[s_data.texture_slot_index] = texture;
 			s_data.texture_slot_index++;
@@ -478,37 +398,17 @@ namespace Lynton
 			* glm::rotate(glm::mat4(1.0f), rotation, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		// position is the lower left vertex
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[0];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[0];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[1];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[1];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[2];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[2];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
-
-		s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[3];
-		s_data.quad_vertex_buffer_ptr->color = color;
-		s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[3];
-		s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
-		s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
-		s_data.quad_vertex_buffer_ptr++;
+		for (size_t i = 0; i < quad_vertex_count; i++)
+		{
+			s_data.quad_vertex_buffer_ptr->position = transform * s_data.quad_vertex_positions[i];
+			s_data.quad_vertex_buffer_ptr->color = color;
+			s_data.quad_vertex_buffer_ptr->tex_coord = texture_coords[i];
+			s_data.quad_vertex_buffer_ptr->tex_index = texture_index;
+			s_data.quad_vertex_buffer_ptr->tiling_factor = tiling_factor;
+			s_data.quad_vertex_buffer_ptr++;
+		}
 
 		s_data.quad_index_count += 6;
-
 		s_data.stats.quad_count++;
 	}
 

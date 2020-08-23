@@ -16,7 +16,7 @@
         #define LY_FUNC_SIG __PRETTY_FUNCTION__
     #elif defined(__DMC__) && (__DMC__ >= 0x810)
         #define LY_FUNC_SIG __PRETTY_FUNCTION__
-    #elif defined(__FUNCSIG__)
+    #elif defined(__FUNCSIG__) || (_MSC_VER)
         #define LY_FUNC_SIG __FUNCSIG__
     #elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
         #define LY_FUNC_SIG __FUNCTION__
@@ -32,7 +32,8 @@
 
     #define LY_PROFILE_BEGIN_SESSION(name, filepath) ::Lynton::Instrumentor::get().begin_session(name, filepath)
     #define LY_PROFILE_END_SESSION() ::Lynton::Instrumentor::get().end_session()
-    #define LY_PROFILE_SCOPE(name) ::Lynton::InstrumentationTimer timer##__LINE__(name);
+    #define LY_PROFILE_SCOPE(name) constexpr auto fixed_name = ::Lynton::InstrumentorUtils::cleanup_output_string(name, "__cdecl ");\
+									::Lynton::InstrumentationTimer timer##__LINE__(fixed_name.data)
     #define LY_PROFILE_FUNCTION() LY_PROFILE_SCOPE(LY_FUNC_SIG)
 #else
     #define LY_PROFILE_BEGIN_SESSION(name, filepath)
@@ -74,26 +75,23 @@ namespace Lynton
         void begin_session(const std::string& name, const std::string& filepath = "results.json")
         {
             std::lock_guard lock(m_mutex);
-            if (m_current_session) {
+            if (m_current_session)
+            {
                 // if there is already a current session, then close it before beginning new one
                 // subsequent profiling output meant for the original session will end up in the
                 // newly opened session instead
                 // that's better than having badly formatted profiling output.
-                if (Log::get_core_logger()) { // edge case: begin_session() might be before Log::init()
+                if (Log::get_core_logger()) // edge case: begin_session() might be before Log::init()
                     LY_CORE_ERROR("Instrumentor::BeginSession('{0}') when session '{1}' already open.", name, m_current_session->name);
-                }
                 internal_end_session();
             }
             m_output_stream.open(filepath);
-            if (m_output_stream.is_open()) {
+            if (m_output_stream.is_open())
+            {
                 m_current_session = new InstrumentationSession({ name });
                 write_header();
-            }
-            else {
-                if (Log::get_core_logger()) { // edge case: begin_session() might be before Log::init()
-                    LY_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
-                }
-            }
+            } else if (Log::get_core_logger()) // edge case: begin_session() might be before Log::init()
+                LY_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
         }
 
         void end_session()
@@ -106,14 +104,11 @@ namespace Lynton
         {
             std::stringstream json;
 
-            std::string name = result.name;
-            std::replace(name.begin(), name.end(), '"', '\'');
-
             json << std::setprecision(3) << std::fixed;
             json << ",{";
             json << "\"cat\":\"function\",";
             json << "\"dur\":" << (result.elapsed_time.count()) << ',';
-            json << "\"name\":\"" << name << "\",";
+            json << "\"name\":\"" << result.name << "\",";
             json << "\"ph\":\"X\",";
             json << "\"pid\":0,";
             json << "\"tid\":" << result.thread_id << ",";
@@ -121,7 +116,8 @@ namespace Lynton
             json << "}";
 
             std::lock_guard lock(m_mutex);
-            if (m_current_session) {
+            if (m_current_session)
+            {
                 m_output_stream << json.str();
                 m_output_stream.flush();
             }
@@ -148,8 +144,10 @@ namespace Lynton
 
         // note: you must already own lock on m_mutex before
         // calling internal_end_session()
-        void internal_end_session() {
-            if (m_current_session) {
+        void internal_end_session()
+        {
+            if (m_current_session)
+            {
                 write_footer();
                 m_output_stream.close();
                 delete m_current_session;
@@ -188,5 +186,35 @@ namespace Lynton
             m_stopped = true;
         }
     };
+
+    namespace InstrumentorUtils
+    {
+
+        template <size_t N>
+        struct ChangeResult
+        {
+            char data[N];
+        };
+
+        template <size_t N, size_t K>
+        constexpr auto cleanup_output_string(const char(&expr)[N], const char(&remove)[K])
+        {
+            ChangeResult<N> result = {};
+
+            size_t src_index = 0;
+            size_t dst_index = 0;
+            while (src_index < N)
+            {
+                size_t matchIndex = 0;
+                while (matchIndex < K - 1 && src_index + matchIndex < N - 1 && expr[src_index + matchIndex] == remove[matchIndex])
+                    matchIndex++;
+                if (matchIndex == K - 1)
+                    src_index += matchIndex;
+                result.data[dst_index++] = expr[src_index] == '"' ? '\'' : expr[src_index];
+                src_index++;
+            }
+            return result;
+        }
+    }
 
 }

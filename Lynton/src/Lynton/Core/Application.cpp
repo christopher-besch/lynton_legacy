@@ -18,7 +18,7 @@ namespace Lynton
 
 	Application::Application()
 	{
-		LY_PROFILE_FUNCTION()
+		LY_PROFILE_FUNCTION();
 
 		LY_CORE_ASSERT(!s_instance, "Application already exists!")
 		s_instance = this;
@@ -107,9 +107,9 @@ namespace Lynton
 	    // sending the event through every layer until one handles it -> overlays get events first
 		for ( auto iterator = m_layer_stack.rbegin(); iterator != m_layer_stack.rend(); ++iterator)
 		{
-			(*iterator)->on_event(event);
 			if (event.m_handled)
 				break;
+			(*iterator)->on_event(event);
 		}
 	}
 

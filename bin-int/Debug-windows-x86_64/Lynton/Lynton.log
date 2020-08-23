@@ -1,5 +1,1 @@
-﻿  FrameBuffer.cpp
-  OpenGLFrameBuffer.cpp
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\FrameBuffer.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\FrameBuffer.cpp)
-  Lynton.vcxproj -> C:\Users\Stromel\Data\cpp\lynton\Lynton\..\bin\Debug-windows-x86_64\Lynton\Lynton.lib
+﻿  Lynton.vcxproj -> C:\Users\Stromel\Data\cpp\lynton\Lynton\..\bin\Debug-windows-x86_64\Lynton\Lynton.lib

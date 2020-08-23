@@ -62,7 +62,12 @@ namespace Lynton
         ImGui::DestroyContext();
     }
 
-    
+    void ImGuiLayer::on_event(Event& event)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        event.m_handled |= event.is_in_category(event_category_mouse) & io.WantCaptureMouse;
+        event.m_handled |= event.is_in_category(event_category_keyboard) & io.WantCaptureKeyboard;
+    }
 
     void ImGuiLayer::begin()
     {

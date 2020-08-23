@@ -67,14 +67,49 @@ namespace Lynton
         const auto& layout = vertex_buffer->get_layout();
         for (const auto& element : layout)
         {
-            glEnableVertexAttribArray(m_vertex_buffer_index);
-            glVertexAttribPointer(m_vertex_buffer_index,
-                element.get_component_count(),
-                shader_data_type_to_gl_enum(element.type),
-                element.normalized ? GL_TRUE : GL_FALSE,
-                vertex_buffer->get_layout().get_stride(),
-                (const void*)(intptr_t)element.offset);
-            m_vertex_buffer_index++;
+            switch (element.type)
+            {
+            case ShaderDataType::float1:
+            case ShaderDataType::float2:
+            case ShaderDataType::float3:
+            case ShaderDataType::float4:
+            case ShaderDataType::int1:
+            case ShaderDataType::int2:
+            case ShaderDataType::int3:
+            case ShaderDataType::int4:
+            case ShaderDataType::bool1:
+            {
+                glEnableVertexAttribArray(m_vertex_buffer_index);
+                glVertexAttribPointer(m_vertex_buffer_index,
+                    element.get_component_count(),
+                    shader_data_type_to_gl_enum(element.type),
+                    element.normalized ? GL_TRUE : GL_FALSE,
+                    layout.get_stride(),
+                    (const void*)element.offset);
+                m_vertex_buffer_index++;
+                break;
+            }
+            case ShaderDataType::mat3:
+            case ShaderDataType::mat4:
+            {
+                uint8_t count = element.get_component_count();
+                for (uint8_t i = 0; i < count; i++)
+                {
+                    glEnableVertexAttribArray(m_vertex_buffer_index);
+                    glVertexAttribPointer(m_vertex_buffer_index,
+                        count,
+                        shader_data_type_to_gl_enum(element.type),
+                        element.normalized ? GL_TRUE : GL_FALSE,
+                        layout.get_stride(),
+                        (const void*)(sizeof(float) * count * i));
+                    glVertexAttribDivisor(m_vertex_buffer_index, 1);
+                    m_vertex_buffer_index++;
+                }
+                break;
+            }
+            default:
+                LY_CORE_ASSERT(false, "Unknown ShaderDataType!");
+            }
         }
 
         m_vertex_buffer.push_back(vertex_buffer);

@@ -49,10 +49,24 @@
 	#define LY_PROFILE 1
 #endif
 
+#ifdef LY_DEBUG
+    #if defined(LY_PLATFORM_WINDOWS)
+        #define LY_DEBUGBREAK() __debugbreak()
+    #elif defined(LY_PLATFORM_LINUX)
+        #include <signal.h>
+        #define LY_DEBUGBREAK() raise(SIGTRAP)
+    #else
+        #error "Platform doesn't support debugbreak yet!"
+    #endif
+    #define LY_ENABLE_ASSERTS
+#else
+    #define LY_DEBUGBREAK()
+#endif
+
 
 #ifdef LY_ENABLE_ASSERTS
-	#define LY_ASSERT(x, ...) { if(!x) { LY_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define LY_CORE_ASSERT(x, ...) { if(!(x)) { LY_CORE_ERROR("Core Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define LY_ASSERT(x, ...) { if(!x) { LY_ERROR("Assertion Failed: {0}", __VA_ARGS__); LY_DEBUGBREAK(); } }
+	#define LY_CORE_ASSERT(x, ...) { if(!(x)) { LY_CORE_ERROR("Core Assertion Failed: {0}", __VA_ARGS__); LY_DEBUGBREAK(); } }
 #else
 	#define LY_ASSERT(x, ...)
 	#define LY_CORE_ASSERT(x, ...)
