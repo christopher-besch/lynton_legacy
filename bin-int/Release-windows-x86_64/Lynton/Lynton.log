@@ -1,40 +1,5 @@
-﻿  Application.cpp
-  ImGuiLayer.cpp
-  Renderer.cpp
-  Renderer2D.cpp
-  SubTexture2D.cpp
-  Texture.cpp
-  OpenGLTexture.cpp
-  WindowsInput.cpp
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\utility(192,16): warning C4244: 'initializing': conversion from 'double' to '_Ty1', possible loss of data
-          with
-          [
-              _Ty1=float
-          ] (compiling source file src\Platform\Windows\WindowsInput.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Platform\Windows\WindowsInput.cpp(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<double&,double&,0>(_Other1,_Other2) noexcept' being compiled
-          with
-          [
-              _Other1=double &,
-              _Other2=double &
-          ]
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Platform\Windows\WindowsInput.cpp(50): message : see reference to function template instantiation 'std::pair<float,float>::pair<double&,double&,0>(_Other1,_Other2) noexcept' being compiled
-          with
-          [
-              _Other1=double &,
-              _Other2=double &
-          ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\utility(192,1): warning C4244: 'initializing': conversion from 'double' to '_Ty2', possible loss of data
-          with
-          [
-              _Ty2=float
-          ] (compiling source file src\Platform\Windows\WindowsInput.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\Renderer.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\Renderer.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\Texture.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\Texture.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\Renderer2D.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\Renderer2D.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Renderer2D.cpp(129,22): warning C4244: 'initializing': conversion from '__int64' to 'uint32_t', possible loss of data
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Core\Application.cpp)
-C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Core\Application.cpp)
+﻿  FrameBuffer.cpp
+  OpenGLFrameBuffer.cpp
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\FrameBuffer.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\Lynton\Renderer\FrameBuffer.cpp)
   Lynton.vcxproj -> C:\Users\Stromel\Data\cpp\lynton\Lynton\..\bin\Release-windows-x86_64\Lynton\Lynton.lib

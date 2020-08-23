@@ -164,6 +164,7 @@
     <ClInclude Include="src\Lynton\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Lynton\Renderer\Buffer.h" />
     <ClInclude Include="src\Lynton\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Lynton\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Lynton\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Lynton\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\Lynton\Renderer\RenderCommand.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="src\Lynton\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
@@ -611,11 +613,13 @@
     <ClCompile Include="src\Lynton\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Lynton\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Texture.cpp" />
     <ClCompile Include="src\Lynton\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />

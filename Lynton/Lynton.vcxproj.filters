@@ -1399,6 +1399,8 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Lynton\Renderer\SubTexture2D.h" />
+    <ClInclude Include="src\Lynton\Renderer\FrameBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Core\Application.cpp">
@@ -1489,5 +1491,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Lynton\Renderer\SubTexture2D.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>
