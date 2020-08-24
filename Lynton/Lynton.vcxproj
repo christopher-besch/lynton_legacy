@@ -163,8 +163,8 @@
     <ClInclude Include="src\Lynton\Events\MouseEvent.h" />
     <ClInclude Include="src\Lynton\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Lynton\Renderer\Buffer.h" />
-    <ClInclude Include="src\Lynton\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Lynton\Renderer\FrameBuffer.h" />
+    <ClInclude Include="src\Lynton\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Lynton\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Lynton\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\Lynton\Renderer\RenderCommand.h" />
@@ -605,6 +605,7 @@
     <ClCompile Include="src\Lynton\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Lynton\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Lynton\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Lynton\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Lynton\Renderer\OrthographicCameraController.cpp" />
@@ -613,7 +614,6 @@
     <ClCompile Include="src\Lynton\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Lynton\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Lynton\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Lynton\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Lynton\Renderer\Texture.cpp" />
     <ClCompile Include="src\Lynton\Renderer\VertexArray.cpp" />

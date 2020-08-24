@@ -94,6 +94,53 @@ project "Lynton"
 		runtime "Release"
 		optimize "on"
 
+project "Lynmouth"
+	location "Lynmouth"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+	
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+	
+	includedirs
+	{
+		"Lynton/vendor/spdlog/include",
+		"Lynton/src",
+		"Lynton/vendor",
+		"%{include_dir.glm}"
+	}
+	
+	links
+	{
+		"Lynton"
+	}
+	
+	filter "system:windows"
+		systemversion "latest"
+	
+	filter "configurations:Debug"
+		defines "LY_DEBUG"
+		runtime "Debug"
+		symbols "on"
+	
+	filter "configurations:Release"
+		defines "LY_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "LY_DIST"
+		runtime "Release"
+		optimize "on"
+
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"

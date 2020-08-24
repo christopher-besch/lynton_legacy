@@ -16,7 +16,7 @@ namespace Lynton
 
 	Application* Application::s_instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		LY_PROFILE_FUNCTION();
 
@@ -24,7 +24,7 @@ namespace Lynton
 		s_instance = this;
 
 		// create window handler
-		m_window = Window::create();
+		m_window = Window::create(WindowProperties(name));
 		m_window->set_event_callback(LY_BIND_EVENT_FUNCTION(Application::on_event));
 
 		Renderer::init();

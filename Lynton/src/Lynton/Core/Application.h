@@ -29,7 +29,7 @@ namespace Lynton
 
 		float m_last_frame_time;
 	public:
-		Application();
+		Application(const std::string& name = "Lynton App");
 		virtual ~Application();
 
 		void on_event(Event& event);

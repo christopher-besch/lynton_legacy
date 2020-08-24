@@ -15,6 +15,7 @@ class Sandbox : public Lynton::Application
 {
 public:
 	Sandbox()
+	    : Application("Sandbox")
 	{
 		// push_layer(new ExampleLayer());
 		push_layer(new Sandbox2D());

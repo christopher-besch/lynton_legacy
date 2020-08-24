@@ -1,0 +1,18 @@
+﻿  EditorLayer.cpp
+  ExampleLayer.cpp
+  LynmouthApp.cpp
+  ParticleSystem.cpp
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ExampleLayer.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ExampleLayer.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\LynmouthApp.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\LynmouthApp.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\EditorLayer.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\EditorLayer.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(99,1): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ParticleSystem.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynton\src\Lynton\Renderer\Buffer.h(101,1): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data (compiling source file src\ParticleSystem.cpp)
+C:\Users\Stromel\Data\cpp\lynton\Lynmouth\src\LynmouthApp.cpp(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Stromel\Data\cpp\lynton\Lynmouth\src\EditorLayer.cpp(64,75): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\Stromel\Data\cpp\lynton\Lynmouth\src\EditorLayer.cpp(64,75): warning C4267: 'initializing': conversion from 'size_t' to 'const uint32_t', possible loss of data
+C:\Users\Stromel\Data\cpp\lynton\Lynmouth\src\EditorLayer.cpp(287,36): warning C4312: 'type cast': conversion from 'uint32_t' to 'void *' of greater size
+C:\Users\Stromel\Data\cpp\lynton\Lynmouth\src\EditorLayer.cpp(306,36): warning C4312: 'type cast': conversion from 'uint32_t' to 'void *' of greater size
+  Lynmouth.vcxproj -> C:\Users\Stromel\Data\cpp\lynton\Lynmouth\..\bin\Debug-windows-x86_64\Lynmouth\Lynmouth.exe
