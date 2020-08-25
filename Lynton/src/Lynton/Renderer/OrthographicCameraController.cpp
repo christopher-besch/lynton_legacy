@@ -40,6 +40,12 @@ namespace Lynton
         dispatcher.dispatch<WindowResizedEvent>(LY_BIND_EVENT_FUNCTION(OrthographicCameraController::on_window_resized));
     }
 
+    void OrthographicCameraController::on_resize(float width, float height)
+    {
+        m_aspect_ration = width / height;
+        calculate_view();
+    }
+
     void OrthographicCameraController::calculate_view()
     {
         m_bounds = { -m_aspect_ration * m_zoom_level, m_aspect_ration * m_zoom_level, -m_zoom_level, m_zoom_level };
@@ -60,7 +66,7 @@ namespace Lynton
     {
         LY_PROFILE_FUNCTION();
 
-        m_aspect_ration = static_cast<float>(event.get_width()) / static_cast<float>(event.get_height());
+        on_resize(event.get_width(), event.get_height());
         calculate_view();
         return false;
     }

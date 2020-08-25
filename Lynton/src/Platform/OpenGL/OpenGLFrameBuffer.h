@@ -8,14 +8,16 @@ namespace Lynton
 	class OpenGLFrameBuffer : public FrameBuffer
 	{
 	private:
-		uint32_t m_renderer_id;
-		uint32_t m_color_attachment, m_depth_attachment;
+		uint32_t m_renderer_id = 0;
+		uint32_t m_color_attachment = 0, m_depth_attachment = 0;
 		FrameBufferSpecification m_specification;
 	public:
 		OpenGLFrameBuffer(const FrameBufferSpecification& spec);
 		virtual ~OpenGLFrameBuffer();
 
 		void invalidate();
+
+		virtual void resize(uint32_t width, uint32_t height) override;
 
 		virtual void bind() override;
 		virtual void unbind() override;

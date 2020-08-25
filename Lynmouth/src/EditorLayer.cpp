@@ -123,7 +123,6 @@ namespace Lynton
 	        RenderCommand::clear();
         }
 
-    #if 0
         {
 		    LY_PROFILE_SCOPE("Render Draw");
 
@@ -131,10 +130,7 @@ namespace Lynton
 		    rotation += time_step * 50.0f;
 
             Renderer2D::begin_scene(m_camera_controller.get_camera());
-            Renderer2D::draw_rotated_quad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, glm::radians(-45.0f), { 0.8f, 0.2f, 0.3f, 1.0f });
-		    Renderer2D::draw_quad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		    Renderer2D::draw_quad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-		    Renderer2D::draw_quad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_checker_board_texture, 10.0f);
+            Renderer2D::draw_quad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_checker_board_texture, 10.0f);
 		    Renderer2D::draw_rotated_quad({ -2.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, glm::radians(rotation), m_checker_board_texture, 20.0f);
             Renderer2D::end_scene();
 
@@ -144,14 +140,14 @@ namespace Lynton
 			    for ( float x = -5.0f; x < 5.0f; x += 0.5f)
 			    {
 				    glm::vec4 color = { (x + 5.0f) / 10.0f,  0.4f, (y + 5.0f) / 10.0f, 0.5f };
-				    Renderer2D::draw_quad({ x, y }, { 0.45f, 0.45f }, color);
+				    Renderer2D::draw_quad({ x, y, 0.0f }, { 0.45f, 0.45f }, color);
 			    }
 		    }
 		    Renderer2D::end_scene();
 
         }
-    #endif
 
+#if 0
 	    {
 		    LY_PROFILE_SCOPE("Particle System");
 
@@ -196,9 +192,10 @@ namespace Lynton
 		    // Renderer2D::draw_quad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_barrel_texture);
 		    // Renderer2D::draw_quad({ -1.0f, 0.5f, 0.5f }, { 1.0f, 2.0f }, m_tree_texture);
 		    Renderer2D::end_scene();
-		    m_frame_buffer->unbind();
 	    }
+#endif
 	    
+		m_frame_buffer->unbind();
     }
 
     void EditorLayer::on_event(Event& event)
@@ -283,11 +280,24 @@ namespace Lynton
 
 		    ImGui::ColorEdit4("Square Color", glm::value_ptr(m_square_color));
 
-		    uint32_t textureID = m_frame_buffer->get_color_attachment_renderer_id();
-		    ImGui::Image((void*)textureID, ImVec2{ 1280, 720 }, ImVec2{ 0, 1 }, ImVec2{ 1,0 });
 		    ImGui::End();
 
-		    ImGui::End();
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+			ImGui::Begin("Viewport");
+			ImVec2 viewport_panel_size = ImGui::GetContentRegionAvail();
+			if (m_viewport_size != *((glm::vec2*)&viewport_panel_size))
+            {
+				m_frame_buffer->resize((uint32_t)viewport_panel_size.x, (uint32_t)viewport_panel_size.y);
+			    m_viewport_size = { viewport_panel_size.x, viewport_panel_size.y };
+
+				m_camera_controller.on_resize(viewport_panel_size.x, viewport_panel_size.y);
+            }
+		    uint32_t textureID = m_frame_buffer->get_color_attachment_renderer_id();
+		    ImGui::Image((void*)textureID, viewport_panel_size, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+			ImGui::End();
+			ImGui::PopStyleVar();
+			ImGui::End();
 	    }
 	    else
 	    {

@@ -38,6 +38,7 @@ namespace Lynton
 
 		void on_update(TimeStep time_step);
 		void on_event(Event& event);
+		void on_resize(float width, float height);
 
 		inline OrthographicCamera get_camera() { return m_camera; }
 		inline const OrthographicCamera get_camera() const { return m_camera; }
