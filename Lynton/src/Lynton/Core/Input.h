@@ -12,6 +12,8 @@ namespace Lynton
 	private:
 		static Scope<Input> s_instance;
 	public:
+		~Input() = default;
+
 		Input(const Input&) = delete;
 		Input& operator=(const Input&) = delete;
 

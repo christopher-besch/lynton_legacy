@@ -57,6 +57,7 @@ namespace Lynton
 	{
 		friend class EventDispatcher;
 	public:
+		~Event() = default;
 		// when true this event doesn't need to be cared for anymore
 		bool m_handled = false;
 	public:
