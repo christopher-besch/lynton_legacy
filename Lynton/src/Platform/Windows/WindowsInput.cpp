@@ -1,5 +1,5 @@
 #include "lypch.h"
-#include "WindowsInput.h"
+#include "Lynton/Core/Input.h"
 
 #include "Lynton/Core/Application.h"
 #include <GLFW/glfw3.h>
@@ -7,7 +7,7 @@
 namespace Lynton
 {
 
-    bool WindowsInput::is_key_pressed_impl(KeyCode key)
+    bool Input::is_key_pressed(KeyCode key)
     {
         auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
 
@@ -15,7 +15,7 @@ namespace Lynton
         return state == GLFW_PRESS || state == GLFW_REPEAT;
     }
 
-    bool WindowsInput::is_mouse_button_pressed_impl(MouseCode button)
+    bool Input::is_mouse_button_pressed(MouseCode button)
     {
         auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
 
@@ -23,34 +23,25 @@ namespace Lynton
         return state == GLFW_PRESS;
     }
 
-    float WindowsInput::get_mouse_x_impl()
+    std::pair<float, float> Input::get_mouse_position()
     {
         auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
         double x_pos, y_pos;
         glfwGetCursorPos(window, &x_pos, &y_pos);
 
-        return (float)x_pos;
+        return { (float)x_pos, (float)y_pos };
     }
 
-    float WindowsInput::get_mouse_y_impl()
+    float Input::get_mouse_x()
     {
-        auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
-        double x_pos, y_pos;
-        glfwGetCursorPos(window, &x_pos, &y_pos);
-
-        return (float)y_pos;
+        auto [x, y] = get_mouse_position();
+        return x;
     }
 
-    std::pair<float, float> WindowsInput::get_mouse_position_impl()
+    float Input::get_mouse_y()
     {
-        auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
-        double x_pos, y_pos;
-        glfwGetCursorPos(window, &x_pos, &y_pos);
-
-        return { x_pos, y_pos };
-
-        // as of C++ 17 this is possible:
-        // auto [x, y] = get_mouse_position_impl();
+        auto [x, y] = get_mouse_position();
+        return y;
     }
 
 }

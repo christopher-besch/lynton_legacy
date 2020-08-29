@@ -182,7 +182,6 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\lypch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -597,7 +596,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Lynton\Core\Application.cpp" />
-    <ClCompile Include="src\Lynton\Core\Input.cpp" />
     <ClCompile Include="src\Lynton\Core\Layer.cpp" />
     <ClCompile Include="src\Lynton\Core\LayerStack.cpp" />
     <ClCompile Include="src\Lynton\Core\Log.cpp" />

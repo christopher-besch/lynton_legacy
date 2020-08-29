@@ -39,6 +39,8 @@ namespace Lynton
 
 		void close();
 
+		ImGuiLayer* get_im_gui_layer() { return m_imgui_layer; }
+
 		inline Window& get_window() { return *m_window; }
 
 		inline static Application& get() { return *s_instance; }

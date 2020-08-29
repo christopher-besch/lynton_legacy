@@ -12,6 +12,9 @@ namespace Lynton
 
 		Ref<Texture2D> m_checker_board_texture;
 
+		bool m_viewport_focused = false;
+		bool m_viewport_hovered = false;
+
 		glm::vec2 m_viewport_size = { 0, 0 };
 	    Ref<FrameBuffer> m_frame_buffer;
     public:

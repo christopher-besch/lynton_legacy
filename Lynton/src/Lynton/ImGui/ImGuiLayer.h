@@ -12,6 +12,7 @@ namespace Lynton
 	class  ImGuiLayer : public Layer
 	{
 	private:
+		bool m_block_events = true;
 		float m_time = 0.0f;
 	public:
 		ImGuiLayer();
@@ -24,6 +25,8 @@ namespace Lynton
 
 		void begin();
 		void end();
+
+		void set_block_events(bool block_events) { m_block_events = block_events; }
 	};
 
 }
