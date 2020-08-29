@@ -160,7 +160,7 @@ namespace Lynton
 		Application::get().get_im_gui_layer()->set_block_events(!m_viewport_focused || !m_viewport_hovered);
 
 		ImVec2 viewport_panel_size = ImGui::GetContentRegionAvail();
-		if (m_viewport_size != *((glm::vec2*)&viewport_panel_size))
+		if (m_viewport_size != *((glm::vec2*)&viewport_panel_size) && viewport_panel_size.x > 0 && viewport_panel_size.y > 0)
         {
 			m_frame_buffer->resize((uint32_t)viewport_panel_size.x, (uint32_t)viewport_panel_size.y);
 			m_viewport_size = { viewport_panel_size.x, viewport_panel_size.y };

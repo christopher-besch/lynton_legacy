@@ -1,17 +1,17 @@
-[11:33:02] [info] LYNTON: Creating window "Lynmouth" (1280, 720)
-[11:33:03] [info] LYNTON: OpenGL Info:
-[11:33:03] [info] LYNTON: 	Vendor: ATI Technologies Inc.
-[11:33:03] [info] LYNTON: 	Renderer: Radeon RX 580 Series
-[11:33:03] [info] LYNTON: 	Version: 4.6.13587 Compatibility Profile/Debug Context 20.4.2 26.20.15029.27016
-[11:33:03] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
-[11:33:03] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:16] [info] LYNTON: Creating window "Lynmouth" (1280, 720)
+[12:14:17] [info] LYNTON: OpenGL Info:
+[12:14:17] [info] LYNTON: 	Vendor: ATI Technologies Inc.
+[12:14:17] [info] LYNTON: 	Renderer: Radeon RX 580 Series
+[12:14:17] [info] LYNTON: 	Version: 4.6.13587 Compatibility Profile/Debug Context 20.4.2 26.20.15029.27016
+[12:14:17] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDetachShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
+[12:14:17] [critical] LYNTON: glDeleteShader failed because (depending on the operation) a referenced binding point is empty; a referenced name is not the name of an object; or the given name is otherwise not valid to this operation (GL_INVALID_VALUE)
